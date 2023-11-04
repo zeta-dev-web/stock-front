@@ -1,35 +1,53 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import "./App.css";
+import NavbarApp from "./components/NavbarApp";
+import HomeScreen from "./views/HomeScreen";
+import ContactScreen from "./views/ContactScreen";
+import ErrorScreen from "./views/ErrorScreen";
+import AdminScreen from "./views/AdminScreen";
+import LoginScreen from "./views/LoginScreen";
+import ProtectedRoutes from "./routes/ProtectedRoutes";
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
+  const changeMode = () => {
+    setDarkMode(!darkMode);
+  };
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className={darkMode ? "navbar-custom-dark" : "navbar-custom"}>
+      <BrowserRouter>
+        <NavbarApp
+          darkMode={darkMode}
+          changeMode={changeMode}
+          isLoggedIn={isLoggedIn}
+        />
+        <Routes>
+          <Route path="/" element={<HomeScreen darkMode={darkMode} />} />
+          <Route
+            path="/contact"
+            element={<ContactScreen darkMode={darkMode} />}
+          />
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoutes isLoggedIn={isLoggedIn}>
+                <AdminScreen darkMode={darkMode} />
+              </ProtectedRoutes>
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <LoginScreen darkMode={darkMode} setIsLoggedIn={setIsLoggedIn} />
+            }
+          />
+          <Route path="/*" element={<ErrorScreen darkMode={darkMode} />} />
+        </Routes>
+      </BrowserRouter>
+    </div>
+  );
 }
 
-export default App
+export default App;

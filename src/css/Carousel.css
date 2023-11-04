@@ -1,0 +1,30 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu+Condensed&display=swap");
+
+.container-carousel {
+  position: relative;
+  height: 100vh;
+}
+.container-carousel img {
+  height: 100%; 
+  filter: grayscale(0.1);
+  object-fit: cover;
+  object-position: center;
+}
+.carousel-item {
+  height: 100vh;
+}
+
+.overlay {
+  font-family: "Ubuntu Condensed", sans-serif;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.571);
+  z-index: 99;
+}
+
+.overlay h3 {
+  font-size: 50px;
+}
