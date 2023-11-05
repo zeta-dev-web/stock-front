@@ -19,7 +19,7 @@ const NavbarApp = ({ darkMode, changeMode, isLoggedIn }) => {
               className="pan pt-1 me-1"
             />
             <Link className="navbar-brand" to="/">
-              Sistema de Gestion
+              Sistema de Gestión
             </Link>
           </div>
           <div className="d-flex align-items-center order-lg-1">
@@ -32,51 +32,59 @@ const NavbarApp = ({ darkMode, changeMode, isLoggedIn }) => {
                 onChange={changeMode}
               />
             </div>
-            <button
-              className="navbar-toggler"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#navbarNav"
-              aria-controls="navbarNav"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
-              <span className="navbar-toggler-icon"></span>
-            </button>
+            {isLoggedIn && (
+              <button
+                className="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav"
+                aria-controls="navbarNav"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+              >
+                <span className="navbar-toggler-icon"></span>
+              </button>
+            )}
           </div>
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
-              <li className="nav-item">
-                <NavLink
-                  className={({ isActive }) =>
-                    isActive ? "nav-link fw-bold" : "nav-link"
-                  }
-                  aria-current="page"
-                  to="/"
-                >
-                  Inicio
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  className={({ isActive }) =>
-                    isActive ? "nav-link fw-bold" : "nav-link"
-                  }
-                  to="*"
-                >
-                  App
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  className={({ isActive }) =>
-                    isActive ? "nav-link fw-bold" : "nav-link"
-                  }
-                  to="/contact"
-                >
-                  Contacto
-                </NavLink>
-              </li>
+              {isLoggedIn && (
+                <li className="nav-item">
+                  <NavLink
+                    className={({ isActive }) =>
+                      isActive ? "nav-link fw-bold" : "nav-link"
+                    }
+                    aria-current="page"
+                    to="/"
+                  >
+                    Inicio
+                  </NavLink>
+                </li>
+              )}
+              {isLoggedIn && (
+                <li>
+                  <NavLink
+                    className={({ isActive }) =>
+                      isActive ? "nav-link fw-bold" : "nav-link"
+                    }
+                    to="*"
+                  >
+                    App
+                  </NavLink>
+                </li>
+              )}
+              {isLoggedIn && (
+                <li>
+                  <NavLink
+                    className={({ isActive }) =>
+                      isActive ? "nav-link fw-bold" : "nav-link"
+                    }
+                    to="/contact"
+                  >
+                    Contacto
+                  </NavLink>
+                </li>
+              )}
               <li>
                 <NavLink
                   className={({ isActive }) =>
@@ -84,7 +92,7 @@ const NavbarApp = ({ darkMode, changeMode, isLoggedIn }) => {
                   }
                   to="/login"
                 >
-                  {isLoggedIn ? "Cerrar sesión" : "Iniciar sesión"}
+                  {isLoggedIn ? "Cerrar sesión" : ""}
                 </NavLink>
               </li>
               {isLoggedIn && (
@@ -98,7 +106,7 @@ const NavbarApp = ({ darkMode, changeMode, isLoggedIn }) => {
                     Administrador
                   </NavLink>
                 </li>
-              )}{" "}
+              )}
             </ul>
           </div>
         </div>
