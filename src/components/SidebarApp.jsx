@@ -16,7 +16,7 @@ const routeNames = {
   user: "Panel Venta",
 };
 
-const SidebarApp = () => {
+const SidebarApp = ({ changeMode, isLoggedIn }) => {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -31,7 +31,7 @@ const SidebarApp = () => {
         onSelect={handleNavClick}
         selected={location.pathname.replace("/", "")}
       >
-        <SideNav.Toggle/>
+        <SideNav.Toggle />
         <SideNav.Nav>
           {Object.keys(routeNames).map((key) => (
             <NavItem key={key} eventKey={key}>
