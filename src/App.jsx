@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
-// import NavbarApp from "./components/NavbarApp";
+import NavbarApp from "./components/NavbarApp";
 import HomeScreen from "./views/HomeScreen";
 import ContactScreen from "./views/ContactScreen";
 import ErrorScreen from "./views/ErrorScreen";
@@ -22,12 +22,16 @@ function App() {
   return (
     <div className={darkMode ? "bg-dark" : ""}>
       <BrowserRouter>
-        <SidebarApp/>
-        {/* <NavbarApp
-          darkMode={darkMode}
-          changeMode={changeMode}
-          isLoggedIn={isLoggedIn}
-        /> */}
+        <div className="d-md-none">
+          <SidebarApp />
+        </div>
+        <div className="d-none d-md-block">
+          <NavbarApp
+            darkMode={darkMode}
+            changeMode={changeMode}
+            isLoggedIn={isLoggedIn}
+          />
+        </div>
         <Routes>
           <Route path="/" element={<HomeScreen darkMode={darkMode} />} />
           <Route
