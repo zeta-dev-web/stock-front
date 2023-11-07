@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink, Link } from "react-router-dom";
 import {useLocation, useNavigate } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css'
 import SideNav, {
   Toggle,
   Nav,
@@ -16,7 +17,7 @@ const routeNames = {
   user: "Panel Venta",
 };
 
-const SidebarApp = ({ changeMode, isLoggedIn }) => {
+const SidebarApp = ({ darkMode, changeMode, isLoggedIn }) => {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -27,22 +28,27 @@ const SidebarApp = ({ changeMode, isLoggedIn }) => {
 
   return (
     <div>
-      <SideNav
-        onSelect={handleNavClick}
-        selected={location.pathname.replace("/", "")}
-      >
-        <SideNav.Toggle />
-        <SideNav.Nav>
-          {Object.keys(routeNames).map((key) => (
-            <NavItem key={key} eventKey={key}>
-              <NavIcon>
-                <i className="fa fa-fw fa-home" style={{ fontSize: "10rem" }} />
-              </NavIcon>
-              <NavText>{routeNames[key]}</NavText>
-            </NavItem>
-          ))}
-        </SideNav.Nav>
-      </SideNav>
+      {isLoggedIn ? (
+        <SideNav
+          onSelect={handleNavClick}
+          selected={location.pathname.replace("/", "")}
+        >
+          <SideNav.Toggle />
+          <SideNav.Nav>
+            {Object.keys(routeNames).map((key) => (
+              <NavItem key={key} eventKey={key}>
+                <NavIcon>
+                  <i
+                    className="fa fa-fw fa-home"
+                    style={{ fontSize: "10rem" }}
+                  />
+                </NavIcon>
+                <NavText>{routeNames[key]}</NavText>
+              </NavItem>
+            ))}
+          </SideNav.Nav>
+        </SideNav>
+      ) : null}
     </div>
   );
 };

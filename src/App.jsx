@@ -20,12 +20,18 @@ function App() {
     setDarkMode(!darkMode);
   };
   return (
-    <div className={darkMode ? "bg-dark" : ""}>
+    <div
+      className={darkMode ? "bg-dark v-h100" : ""}
+    >
       <BrowserRouter>
         <div className="d-md-none">
-          <SidebarApp />
+          <SidebarApp
+            darkMode={darkMode}
+            changeMode={changeMode}
+            isLoggedIn={isLoggedIn}
+          />
         </div>
-        <div className="d-none d-md-block">
+        <div className="d-none d-md-block fixed-top p-0">
           <NavbarApp
             darkMode={darkMode}
             changeMode={changeMode}
