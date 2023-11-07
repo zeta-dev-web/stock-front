@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import pan from "../assets/pan.png";
+import pan from "../assets/panadero32.png";
 import iconogptdark from "../assets/chatgpticon2.png";
 import { NavLink, Link } from "react-router-dom";
 
