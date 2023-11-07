@@ -35,7 +35,7 @@ const SidebarApp = ({ darkMode, changeMode, isLoggedIn }) => {
       <div className="fixed-top d-flex align-items-start flex-column mb-3 mt-3 ms-3">
         <button
           className={`btn ${onclick ? "btn-danger" : "btn-primary"} ${
-            darkMode ? "btn-dark" : ""
+            darkMode ? "navbar-custom-dark" : "btn-primary"
           }`}
           onClick={handleOnClick}
         >
@@ -44,24 +44,24 @@ const SidebarApp = ({ darkMode, changeMode, isLoggedIn }) => {
         {onclick && (
           <div
             className={`d-flex mt-1 card ${
-              darkMode ? "bg-dark text-white" : "bg-white"
+              darkMode ? "navbar-custom-dark text-white" : "bg-white"
             }`}
             style={{ width: "12rem" }}
           >
             <div
               className={`card-body ${
-                darkMode ? "bg-dark text-white" : "bg-white"
+                darkMode ? "navbar-custom-dark text-white" : "bg-white"
               }`}
             >
               <ul className="list-group list-group-flush">
                 <li
                   className={`list-group-item p-0 ${
-                    darkMode ? "bg-dark text-white" : "bg-white"
+                    darkMode ? "navbar-custom-dark text-white" : "bg-white"
                   }`}
                 >
                   <div
                     className={`d-flex flex-row form-check form-switch p-0 m-0${
-                      darkMode ? "bg-dark text-white" : "bg-white"
+                      darkMode ? "navbar-custom-dark text-white" : "bg-white"
                     }`}
                   >
                     <p className="ms-1">Modo oscuro</p>
@@ -76,49 +76,49 @@ const SidebarApp = ({ darkMode, changeMode, isLoggedIn }) => {
                 </li>
                 <li
                   className={`list-group-item text-center ${
-                    darkMode ? "bg-dark text-white" : "bg-white"
+                    darkMode ? "navbar-custom-dark text-white" : "bg-white"
                   }`}
                 >
                   Inicio
                 </li>
                 <li
                   className={`list-group-item text-center ${
-                    darkMode ? "bg-dark text-white" : "bg-white"
+                    darkMode ? "navbar-custom-dark text-white" : "bg-white"
                   }`}
                 >
                   Panel de Stock
                 </li>
                 <li
                   className={`list-group-item text-center ${
-                    darkMode ? "bg-dark text-white" : "bg-white"
+                    darkMode ? "navbar-custom-dark text-white" : "bg-white"
                   }`}
                 >
                   Panel de Ventas
                 </li>
                 <li
                   className={`list-group-item text-center ${
-                    darkMode ? "bg-dark text-white" : "bg-white"
+                    darkMode ? "navbar-custom-dark text-white" : "bg-white"
                   }`}
                 >
                   Panel Admin
                 </li>
                 <li
                   className={`list-group-item text-center ${
-                    darkMode ? "bg-dark text-white" : "bg-white"
+                    darkMode ? "navbar-custom-dark text-white" : "bg-white"
                   }`}
                 >
                   Ajustes
                 </li>
                 <li
                   className={`list-group-item text-center ${
-                    darkMode ? "bg-dark text-white" : "bg-white"
+                    darkMode ? "navbar-custom-dark text-white" : "bg-white"
                   }`}
                 >
                   Soporte
                 </li>
                 <li
                   className={`list-group-item text-center ${
-                    darkMode ? "bg-dark text-white" : "bg-white"
+                    darkMode ? "navbar-custom-dark text-white" : "bg-white"
                   }`}
                 >
                   Cerrar Sesion
