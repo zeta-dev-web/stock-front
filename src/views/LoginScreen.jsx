@@ -1,84 +1,74 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Toastify from "toastify-js";
-import "toastify-js/src/toastify.css";
+import { useForm } from "react-hook-form";
+import { login } from "../api/authApi";
+import "../css/login.css";
+import logo from "../assets/panadero.png"
+import user from "../assets/avatar24.png"
+import pass from "../assets/candado24.png"
 
-const LoginScreen = ({ setIsLoggedIn }) => {
+
+const LoginScreen = () => {
   const navigate = useNavigate();
-  const [formValues, setFormValues] = useState({
-    email: "",
-    password: "",
-  });
-  useEffect(() => {
-    localStorage.removeItem("user");
-    setIsLoggedIn(false);
-  }, []);
 
-  const msjalert = (mensaje, color1, color2) => {
-    Toastify({
-      text: mensaje,
-      duration: 3000,
-      gravity: "top",
-      position: "center",
-      style: {
-        background: `linear-gradient(to right, ${color1}, ${color2})`,
-      },
-    }).showToast();
-  };
+  const [loading, setLoading] = useState(false);
+  const [loginUser, setLoginUser] = useState(null);
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
 
-  const handleChange = (e) => {
-    setFormValues({
-      ...formValues,
-      [e.target.name]: e.target.value,
-    });
-  };
+  const inicioSesion = async (data) => {
+    setLoading(true);
+    const respuesta = await login(data);
+    console.log(respuesta);
+    alert(respuesta.msg)
+    setLoginUser(respuesta);
+    reset();
+    setLoading(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const { email, password } = formValues;
-    if (email == "admin@gmail.com" && password == "12345678") {
-      msjalert("Inicio de Sesion con Exito", "#00b09b", "#96c93d");
-      localStorage.setItem("user", JSON.stringify(email));
-      setIsLoggedIn(true);
-      navigate("/admin");
-    } else {
-      msjalert("error de credenciales", "#C90404", "#212121");
+    if (respuesta?.token) {
+      localStorage.setItem("token", JSON.stringify(respuesta.token));
+      navigate("/");
     }
   };
   
 
   return (
-    <div className="container vh-100">
-      <div className="row mt-5">
-        <div className="col-12 col-md-6 offset-md-3 col-lg-4 offset-lg-4 bg-light p-3 rounded">
-          <form onSubmit={handleSubmit}>
-            <div className="mb-3 d-grid">
-              <label>Email</label>
-              <input
-                type="email"
-                className="form-control"
-                name="email"
-                value={formValues.email}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="mb-3 d-grid">
-              <label>Password</label>
-              <input
-                type="password"
-                className="form-control"
-                name="password"
-                value={formValues.password}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="mb-3 d-grid">
-              <button className="btn btn-success">Sign in</button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
+    <div className="container p-0 mt-5">
+		<div className="d-flex justify-content-center h-100 pt-5">
+			<div className="user_card">
+				<div className="d-flex justify-content-center">
+					<div className="brand_logo_container">
+						<img src={logo} className="brand_logo" alt="Logo"/>
+					</div>
+				</div>
+				<div className="d-flex justify-content-center form_container">
+					<form>
+						<div className="input-group mb-4">
+							<div className="input-group-append">
+								<span className="input-group-text"><img src={user} alt="Logo"/></span>
+							</div>
+							<input type="text" name="" className="form-control input_user" value="" placeholder="Email"/>
+						</div>
+						<div className="input-group mb-2">
+							<div className="input-group-append">
+								<span className="input-group-text"><img src={pass} alt="Logo"/></span>
+							</div>
+							<input type="password" name="" className="form-control input_pass" value="" placeholder="Contraseña"/>
+						</div>
+							<div className="d-flex justify-content-center mt-3 login_container mt-5">
+				 	<button type="button" name="button" className="btn login_btn ">Iniciar Sesión</button>
+				   </div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+  
+    
   );
 };
 
