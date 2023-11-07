@@ -7,6 +7,7 @@ import logo from "../assets/panadero.png"
 import user from "../assets/avatar24.png"
 import pass from "../assets/candado24.png"
 
+
 const LoginScreen = () => {
   const navigate = useNavigate();
 
@@ -33,6 +34,7 @@ const LoginScreen = () => {
       navigate("/");
     }
   };
+  
 
   return (
     <div className="container p-0 mt-5">
@@ -44,7 +46,7 @@ const LoginScreen = () => {
 					</div>
 				</div>
 				<div className="d-flex justify-content-center form_container">
-					<form >
+					<form>
 						<div className="input-group mb-4">
 							<div className="input-group-append">
 								<span className="input-group-text"><img src={user} alt="Logo"/></span>
