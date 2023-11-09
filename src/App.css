@@ -1,5 +1,9 @@
 body {
-  height: 100vh;
+  height: 80vh;
+}
+.dark-mode-body {
+ background-color: #C68E51; /* Color de fondo personalizado */
+  color: #ffffff; /* Color del texto personalizado */
 }
 .iconogpt{
   width: 30px;

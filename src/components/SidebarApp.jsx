@@ -1,163 +1,156 @@
-import React, { useState } from "react";
-import { NavLink, Link } from "react-router-dom";
-import {useLocation, useNavigate } from "react-router-dom";
-import 'bootstrap/dist/css/bootstrap.min.css'
-import SideNav, {
-  Toggle,
-  Nav,
-  NavItem,
-  NavIcon,
-  NavText,
-} from "@trendmicro/react-sidenav";
+import React, { useState, Component } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import {
+  FaHouse,
+  FaBoxArchive,
+  FaBagShopping,
+  FaChalkboardUser,
+  FaScrewdriverWrench,
+  FaUserShield,
+  FaArrowRightFromBracket,
+} from "react-icons/fa6";
+import "bootstrap/dist/css/bootstrap.min.css";
 import "../css/sidebar.css";
 
-const routeNames = {
-  "": "Inicio",
-  admin: "Panel Admin",
-  user: "Panel Venta",
-};
-
 const SidebarApp = ({ darkMode, changeMode, isLoggedIn }) => {
-  const location = useLocation();
   const navigate = useNavigate();
-  const [onclick,setOnClick] = useState(false);
+  const [onclick, setOnClick] = useState(false);
   const handleOnClick = () => {
     setOnClick(!onclick);
   };
 
-  const handleNavClick = (eventKey) => {
-    // Navegar a la ruta correspondiente al elemento de la barra lateral seleccionado
-    navigate(eventKey === "" ? "/" : `/${eventKey}`);
-  };
-
   return (
     <div className="">
-      <div className="fixed-top d-flex align-items-start flex-column mb-3 mt-3 ms-3">
-        <button
-          className={`btn ${onclick ? "btn-danger" : "btn-primary"} ${
-            darkMode ? "navbar-custom-dark" : "btn-primary"
-          }`}
-          onClick={handleOnClick}
-        >
-          {onclick ? "Cerrar" : "Menu"}
-        </button>
+      <button
+        className={`fixed-top d-flex col-2 mt-3 ms-2 ${
+          onclick ? "buttonside" : "buttonside"
+        } ${darkMode ? "buttonsidedark" : "buttonside"}`}
+        onClick={handleOnClick}
+      >
+        {onclick ? "Cerrar" : "Menu"}
+      </button>
+      <div
+        className={`fixed-top d-flex flex-column mb-3 mt-5 pt-2 ms-2 col-5 bg-div ${
+          darkMode ? "navbar-custom-dark text-white" : "bg-div"
+        }`}
+      >
         {onclick && (
           <div
-            className={`d-flex mt-1 card ${
-              darkMode ? "navbar-custom-dark text-white" : "bg-white"
+            className={`d-flex mt-1 card  ${
+              darkMode
+                ? "bg-secondary text-white sidebardark"
+                : "bg-white sidebar"
             }`}
             style={{ width: "12rem" }}
           >
             <div
-              className={`card-body ${
-                darkMode ? "navbar-custom-dark text-white" : "bg-white"
+              className={`card-body sidebarbody ${
+                darkMode ? "bg-secondary text-white" : "bg-white"
               }`}
             >
               <ul className="list-group list-group-flush">
                 <li
-                  className={`list-group-item p-0 ${
-                    darkMode ? "navbar-custom-dark text-white" : "bg-white"
+                  className={`d-flex list-group-item text-center ps-0 ${
+                    darkMode ? "bg-secondary text-white" : "bg-white"
+                  }`}
+                  onClick={() => navigate("/")}
+                >
+                  <div className="me-2">
+                    <FaHouse />
+                  </div>
+                  Inicio
+                </li>
+                <li
+                  className={`d-flex list-group-item text-center ps-0 ${
+                    darkMode ? "bg-secondary text-white" : "bg-white"
+                  }`}
+                  onClick={() => navigate("/stock")}
+                >
+                  <div className="me-2">
+                    <FaBoxArchive />
+                  </div>
+                  Panel de Stock
+                </li>
+                <li
+                  className={`d-flex list-group-item text-center ps-0 ${
+                    darkMode ? "bg-secondary text-white" : "bg-white"
+                  }`}
+                  onClick={() => navigate("/venta")}
+                >
+                  <div className="me-2">
+                    <FaBagShopping />
+                  </div>
+                  Panel de Ventas
+                </li>
+                <li
+                  className={`d-flex list-group-item text-center ps-0 ${
+                    darkMode ? "bg-secondary text-white" : "bg-white"
+                  }`}
+                  onClick={() => navigate("/admin")}
+                >
+                  <div className="me-2">
+                    <FaChalkboardUser />
+                  </div>
+                  Panel Admin
+                </li>
+                <li
+                  className={`d-flex list-group-item text-center ps-0 ${
+                    darkMode ? "bg-secondary text-white" : "bg-white"
+                  }`}
+                  onClick={() => navigate("/ajustes")}
+                >
+                  <div className="me-2">
+                    <FaScrewdriverWrench />
+                  </div>
+                  Ajustes
+                </li>
+                <li
+                  className={`d-flex list-group-item text-center ps-0 ${
+                    darkMode ? "bg-secondary text-white" : "bg-white"
+                  }`}
+                  onClick={() => navigate("/contacto")}
+                >
+                  <div className="me-2">
+                    <FaUserShield />
+                  </div>
+                  Soporte
+                </li>
+                <li
+                  className={`d-flex list-group-item text-center ps-0 ${
+                    darkMode ? "bg-secondary text-white" : "bg-white"
+                  }`}
+                  onClick={() => navigate("/cerrarsesion")}
+                >
+                  <div className="me-2">
+                    <FaArrowRightFromBracket />
+                  </div>
+                  Cerrar Sesion
+                </li>
+                <li
+                  className={`d-flex list-group-item p-0 mt-3 mb-0 ${
+                    darkMode ? "bg-secondary text-white" : "bg-white"
                   }`}
                 >
                   <div
-                    className={`d-flex flex-row form-check form-switch p-0 m-0${
-                      darkMode ? "navbar-custom-dark text-white" : "bg-white"
+                    className={`d-flex flex-row form-check form-switch p-0 m-0 mt-2 ${
+                      darkMode ? " bg-secondary text-white" : " bg-white"
                     }`}
                   >
                     <p className="ms-1">Modo oscuro</p>
                     <input
                       className="form-check-input ms-3"
                       type="checkbox"
-                      role="switch"
                       id="flexSwitchCheckChecked"
+                      checked={darkMode}
                       onChange={changeMode}
                     />
                   </div>
-                </li>
-                <li
-                  className={`list-group-item text-center ${
-                    darkMode ? "navbar-custom-dark text-white" : "bg-white"
-                  }`}
-                >
-                  Inicio
-                </li>
-                <li
-                  className={`list-group-item text-center ${
-                    darkMode ? "navbar-custom-dark text-white" : "bg-white"
-                  }`}
-                >
-                  Panel de Stock
-                </li>
-                <li
-                  className={`list-group-item text-center ${
-                    darkMode ? "navbar-custom-dark text-white" : "bg-white"
-                  }`}
-                >
-                  Panel de Ventas
-                </li>
-                <li
-                  className={`list-group-item text-center ${
-                    darkMode ? "navbar-custom-dark text-white" : "bg-white"
-                  }`}
-                >
-                  Panel Admin
-                </li>
-                <li
-                  className={`list-group-item text-center ${
-                    darkMode ? "navbar-custom-dark text-white" : "bg-white"
-                  }`}
-                >
-                  Ajustes
-                </li>
-                <li
-                  className={`list-group-item text-center ${
-                    darkMode ? "navbar-custom-dark text-white" : "bg-white"
-                  }`}
-                >
-                  Soporte
-                </li>
-                <li
-                  className={`list-group-item text-center ${
-                    darkMode ? "navbar-custom-dark text-white" : "bg-white"
-                  }`}
-                >
-                  Cerrar Sesion
                 </li>
               </ul>
             </div>
           </div>
         )}
       </div>
-      {/* {isLoggedIn ? (
-        <SideNav
-          onSelect={handleNavClick}
-          selected={location.pathname.replace("/", "")}
-        >
-          <SideNav.Toggle />
-          <SideNav.Nav>
-            {Object.keys(routeNames).map((key) => (
-              <NavItem key={key} eventKey={key}>
-                <NavIcon>
-                  <i
-                    className="fa fa-fw fa-home"
-                    style={{ fontSize: "10rem" }}
-                  />
-                </NavIcon>
-                <NavText>{routeNames[key]}</NavText>
-                  <div className="form-check form-switch me-3">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                role="switch"
-                id="flexSwitchCheckChecked"
-                onChange={changeMode}
-              />
-            </div>
-              </NavItem>
-            ))}
-          </SideNav.Nav>
-        </SideNav>
-      ) : null} */}
     </div>
   );
 };

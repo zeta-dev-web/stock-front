@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import NavbarApp from "./components/NavbarApp";
@@ -9,20 +9,26 @@ import AdminScreen from "./views/AdminScreen";
 import LoginScreen from "./views/LoginScreen";
 import ProtectedRoutes from "./routes/ProtectedRoutes";
 import SidebarApp from "./components/SidebarApp";
-import 'bootstrap/dist/css/bootstrap.min.css'
-
-
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
+
+  useEffect(() => {
+    if (darkMode) {
+      document.body.classList.add("dark-mode-body");
+    } else {
+      document.body.classList.remove("dark-mode-body");
+    }
+  }, [darkMode]);
+
   const changeMode = () => {
     setDarkMode(!darkMode);
   };
+
   return (
-    <div
-      className={darkMode ? "bg-dark v-h100" : ""}
-    >
+    <div className={darkMode ? "navbar-custom-dark v-h100" : ""}>
       <BrowserRouter>
         <div className="d-md-none">
           <SidebarApp
@@ -41,7 +47,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomeScreen darkMode={darkMode} />} />
           <Route
-            path="/contact"
+            path="/contacto"
             element={<ContactScreen darkMode={darkMode} />}
           />
           <Route
