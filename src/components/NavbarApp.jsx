@@ -2,6 +2,16 @@ import React, { useEffect, useState } from "react";
 import pan from "../assets/panadero32.png";
 import iconogptdark from "../assets/chatgpticon2.png";
 import { NavLink, Link } from "react-router-dom";
+import {
+  FaHouse,
+  FaBoxArchive,
+  FaBagShopping,
+  FaChalkboardUser,
+  FaScrewdriverWrench,
+  FaUserShield,
+  FaArrowRightFromBracket,
+  FaArrowRightToBracket,
+} from "react-icons/fa6";
 
 const NavbarApp = ({ darkMode, changeMode, isLoggedIn }) => {
   return (
@@ -12,27 +22,8 @@ const NavbarApp = ({ darkMode, changeMode, isLoggedIn }) => {
         }`}
       >
         <div className="container-fluid">
-          <div className="d-flex align-items-start">
-            <img
-              src={darkMode ? pan : pan}
-              alt="chatgpt"
-              className="pan pt-1 me-1"
-            />
-            <Link className="navbar-brand" to="/">
-              Sistema de Gestión
-            </Link>
-          </div>
-          <div className="d-flex align-items-center order-lg-1">
-            <div className="form-check form-switch me-3">
-              <input
-                className="form-check-input"
-                type="checkbox"
-                role="switch"
-                id="flexSwitchCheckChecked"
-                onChange={changeMode}
-              />
-            </div>
-            {isLoggedIn && (
+          <div className="mt-1">
+            {!isLoggedIn && (
               <button
                 className="navbar-toggler"
                 type="button"
@@ -45,69 +36,155 @@ const NavbarApp = ({ darkMode, changeMode, isLoggedIn }) => {
                 <span className="navbar-toggler-icon"></span>
               </button>
             )}
+            <img
+              src={darkMode ? pan : pan}
+              alt="chatgpt"
+              className="pan me-1 ms-1"
+            />
+            <Link className="navbar-brand ms-2" to="/">
+              Sistema de Gestión
+            </Link>
           </div>
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
-              {isLoggedIn && (
+              {!isLoggedIn && (
                 <li className="nav-item">
                   <NavLink
                     className={({ isActive }) =>
-                      isActive ? "nav-link fw-bold" : "nav-link"
+                      isActive
+                        ? "nav-link fw-bold d-flex flex-col"
+                        : "nav-link d-flex flex-col"
                     }
                     aria-current="page"
                     to="/"
                   >
+                    <div className="d-flex me-1 mt-1 ">
+                      <FaHouse />
+                    </div>
                     Inicio
                   </NavLink>
                 </li>
               )}
-              {isLoggedIn && (
+              {!isLoggedIn && (
                 <li>
                   <NavLink
                     className={({ isActive }) =>
-                      isActive ? "nav-link fw-bold" : "nav-link"
+                      isActive
+                        ? "nav-link fw-bold d-flex flex-col"
+                        : "nav-link d-flex flex-col"
                     }
-                    to="*"
+                    to="stock"
                   >
-                    App
+                    <div className="d-flex me-1 mt-1">
+                      <FaBoxArchive />
+                    </div>
+                    Panel Stock
                   </NavLink>
                 </li>
               )}
-              {isLoggedIn && (
+              {!isLoggedIn && (
                 <li>
                   <NavLink
                     className={({ isActive }) =>
-                      isActive ? "nav-link fw-bold" : "nav-link"
+                      isActive
+                        ? "nav-link fw-bold d-flex flex-col"
+                        : "nav-link d-flex flex-col"
+                    }
+                    to="/venta"
+                  >
+                    <div className="d-flex me-1 mt-1">
+                      <FaBagShopping />
+                    </div>
+                    Panel Venta
+                  </NavLink>
+                </li>
+              )}
+              {!isLoggedIn && (
+                <li>
+                  <NavLink
+                    className={({ isActive }) =>
+                      isActive
+                        ? "nav-link fw-bold d-flex flex-col"
+                        : "nav-link d-flex flex-col"
+                    }
+                    to="/admin"
+                  >
+                    <div className="d-flex me-1 mt-1">
+                      <FaChalkboardUser />
+                    </div>
+                    Panel Admin
+                  </NavLink>
+                </li>
+              )}
+              {!isLoggedIn && (
+                <li>
+                  <NavLink
+                    className={({ isActive }) =>
+                      isActive
+                        ? "nav-link fw-bold d-flex flex-col"
+                        : "nav-link d-flex flex-col"
+                    }
+                    to="/ajustes"
+                  >
+                    <div className="d-flex me-1 mt-1">
+                      <FaScrewdriverWrench />
+                    </div>
+                    Ajustes
+                  </NavLink>
+                </li>
+              )}
+              {!isLoggedIn && (
+                <li>
+                  <NavLink
+                    className={({ isActive }) =>
+                      isActive
+                        ? "nav-link fw-bold d-flex flex-col"
+                        : "nav-link d-flex flex-col"
                     }
                     to="/contact"
                   >
-                    Contacto
+                    <div className="d-flex me-1 mt-1">
+                      <FaUserShield />
+                    </div>
+                    Soporte
                   </NavLink>
                 </li>
               )}
               <li>
                 <NavLink
                   className={({ isActive }) =>
-                    isActive ? "nav-link fw-bold" : "nav-link"
+                    isActive
+                      ? "nav-link fw-bold d-flex flex-col"
+                      : "nav-link d-flex flex-col"
                   }
                   to="/login"
                 >
-                  {isLoggedIn ? "Cerrar sesión" : ""}
+                  {isLoggedIn ? (
+                    <div className="d-flex me-1 mt-1">
+                      <FaArrowRightFromBracket />
+                    </div>
+                  ) : (
+                    <div className="d-flex me-1 mt-1">
+                      <FaArrowRightToBracket />
+                    </div>
+                  )}
+                  {isLoggedIn ? "Cerrar sesión" : "Iniciar sesion "}
                 </NavLink>
               </li>
-              {isLoggedIn && (
-                <li>
-                  <NavLink
-                    className={({ isActive }) =>
-                      isActive ? "nav-link fw-bold" : "nav-link"
-                    }
-                    to="/admin"
-                  >
-                    Administrador
-                  </NavLink>
-                </li>
-              )}
             </ul>
+          </div>
+          <div
+            className={`d-flex flex-row form-check form-switch pt-0 m-0 mt-2 ${
+              darkMode ? "nav-link text-white" : "nav-link text-dark"
+            }`}
+          >
+            <input
+              className="form-check-input ms-3"
+              type="checkbox"
+              id="flexSwitchCheckChecked"
+              checked={darkMode}
+              onChange={changeMode}
+            />
           </div>
         </div>
       </nav>

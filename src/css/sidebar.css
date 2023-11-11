@@ -1,13 +1,18 @@
 .navbar-custom {
-  background-color: #F3E0D2; /* Color de fondo personalizado */
+  background-color: rgba(124, 67, 2, 0.267); /* Color de fondo personalizado */
 }
 
 .navbar-custom-dark {
-  background-color: #C68E51; /* Color de fondo personalizado */
+  background-color: #3b3b3b81; /* Color de fondo personalizado */
 }
 
 .bg-div{
 background-color: rgba(255, 255, 255, 0);
+}
+
+.menuflot{
+	-webkit-animation: swing-in-left-fwd 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
+	        animation: swing-in-left-fwd 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
 }
 
 .buttonside {
@@ -22,9 +27,6 @@ background-color: rgba(255, 255, 255, 0);
   padding-bottom: 6px;
   padding-left: 19px;
   text-decoration: none;
-  -webkit-border-radius: 25px;
-  -moz-border-radius: 25px;
-  border-radius: 25px;
   text-shadow: 1px 1px 3px #030200;
   border: solid #ffffff 3px;
   background: -webkit-gradient(linear, 0 0, 0 100%, from(#ffc07d), to(#913c00));
@@ -36,7 +38,7 @@ background-color: rgba(255, 255, 255, 0);
   height: 2.5rem;
   font-family: Georgia;
   text-align: center;
-  color: #ffffff;
+  color: #e4e4e4;
   font-size: 18px;
   padding-top: 3px;
   padding-right: 19px;
@@ -50,18 +52,4 @@ background-color: rgba(255, 255, 255, 0);
   border: solid #000000 3px;
   background: -webkit-gradient(linear, 0 0, 0 100%, from(#ffc07d), to(#913c00));
   background: -moz-linear-gradient(top, #ffc07d, #913c00);
-}
-
-.sidebar{
-  border: solid #913c00 3px;
-   border-radius: 25px;
-}
-
-.sidebardark{
-  border: solid #000000 3px;
-   border-radius: 25px;
-}
-
-.sidebarbody{
-   border-radius: 20px;
-  }
+} 

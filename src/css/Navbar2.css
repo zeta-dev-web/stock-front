@@ -1,0 +1,124 @@
+/*=============Estilos en comun navegacion lateral y contenido pagina*/
+.navLateral,
+.navLateral-body,
+.navLateral-bg{
+	position: absolute;
+	top: 0;
+	height: 100%;
+}
+/*=============Estilos navegacion lateral*/
+.navLateral{
+	left: 0;
+	width: 300px;
+	z-index: 100;
+	transition: all .3s ease-in-out;
+	background-image: url("../assets/img/FontNavLateral.jpg");
+	background-size: cover;
+	color: #fff;
+	overflow: hidden;
+}
+.navLateral-change{
+	pointer-events: none;
+	opacity: 0;
+	width: 0;
+}
+.navLateral-body{
+	z-index: 82;
+	left: 0;
+	padding-bottom: 30px;
+	background-color: rgba(43, 43, 44, .9);
+}
+.navLateral-body-logo{
+	height: 45px;
+	line-height: 45px;
+	color: #fff;
+	width: 100%;
+	font-size: 25px;
+	background-color: var(--acent-color);
+}
+.navLateral-body-logo .zmdi-close{
+	width: 0;
+	height: 0;
+	pointer-events: none;
+	opacity: 0;
+}
+.navLateral-body-cl,
+.navLateral-body-cr{
+	box-sizing: border-box;
+	height: 77px;
+	float: left;
+	margin: 0;
+	padding: 0;
+	position: relative;
+}
+.navLateral-body-cl{
+	width: 30%;
+}
+.navLateral-body-cl img{
+	width: 57px;
+	height: 57px;
+	margin: 0 auto;
+	display: block;
+	margin-top: 10px;
+}
+.navLateral-body-cr{
+	width: 70%;
+	font-family: "RobotoCondensedLight";
+}
+.navLateral-body-cr span{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	display: block;
+	width: 100%;
+}
+.navLateral-body-tittle-menu{
+	text-align: center;
+	padding: 30px 0;
+}
+.navLateral-body-tittle-menu img{
+	max-width: 70px;
+}
+.menu-principal li,
+.menu-principal li a{
+	display: block;
+}
+.menu-principal li a{
+	height: 45px;
+	color: #fff;
+	position: relative;
+	transition: all .3s ease-in-out;
+}
+.menu-principal > li > a:hover{
+	background-color: var(--acent-color);
+}
+.menu-principal li a div.navLateral-body-cl,
+.menu-principal li a div.navLateral-body-cr{
+	height: 45px;
+	line-height: 45px;
+}
+.menu-principal li a div.navLateral-body-cl{
+	text-align: center;
+	font-size: 20px;
+}
+.btn-subMenu span{
+	position: absolute;
+	top: 0;
+	right: 7px;
+	line-height: 45px;
+	height: 45px;
+	font-size: 19px;
+}
+.sub-menu-options{
+	height: 0;
+	overflow-y: hidden;
+	overflow-x: hidden;
+	background-color: rgba(255, 255, 255, .1);
+	transition: all .3s ease-in-out;
+}
+.sub-menu-options-show{
+	height: auto;
+	overflow-y: auto;
+	overflow-x: hidden;
+}

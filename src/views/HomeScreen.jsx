@@ -3,7 +3,9 @@ import Carousel from "../components/Carousel";
 
 const HomeScreen = ({ darkMode }) => {
   return (
-      <Carousel/>
+    <div className="vh-100">
+      <Carousel />
+    </div>
   );
 };
 

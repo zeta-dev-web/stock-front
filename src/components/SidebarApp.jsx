@@ -1,5 +1,5 @@
 import React, { useState, Component } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   FaHouse,
   FaBoxArchive,
@@ -11,6 +11,7 @@ import {
 } from "react-icons/fa6";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../css/sidebar.css";
+import { slide as Menu } from "react-burger-menu";
 
 const SidebarApp = ({ darkMode, changeMode, isLoggedIn }) => {
   const navigate = useNavigate();
@@ -23,35 +24,39 @@ const SidebarApp = ({ darkMode, changeMode, isLoggedIn }) => {
     <div className="">
       <button
         className={`fixed-top d-flex col-2 mt-3 ms-2 ${
-          onclick ? "buttonside" : "buttonside"
-        } ${darkMode ? "buttonsidedark" : "buttonside"}`}
+          onclick ? "" : "buttonside"
+        } ${darkMode ? "" : "buttonside"}`}
         onClick={handleOnClick}
       >
         {onclick ? "Cerrar" : "Menu"}
       </button>
       <div
-        className={`fixed-top d-flex flex-column mb-3 mt-5 pt-2 ms-2 col-5 bg-div ${
+        className={`fixed-top d-flex flex-column mb-3 mt-3 pt-0 ms-0 col-5 bg-div ${
           darkMode ? "navbar-custom-dark text-white" : "bg-div"
         }`}
       >
         {onclick && (
           <div
-            className={`d-flex mt-1 card  ${
+            className={`d-flex mt-0 card menuflot vh-100 mt-5 ${
               darkMode
-                ? "bg-secondary text-white sidebardark"
-                : "bg-white sidebar"
+                ? "navbar-custom-dark text-white sidebardark"
+                : "navbar-custom sidebar"
             }`}
             style={{ width: "12rem" }}
           >
             <div
               className={`card-body sidebarbody ${
-                darkMode ? "bg-secondary text-white" : "bg-white"
+                darkMode
+                  ? "navbar-custom-dark text-white"
+                  : "navbar-custom text-white"
               }`}
             >
               <ul className="list-group list-group-flush">
                 <li
                   className={`d-flex list-group-item text-center ps-0 ${
-                    darkMode ? "bg-secondary text-white" : "bg-white"
+                    darkMode
+                      ? "navbar-custom-dark text-white"
+                      : "navbar-custom text-white"
                   }`}
                   onClick={() => navigate("/")}
                 >
@@ -62,29 +67,35 @@ const SidebarApp = ({ darkMode, changeMode, isLoggedIn }) => {
                 </li>
                 <li
                   className={`d-flex list-group-item text-center ps-0 ${
-                    darkMode ? "bg-secondary text-white" : "bg-white"
+                    darkMode
+                      ? "navbar-custom-dark text-white"
+                      : "navbar-custom text-white"
                   }`}
                   onClick={() => navigate("/stock")}
                 >
                   <div className="me-2">
                     <FaBoxArchive />
                   </div>
-                  Panel de Stock
+                  Panel Stock
                 </li>
                 <li
                   className={`d-flex list-group-item text-center ps-0 ${
-                    darkMode ? "bg-secondary text-white" : "bg-white"
+                    darkMode
+                      ? "navbar-custom-dark text-white"
+                      : "navbar-custom text-white"
                   }`}
                   onClick={() => navigate("/venta")}
                 >
                   <div className="me-2">
                     <FaBagShopping />
                   </div>
-                  Panel de Ventas
+                  Panel Ventas
                 </li>
                 <li
                   className={`d-flex list-group-item text-center ps-0 ${
-                    darkMode ? "bg-secondary text-white" : "bg-white"
+                    darkMode
+                      ? "navbar-custom-dark text-white"
+                      : "navbar-custom text-white"
                   }`}
                   onClick={() => navigate("/admin")}
                 >
@@ -95,7 +106,9 @@ const SidebarApp = ({ darkMode, changeMode, isLoggedIn }) => {
                 </li>
                 <li
                   className={`d-flex list-group-item text-center ps-0 ${
-                    darkMode ? "bg-secondary text-white" : "bg-white"
+                    darkMode
+                      ? "navbar-custom-dark text-white"
+                      : "navbar-custom text-white"
                   }`}
                   onClick={() => navigate("/ajustes")}
                 >
@@ -106,7 +119,9 @@ const SidebarApp = ({ darkMode, changeMode, isLoggedIn }) => {
                 </li>
                 <li
                   className={`d-flex list-group-item text-center ps-0 ${
-                    darkMode ? "bg-secondary text-white" : "bg-white"
+                    darkMode
+                      ? "navbar-custom-dark text-white"
+                      : "navbar-custom text-white"
                   }`}
                   onClick={() => navigate("/contacto")}
                 >
@@ -117,7 +132,9 @@ const SidebarApp = ({ darkMode, changeMode, isLoggedIn }) => {
                 </li>
                 <li
                   className={`d-flex list-group-item text-center ps-0 ${
-                    darkMode ? "bg-secondary text-white" : "bg-white"
+                    darkMode
+                      ? "navbar-custom-dark text-white"
+                      : "navbar-custom text-white"
                   }`}
                   onClick={() => navigate("/cerrarsesion")}
                 >
@@ -128,12 +145,16 @@ const SidebarApp = ({ darkMode, changeMode, isLoggedIn }) => {
                 </li>
                 <li
                   className={`d-flex list-group-item p-0 mt-3 mb-0 ${
-                    darkMode ? "bg-secondary text-white" : "bg-white"
+                    darkMode
+                      ? "navbar-custom-dark text-white"
+                      : "navbar-custom   text-white"
                   }`}
                 >
                   <div
                     className={`d-flex flex-row form-check form-switch p-0 m-0 mt-2 ${
-                      darkMode ? " bg-secondary text-white" : " bg-white"
+                      darkMode
+                        ? " navbar-custom-dark text-white"
+                        : " navbar-custom text-white"
                     }`}
                   >
                     <p className="ms-1">Modo oscuro</p>

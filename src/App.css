@@ -1,5 +1,6 @@
+@import "rsuite/dist/rsuite.css";
 body {
-  height: 80vh;
+  height: 100 vh;
 }
 .dark-mode-body {
  background-color: #C68E51; /* Color de fondo personalizado */

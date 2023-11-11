@@ -10,6 +10,8 @@ import LoginScreen from "./views/LoginScreen";
 import ProtectedRoutes from "./routes/ProtectedRoutes";
 import SidebarApp from "./components/SidebarApp";
 import "bootstrap/dist/css/bootstrap.min.css";
+import StockScreen from "./views/StockScreen";
+import SaleScreen from "./views/SaleScreen";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -28,28 +30,21 @@ function App() {
   };
 
   return (
-    <div className={darkMode ? "navbar-custom-dark v-h100" : ""}>
+    <div className={`vh-100 ${darkMode ? "navbar-custom-dark v-h100" : ""}`}>
       <BrowserRouter>
-        <div className="d-md-none">
-          <SidebarApp
-            darkMode={darkMode}
-            changeMode={changeMode}
-            isLoggedIn={isLoggedIn}
-          />
-        </div>
-        <div className="d-none d-md-block fixed-top p-0">
-          <NavbarApp
-            darkMode={darkMode}
-            changeMode={changeMode}
-            isLoggedIn={isLoggedIn}
-          />
-        </div>
+        <NavbarApp
+          darkMode={darkMode}
+          changeMode={changeMode}
+          isLoggedIn={isLoggedIn}
+        />
         <Routes>
           <Route path="/" element={<HomeScreen darkMode={darkMode} />} />
           <Route
             path="/contacto"
             element={<ContactScreen darkMode={darkMode} />}
           />
+          <Route path="/stock" element={<StockScreen darkMode={darkMode} />} />
+          <Route path="/venta" element={<SaleScreen darkMode={darkMode} />} />
           <Route
             path="/admin"
             element={
