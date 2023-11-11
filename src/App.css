@@ -20,3 +20,7 @@ body {
   background-color: #C68E51; /* Color de fondo personalizado */
   color: #ffffff; /* Color del texto personalizado */
 }
+
+ .btn-circular{
+  border-radius: 50%;
+ }
