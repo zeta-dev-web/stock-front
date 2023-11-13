@@ -1,9 +1,11 @@
 .navbar-custom {
-  background-color: rgba(124, 67, 2, 0.267); /* Color de fondo personalizado */
+  background-color: #F3E0D2; /* Color de fondo personalizado */
+  color: #ffffff; /* Color del texto personalizado */
 }
 
 .navbar-custom-dark {
-  background-color: #3b3b3b81; /* Color de fondo personalizado */
+  background-color: #C68E51; /* Color de fondo personalizado */
+  color: #ffffff; /* Color del texto personalizado */
 }
 
 .bg-div{
