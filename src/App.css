@@ -17,7 +17,7 @@ body {
 }
 
 .navbar-custom-dark {
-  background-color: #C68E51; /* Color de fondo personalizado */
+  background-color: rgb(75, 52, 28); /* Color de fondo personalizado */
   color: #ffffff; /* Color del texto personalizado */
 }
 

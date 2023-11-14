@@ -1,10 +1,12 @@
 import React from 'react'
 import CardSaleApp from "../components/CardSaleApp";
 
-const SaleScreen = () => {
+const SaleScreen = ({darkMode}) => {
   return (
-    <div><CardSaleApp/></div>
-  )
+    <div>
+      <CardSaleApp darkMode={darkMode}/>
+    </div>
+  );
 }
 
 export default SaleScreen

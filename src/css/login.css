@@ -50,7 +50,7 @@ html {
 }
 .user_card {
     height: 400px;
-    width: 350px;
+    min-width: 400px;
     margin-top: auto;
     margin-bottom: auto;
     background: #eccfaf;

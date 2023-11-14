@@ -11,9 +11,16 @@ import { AutoComplete, InputGroup,
 import Swal from "sweetalert2";
 import "sweetalert2/src/sweetalert2.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "../css/Sale.css"
+import { FaSistrix, FaBoxOpen, FaProductHunt, } from "react-icons/fa6";
+import {
+  MdPriceChange,
+  MdPriceCheck,
+  MdOutlineDeleteForever,
+  MdOutlineShoppingCartCheckout,
+} from "react-icons/md";
 
-
-function CardSaleApp() {
+const CardSaleApp = ({darkMode}) => {
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [quantity, setQuantity] = useState(1);
 
@@ -67,48 +74,72 @@ function CardSaleApp() {
 
   return (
     <div className="m-4">
-      <Card className="container border border-3 border-danger">
-        <Card.Body>
-          <Card.Title className="text-center text-dark bg-danger bg-opacity-10 border border-danger border-start-1 rounded-start rounded-end">
-            Sistema de Venta
+      <Card className="container user_card">
+        <Card.Body className="table-responsive">
+          <Card.Title className="text-center text-white">
+            <div className="d-flex me-1 mt-1 flex-row justify-content-center">
+              <MdOutlineShoppingCartCheckout className="me-2" />
+              Sistema de Venta
+            </div>
           </Card.Title>
           <Card.Subtitle className="mb-2 text-muted">
-            Busque el producto para agregar:
-            <InputGroup inside className="100-w mt-2 mb-2">
-              <AutoComplete
-                data={initialData.map((product) => ({
-                  label: `${product.name} - Precio: $${product.price} - Stock Disponible: ${product.stock}`,
-                  value: product.name,
-                }))}
-                onSelect={(value) => handleAddToCart(value)}
-              />{" "}
-              <InputGroup.Button tabIndex={-1}>
-                <SearchIcon />
-              </InputGroup.Button>
-            </InputGroup>
+            <div className="d-flex me-1 mt-1 flex-row">
+              <FaSistrix className="me-1 mt-1" />
+              Busque el producto para agregar:
+            </div>
+            <div className="container p-0">
+              <div className="row">
+                <div className="col-12 col-md-6">
+                  <InputGroup inside className="mt-2 mb-2">
+                    <AutoComplete
+                      data={initialData.map((product) => ({
+                        label: `${product.name} - Precio: $${product.price} - Stock Disponible: ${product.stock}`,
+                        value: product.name,
+                      }))}
+                      onSelect={(value) => handleAddToCart(value)}
+                    />{" "}
+                    <InputGroup.Button tabIndex={-1}>
+                      <SearchIcon />
+                    </InputGroup.Button>
+                  </InputGroup>
+                </div>
+              </div>
+            </div>
           </Card.Subtitle>
           <Table striped bordered hover variant="light text-center">
-            <thead className="boder border-2 border-danger">
+            <thead className="card-title">
               <tr>
-                <th className="text-center text-dark bg-warning bg-opacity-10">
-                  Cantidad
+                <th className="text-center border text-white bg-warning bg-opacity-10">
+                  <div className="d-flex me-1 mt-1 flex-row justify-content-center">
+                    <FaBoxOpen />
+                    <div className="ms-2">Cantidad</div>
+                  </div>
                 </th>
-                <th className="text-center text-dark bg-warning bg-opacity-10">
-                  Producto
+                <th className="text-center border text-white bg-warning bg-opacity-10">
+                  <div className="d-flex me-1 mt-1 flex-row justify-content-center">
+                    <FaProductHunt />
+                    <div className="ms-2">Producto</div>
+                  </div>
                 </th>
-                <th className="text-center text-dark bg-warning bg-opacity-10">
-                  Precio
+                <th className="text-center border text-white bg-warning bg-opacity-10">
+                  <div className="d-flex me-1 mt-1 flex-row justify-content-center">
+                    <MdPriceChange />
+                    <div className="ms-2">Precio</div>
+                  </div>
                 </th>
-                <th className="text-center text-dark bg-warning bg-opacity-10">
-                  Opciones
+                <th className="text-center border text-white bg-warning bg-opacity-10">
+                  <div className="d-flex me-1 mt-1 flex-row justify-content-center">
+                    <MdOutlineDeleteForever />
+                    <div className="ms-2">Eliminar</div>
+                  </div>
                 </th>{" "}
                 {/* Nueva columna para acciones */}
               </tr>
             </thead>
-            <tbody className="boder border-2 border-danger">
+            <tbody className={`border ${darkMode ? "table-dark" : ""}`}>
               {selectedProducts.map((product, index) => (
                 <tr key={index}>
-                  <td>
+                  <td className="border">
                     <div className="m-0 p-0 d-flex justify-content-center">
                       <ButtonGroup className="d-flex flex-row justify-content-center align-items-center">
                         <Button
@@ -181,10 +212,17 @@ function CardSaleApp() {
               ))}
               {/* Fila para mostrar el total */}
               <tr>
-                <td colSpan="3" className="text-end fw-bold">
-                  Total:
+                <td colSpan="3" className="text-end fw-bold border">
+                  <div className="d-flex me-1 mt-1 flex-row justify-content-end">
+                    <MdPriceCheck />
+                    <div className="ms-2">Total</div>
+                  </div>
                 </td>
-                <td className="fs-5 fw-bold text-primary">
+                <td
+                  className={`fs-5 fw-bold  ${
+                    darkMode ? "text-white" : "text-primary"
+                  }`}
+                >
                   $
                   {selectedProducts.reduce(
                     (total, product) =>
@@ -196,10 +234,11 @@ function CardSaleApp() {
             </tbody>
           </Table>
         </Card.Body>
+        <div>xasad</div>
       </Card>
     </div>
   );
-}
+};
 
 const initialData = [
   { name: "Tortillas Gruesas", price: 5, category: "Salado", stock: 50 },

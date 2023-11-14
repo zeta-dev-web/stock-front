@@ -8,7 +8,6 @@ import ErrorScreen from "./views/ErrorScreen";
 import AdminScreen from "./views/AdminScreen";
 import LoginScreen from "./views/LoginScreen";
 import ProtectedRoutes from "./routes/ProtectedRoutes";
-import SidebarApp from "./components/SidebarApp";
 import "bootstrap/dist/css/bootstrap.min.css";
 import StockScreen from "./views/StockScreen";
 import SaleScreen from "./views/SaleScreen";
@@ -30,7 +29,7 @@ function App() {
   };
 
   return (
-    <div className={`vh-100 ${darkMode ? "navbar-custom-dark v-h100" : ""}`}>
+    <div className={`vh-100 ${darkMode ? "v-h100" : ""}`}>
       <BrowserRouter>
         <NavbarApp
           darkMode={darkMode}
