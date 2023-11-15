@@ -161,9 +161,9 @@ const generatePDF = () => {
         </Modal.Header>
         <Modal.Body className="bg-white">
           <div className="d-flex flex-row justify-content-center">
-            <p className="fw-semibold m-0 fs-5">
-              Nombre del negocio: Panaderia tu pancito
-            </p>
+            <div className="text-dark fw-semibold m-0 fs-5">
+              Panaderia tu pancito
+            </div>
           </div>
           <div className="d-flex flex-row justify-content-between mt-3 mb-1">
             <p className="text-dark fw-semibold m-0 ps-2">
