@@ -230,7 +230,7 @@ const CardSaleApp = ({ darkMode, handleOpen, open, handletime, dateTime }) => {
             </tbody>
           </Table>
         </Card.Body>
-        <div className="d-flex justify-content-end me-3">
+        <div className="d-flex justify-content-center">
           <button
             type="button"
             className="btn buttonsale"
@@ -240,7 +240,7 @@ const CardSaleApp = ({ darkMode, handleOpen, open, handletime, dateTime }) => {
           </button>
           <button
             type="button"
-            className="ms-1 btn buttonsale"
+            className="ms-3 btn buttonsale"
             onClick={handletime}
           >
             Realizar Venta
