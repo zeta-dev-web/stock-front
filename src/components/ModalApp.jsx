@@ -229,12 +229,18 @@ const generatePDF = () => {
           </Table>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={handleOpen} color="red" appearance="ghost">
-            Cancelar Venta
-          </Button>
-          <Button onClick={handleConfirmSale} color="green" appearance="ghost">
-            Confirmar Venta
-          </Button>
+          <div className="d-flex justify-content-center">
+            <Button onClick={handleOpen} color="red" appearance="ghost">
+              Cancelar Venta
+            </Button>
+            <Button
+              onClick={handleConfirmSale}
+              color="green"
+              appearance="ghost"
+            >
+              Confirmar Venta
+            </Button>
+          </div>
         </Modal.Footer>
       </Modal>
     </>
