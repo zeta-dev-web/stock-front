@@ -166,12 +166,12 @@ const generatePDF = () => {
             </div>
           </div>
           <div className="d-flex flex-row justify-content-between mt-3 mb-1">
-            <p className="text-dark fw-semibold m-0 ps-2">
+            <div className="text-dark fw-semibold m-0 ps-2">
               Fecha:{dateTime?.[0]}
-            </p>
-            <p className="text-dark fw-semibold m-0 pe-2">
+            </div>
+            <div className="text-dark fw-semibold m-0 pe-2">
               Hora:{dateTime?.[1]}
-            </p>
+            </div>
           </div>
           <Table striped bordered hover variant="light text-center">
             <thead className="card-title">
@@ -229,9 +229,9 @@ const generatePDF = () => {
                 </td>
               </tr>
             </tbody>
-            <p className="text-start fw-semibold mt-3 fs-6 ps-0">
+            <div className="text-start fw-semibold mt-3 fs-6 ps-0">
               Muchas Gracias por su compra
-            </p>
+            </div>
           </Table>
         </Modal.Body>
         <Modal.Footer>

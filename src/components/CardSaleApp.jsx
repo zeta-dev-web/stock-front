@@ -17,6 +17,8 @@ import {
   MdOutlineDeleteForever,
   MdOutlineShoppingCartCheckout,
 } from "react-icons/md";
+import { toast, ToastContainer, Zoom } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import ModalApp from "./ModalApp";
 
 const CardSaleApp = ({ darkMode, handleOpen, open, handletime, dateTime }) => {
@@ -95,8 +97,23 @@ const CardSaleApp = ({ darkMode, handleOpen, open, handletime, dateTime }) => {
     setSelectedProducts(updatedProducts);
   };
 
+  const notification = () => {
+    toast("No tienes productos agregados", {
+      position: "top-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
+    
+
   return (
     <div className="m-4">
+      <ToastContainer transition={Zoom} />
       <Card className="container user_card">
         <Card.Body className="table-responsive">
           <Card.Title className="text-center text-white">
@@ -241,7 +258,13 @@ const CardSaleApp = ({ darkMode, handleOpen, open, handletime, dateTime }) => {
           <button
             type="button"
             className="ms-3 btn buttonsale"
-            onClick={handletime}
+            onClick={() => {
+              if (selectedProducts.length === 0) {
+                notification();
+              } else {
+                handletime();
+              }
+            }}
           >
             Realizar Venta
           </button>
