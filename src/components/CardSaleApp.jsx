@@ -1,7 +1,5 @@
-import React, { useState } from "react";
-import Card from "react-bootstrap/Card";
-import Table from "react-bootstrap/Table";
-import { Button } from "react-bootstrap";
+import { React,useState } from "react";
+import { Button,Card, Table } from "react-bootstrap";
 import SearchIcon from "@rsuite/icons/Search";
 import { AutoComplete, InputGroup,
   IconButton,
@@ -19,8 +17,9 @@ import {
   MdOutlineDeleteForever,
   MdOutlineShoppingCartCheckout,
 } from "react-icons/md";
+import ModalApp from "./ModalApp";
 
-const CardSaleApp = ({darkMode}) => {
+const CardSaleApp = ({ darkMode, handleOpen, open, handletime, dateTime }) => {
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [quantity, setQuantity] = useState(1);
 
@@ -62,6 +61,30 @@ const CardSaleApp = ({darkMode}) => {
         });
       }
     });
+  };
+  const handleCancelSale = () => {
+    if (selectedProducts.length > 0) {
+      Swal.fire({
+        title: "¿Quieres cancelar la venta?",
+        text: "Esta acción eliminará todos los productos de la venta.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        cancelButtonText: "No, volver atras",
+        confirmButtonText: "Sí, cancelar la venta",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // Limpiar la lista de productos seleccionados
+          setSelectedProducts([]);
+          Swal.fire({
+            title: "Venta cancelada",
+            text: "Los productos de la venta han sido eliminados.",
+            icon: "success",
+          });
+        }
+      });
+    }
   };
 
   const handleQuantityChange = (index, newQuantity) => {
@@ -130,10 +153,9 @@ const CardSaleApp = ({darkMode}) => {
                 <th className="text-center border text-white bg-warning bg-opacity-10">
                   <div className="d-flex me-1 mt-1 flex-row justify-content-center">
                     <MdOutlineDeleteForever />
-                    <div className="ms-2">Eliminar</div>
+                    <div className="ms-2">Borrar</div>
                   </div>
-                </th>{" "}
-                {/* Nueva columna para acciones */}
+                </th>
               </tr>
             </thead>
             <tbody className={`border ${darkMode ? "table-dark" : ""}`}>
@@ -154,7 +176,7 @@ const CardSaleApp = ({darkMode}) => {
                         >
                           -
                         </Button>
-                        <div className="text-center m-0 p-1 fw-bold">
+                        <div className="text-center m-0 p-1 fw-bold fst-italic">
                           {product.quantity}
                         </div>
                         <Button
@@ -168,37 +190,12 @@ const CardSaleApp = ({darkMode}) => {
                         </Button>
                       </ButtonGroup>
                       <br />
-                      {/* <Button
-                        className="btn-circular m-0 p-0"
-                        size="md"
-                        color="green"
-                        appearance="subtle"
-                        onClick={() =>
-                          handleQuantityChange(index, product.quantity + 1)
-                        }
-                      >
-                        +
-                      </Button>{" "}
-                      {product.quantity}{" "}
-                      <Button
-                        className="btn-circular m-0 p-0"
-                        circle
-                        size="md"
-                        color="red"
-                        appearance="subtle"
-                        onClick={() =>
-                          handleQuantityChange(
-                            index,
-                            Math.max(product.quantity - 1, 1)
-                          )
-                        }
-                      >
-                        -
-                      </Button> */}
                     </div>
                   </td>
-                  <td>{product.name}</td>
-                  <td>${product.price * product.quantity}</td>
+                  <td className="fst-italic">{product.name}</td>
+                  <td className="fst-italic">
+                    ${product.price * product.quantity}
+                  </td>
                   <td>
                     <Button
                       size="sm"
@@ -210,7 +207,6 @@ const CardSaleApp = ({darkMode}) => {
                   </td>
                 </tr>
               ))}
-              {/* Fila para mostrar el total */}
               <tr>
                 <td colSpan="3" className="text-end fw-bold border">
                   <div className="d-flex me-1 mt-1 flex-row justify-content-end">
@@ -234,7 +230,30 @@ const CardSaleApp = ({darkMode}) => {
             </tbody>
           </Table>
         </Card.Body>
-        <div>xasad</div>
+        <div className="d-flex justify-content-end me-3">
+          <button
+            type="button"
+            className="btn buttonsale"
+            onClick={handleCancelSale}
+          >
+            Cancelar Venta
+          </button>
+          <button
+            type="button"
+            className="ms-1 btn buttonsale"
+            onClick={handletime}
+          >
+            Realizar Venta
+          </button>
+
+          {/* Renderizar el modal directamente */}
+          <ModalApp
+            open={open}
+            handleOpen={handleOpen}
+            products={selectedProducts}
+            dateTime={dateTime}
+          />
+        </div>
       </Card>
     </div>
   );

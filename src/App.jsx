@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { React, useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import NavbarApp from "./components/NavbarApp";
@@ -25,8 +25,10 @@ function App() {
   }, [darkMode]);
 
   const changeMode = () => {
+    console.log("Cambiando modo");
     setDarkMode(!darkMode);
   };
+  
 
   return (
     <div className={`vh-100 ${darkMode ? "v-h100" : ""}`}>
@@ -43,7 +45,14 @@ function App() {
             element={<ContactScreen darkMode={darkMode} />}
           />
           <Route path="/stock" element={<StockScreen darkMode={darkMode} />} />
-          <Route path="/venta" element={<SaleScreen darkMode={darkMode} />} />
+          <Route
+            path="/venta"
+            element={
+              <SaleScreen
+                darkMode={darkMode}
+              />
+            }
+          />
           <Route
             path="/admin"
             element={

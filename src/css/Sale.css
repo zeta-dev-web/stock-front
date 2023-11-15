@@ -20,6 +20,22 @@
 .border{
     border-radius: 5px;
 }
-.buscador{
-    width: 50%;
+.buttonsale {
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 14px;
+  padding: 10px;
+  text-decoration: none;
+  -webkit-border-radius: 28px;
+  -moz-border-radius: 28px;
+  border-radius: 28px;
+  -webkit-box-shadow: 4px 4px 6px #666666;
+  -moz-box-shadow: 4px 4px 6px #666666;
+  box-shadow: 4px 4px 6px #666666;
+  text-shadow: 1px 1px 3px #666666;
+  background: #804925;
+}
+.buttonsale:hover {
+  background: #331b0c;
+  color: #ffffff;
 }
