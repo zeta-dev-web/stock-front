@@ -8,8 +8,10 @@ import {
 import Swal from "sweetalert2";
 import "sweetalert2/src/sweetalert2.scss";
 import { Modal, Toggle, Button, Placeholder } from "rsuite";
+import jsPDF from "jspdf";
+import "jspdf-autotable";
 
-const ModalApp = ({ open, handleOpen, products, dateTime }) => {
+const ModalApp = ({ open, handleOpen, products, dateTime, setSelectedProducts }) => {
   const [overflow, setOverflow] = React.useState(true);
 
   //seleccione metodo de pago
@@ -33,46 +35,114 @@ const handleConfirmSale = () => {
   );
 };
 
-//selecciona tarjeta
+//responde a la seleccion del metodo de pago
 const handleCardSale = (option) => {
   if (option) {
     Swal.fire({
       title: "Metodo seleccionado: Tarjeta",
-      text: "¿Desea imprimir el comprobante?",
+      text: "¿Desea generar el comprobante?",
       icon: "success",
       showCancelButton: true,
       confirmButtonColor: "#0035FC",
-      confirmButtonText: "Imprimir Comprobante",
+      confirmButtonText: "Generar Comprobante",
       cancelButtonText: "Cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire({
-          title: "Comprobante impreso con éxito!",
+          title: "Comprobante PDF generado con éxito!",
           icon: "success",
         });
+        generatePDF();
+        handleOpen();
+        setSelectedProducts([]);
       }
     });
   }
   else{
      Swal.fire({
        title: "Metodo seleccionado: Efectivo",
-       text: "¿Desea imprimir el comprobante?",
+       text: "¿Desea generar el comprobante?",
        icon: "success",
        showCancelButton: true,
        confirmButtonColor: "#0035FC",
-       confirmButtonText: "Imprimir Comprobante",
+       confirmButtonText: "Generar Comprobante",
        cancelButtonText: "Cancelar",
      }).then((result) => {
        if (result.isConfirmed) {
          Swal.fire({
-           title: "Comprobante impreso con éxito!",
+           title: "Comprobante PDF generado con éxito!",
            icon: "success",
          });
+         generatePDF()
+         handleOpen();
+         setSelectedProducts([]);
        }
      });
   }
 }
-//selecciona efectivo
+const generatePDF = () => {
+  const pdf = new jsPDF();
+  const name = "Leo Zamorano";
+  // Encabezado, Información del negocio, Fecha y hora...
+  pdf.text(
+    "Comprobante de Compra",
+    pdf.internal.pageSize.width / 2,
+    10,
+    "center"
+  );
+  pdf.text(
+    "Panaderia tu pancito - Av. Siempre Viva 1022 - San Miguel de Tucumán",
+    10,
+    20
+  );
+  pdf.setFontSize(10); // Ajustar el tamaño de la fuente
+  pdf.text(`Fecha: ${dateTime?.[0]}`, 10, 30);
+  pdf.text(`Hora: ${dateTime?.[1]}`, pdf.internal.pageSize.width - 50, 30);
+
+  // Fuiste atendido por
+  pdf.setFontSize(8); // Ajustar el tamaño de la fuente
+  pdf.text(`Fuiste atendido por: ${name}`, 10, 40);
+
+  // Tabla de productos
+  pdf.setFontSize(12); // Ajustar el tamaño de la fuente
+  const columns = ["Cantidad", "Producto", "Precio"];
+  const rows = products.map((product) => [
+    product.quantity,
+    product.name,
+    `$${product.price * product.quantity}`,
+  ]);
+
+  // Calcular el total pagado
+  const totalPagado = products.reduce(
+    (total, product) => total + product.price * product.quantity,
+    0
+  );
+
+  pdf.autoTable({
+    head: [columns],
+    body: rows,
+    startY: 50,
+  });
+
+  // Total Pagado
+  pdf.setFontSize(13); // Ajustar el tamaño de la fuente
+  pdf.text(
+    `Total Pagado: $${totalPagado}`,
+    pdf.internal.pageSize.width - 50,
+    pdf.internal.pageSize.height - 20
+  );
+
+  // Mensaje de agradecimiento
+  pdf.setFontSize(10); // Ajustar el tamaño de la fuente
+  pdf.text(
+    "Muchas Gracias por su compra",
+    10,
+    pdf.internal.pageSize.height - 10
+  );
+
+  // Guardar el PDF en la computadora
+  pdf.save("comprobante_compra.pdf");
+};
 
 
   return (

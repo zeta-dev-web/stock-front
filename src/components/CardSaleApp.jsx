@@ -252,6 +252,7 @@ const CardSaleApp = ({ darkMode, handleOpen, open, handletime, dateTime }) => {
             handleOpen={handleOpen}
             products={selectedProducts}
             dateTime={dateTime}
+            setSelectedProducts={setSelectedProducts}
           />
         </div>
       </Card>
