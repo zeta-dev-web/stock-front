@@ -55,6 +55,9 @@ const handleCardSale = (option) => {
         generatePDF();
         handleOpen();
         setSelectedProducts([]);
+      } else {
+        handleOpen();
+        setSelectedProducts([]);
       }
     });
   }
@@ -77,6 +80,9 @@ const handleCardSale = (option) => {
          handleOpen();
          setSelectedProducts([]);
        }
+       else{handleOpen();
+       setSelectedProducts([]);
+}
      });
   }
 }
