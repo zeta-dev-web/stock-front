@@ -28,7 +28,6 @@ function App() {
     console.log("Cambiando modo");
     setDarkMode(!darkMode);
   };
-  
 
   return (
     <div className={`vh-100 ${darkMode ? "v-h100" : ""}`}>
@@ -41,18 +40,11 @@ function App() {
         <Routes>
           <Route path="/" element={<HomeScreen darkMode={darkMode} />} />
           <Route
-            path="/contacto"
+            path="/contact"
             element={<ContactScreen darkMode={darkMode} />}
           />
           <Route path="/stock" element={<StockScreen darkMode={darkMode} />} />
-          <Route
-            path="/venta"
-            element={
-              <SaleScreen
-                darkMode={darkMode}
-              />
-            }
-          />
+          <Route path="/venta" element={<SaleScreen darkMode={darkMode} />} />
           <Route
             path="/admin"
             element={
