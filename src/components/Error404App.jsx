@@ -6,6 +6,7 @@ const Error404App = () => {
   return (
     <div className="100-vw">
       <Player
+        className="mt-5"
         ref={playerRef}
         autoplay={true}
         loop={true}
