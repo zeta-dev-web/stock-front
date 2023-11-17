@@ -11,8 +11,8 @@ import { Modal, Toggle, Button, Placeholder } from "rsuite";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 
-const ModalApp = ({ open, handleOpen, products, dateTime, setSelectedProducts }) => {
-  const [overflow, setOverflow] = React.useState(true);
+const ModalSaleApp = ({ open, handleOpen, products, dateTime, setSelectedProducts }) => {
+  const [overflow, setOverflow] = useState(true);
 
   //seleccione metodo de pago
 const handleConfirmSale = () => {
@@ -253,4 +253,4 @@ const generatePDF = () => {
   );
 };
 
-export default ModalApp;
+export default ModalSaleApp;

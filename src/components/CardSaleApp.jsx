@@ -19,7 +19,7 @@ import {
 } from "react-icons/md";
 import { toast, ToastContainer, Zoom } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import ModalApp from "./ModalApp";
+import ModalSaleApp from "./ModalSaleApp";
 
 const CardSaleApp = ({ darkMode, handleOpen, open, handletime, dateTime }) => {
   const [selectedProducts, setSelectedProducts] = useState([]);
@@ -270,7 +270,7 @@ const CardSaleApp = ({ darkMode, handleOpen, open, handletime, dateTime }) => {
           </button>
 
           {/* Renderizar el modal directamente */}
-          <ModalApp
+          <ModalSaleApp
             open={open}
             handleOpen={handleOpen}
             products={selectedProducts}
