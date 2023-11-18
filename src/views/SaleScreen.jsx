@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import CardSaleApp from "../components/CardSaleApp";
 import { obtenerDatosAuth } from "../api/authApi";
 import Spinner from "react-bootstrap/Spinner";
+import Swal from "sweetalert2";
 
 const SaleScreen = ({darkMode}) => {
   const [role, setRole] = useState(null);
@@ -15,14 +16,38 @@ const SaleScreen = ({darkMode}) => {
   }, []);
 
   const queRolEs = async () => {
-    const respuesta = await obtenerDatosAuth(token);
+    try {
+      const respuesta = await obtenerDatosAuth(token);
+      console.log(respuesta);
 
-    if (respuesta?.msg) {
-      setMensaje(respuesta.msg);
-    } else {
-      setRole(respuesta.role);
+      if (respuesta?.msg) {
+        // Utiliza el valor actualizado directamente en la función de log
+        setMensaje(respuesta.msg);
+        console.log("Mensaje establecido:", respuesta.msg);
+      } else if (respuesta?.role) {
+        setRole(respuesta.role);
+      } else {
+        // Manejar otros casos si es necesario
+      }
+    } catch (error) {
+      // Manejar errores si es necesario
+      console.error("Error al obtener datos de autenticación:", error);
     }
-    console.log(respuesta);
+  };
+
+  const handleError = () => {
+    Swal.fire({
+      title: mensaje,
+      text: "Inicie sesión para acceder a este panel",
+      icon: "error",
+      confirmButtonColor: "#0035FC",
+      confirmButtonText: "Iniciar Sesión",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Redireccionar a la página /login
+        window.location.href = "/login";
+      }
+    });
   };
 
   const handleOpen = () => {
@@ -45,16 +70,7 @@ const handletime = () => {
   return (
     <>
       {mensaje ? (
-        <div className="container">
-          <div className="row pt-5">
-            <div className="col">
-              <h3>{mensaje}</h3>
-              <Link className="nav-link" to="/login">
-                Iniciar Sesión
-              </Link>
-            </div>
-          </div>
-        </div>
+        handleError()
       ) : role ? (
         role === "ADMIN_ROLE" || role === "USER_ROLE" ? (
           <div>
