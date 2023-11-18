@@ -2,6 +2,7 @@ import { useState } from "react";
 import {Table, Card, Button} from "react-bootstrap";
 import ModalProdApp from "./ModalProdApp";
 import { listProducts } from "../data/products";
+import { FaBoxOpen } from "react-icons/fa";
 
 function StockAdminApp() {
   const [open, setOpen] = useState(false);
@@ -17,7 +18,7 @@ function StockAdminApp() {
       <Card className="container">
         <Card.Body>
           <Card.Title className="text-center text-white bg-dark">
-            Control de Stock
+            <FaBoxOpen className="me-2"/>Control de Stock
           </Card.Title>
           <div className="d-flex justify-content-center">
             <Button variant="outline-info" onClick={handleOpen} size="sm">

@@ -5,6 +5,7 @@ import listUser from "../data/users";
 import Swal from "sweetalert2";
 import "sweetalert2/src/sweetalert2.scss";
 import ModalUserApp from "./ModalUserApp";
+import { MdAccountBox } from "react-icons/md";
 
 const UserAdminApp=({})=>{
   const [open, setOpen] = useState(false);
@@ -47,7 +48,7 @@ const [users, setUsers] = useState([...listUser]);
       <Card className="container">
         <Card.Body className="table-responsive">
           <Card.Title className="text-center text-white bg-dark">
-            Control de Usuarios
+            <MdAccountBox className="me-2"/>Control de Usuarios
           </Card.Title>
           <div className="d-flex justify-content-center">
             <Button variant="outline-info" onClick={handleOpen} size="sm">
