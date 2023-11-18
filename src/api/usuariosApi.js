@@ -1,4 +1,4 @@
-const url = "http://localhost:8080/api/usuarios";
+const url = "https://backend-62i.onrender.com/api/usuarios";
 
 const usuarioAdd = async (datos) => {
   const resp = await fetch(url, {
