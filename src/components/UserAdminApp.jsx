@@ -38,7 +38,10 @@ const [users, setUsers] = useState([...listUser]);
       }
     });
   };
-
+  const [tableVisible, setTableVisible] = useState(false);
+  const handleToggleTable = () => {
+    setTableVisible(!tableVisible);
+  };
   return (
     <div className="m-4">
       <Card className="container">
@@ -46,38 +49,52 @@ const [users, setUsers] = useState([...listUser]);
           <Card.Title className="text-center text-white bg-dark">
             Control de Usuarios
           </Card.Title>
-          <Button variant="outline-info" onClick={handleOpen} size="sm">
-            Agregar Usuario
-          </Button>
+          <div className="d-flex justify-content-center">
+            <Button variant="outline-info" onClick={handleOpen} size="sm">
+              Agregar Usuario
+            </Button>
+            <Button
+              variant="outline-success"
+              onClick={handleToggleTable}
+              size="sm"
+              className="ms-2"
+            >
+              {tableVisible
+                ? "Ocultar Lista de Usuarios"
+                : "Ver Lista de Usuarios"}
+            </Button>
+          </div>
           <ModalUserApp open={open} handleOpen={handleOpen} />
-          <Card.Text className="mt-1">
-            <Table striped bordered hover variant="white text-center">
-              <thead>
-                <tr>
-                  <th>Nombre</th>
-                  <th>Email</th>
-                  <th>Opciones</th>
-                </tr>
-              </thead>
-              <tbody>
-                {users.map((usuario, index) => (
-                  <tr key={index}>
-                    <td>{usuario.nombre}</td>
-                    <td>{usuario.email}</td>
-                    <td className="d-flex justify-content-center">
-                      <button className="btn btn-warning">M</button>
-                      <button
-                        className="ms-1 btn btn-danger"
-                        onClick={() => handleRemoveUser(index)}
-                      >
-                        X
-                      </button>
-                    </td>
+          {tableVisible && (
+            <Card.Text className="mt-1">
+              <Table striped bordered hover variant="white text-center">
+                <thead>
+                  <tr>
+                    <th>Nombre</th>
+                    <th>Email</th>
+                    <th>Opciones</th>
                   </tr>
-                ))}
-              </tbody>
-            </Table>
-          </Card.Text>
+                </thead>
+                <tbody>
+                  {users.map((usuario, index) => (
+                    <tr key={index}>
+                      <td>{usuario.nombre}</td>
+                      <td>{usuario.email}</td>
+                      <td className="d-flex justify-content-center">
+                        <button className="btn btn-warning">M</button>
+                        <button
+                          className="ms-1 btn btn-danger"
+                          onClick={() => handleRemoveUser(index)}
+                        >
+                          X
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+            </Card.Text>
+          )}
         </Card.Body>
       </Card>
     </div>
