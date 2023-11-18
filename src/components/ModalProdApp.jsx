@@ -122,8 +122,8 @@ const handleReset = () => {
                         message: "Su precio debe ser mayor a $1.",
                       },
                       max: {
-                        value: 1000,
-                        message: "Su precio máximo debe ser $1000.",
+                        value: 5000,
+                        message: "Su precio máximo debe ser $5000.",
                       },
                     })}
                     required
