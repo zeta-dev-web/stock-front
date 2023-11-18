@@ -124,23 +124,6 @@ const NavbarApp = ({ darkMode, changeMode, isLoggedIn }) => {
                         ? "nav-link fw-bold d-flex flex-col"
                         : "nav-link d-flex flex-col"
                     }
-                    to="/ajustes"
-                  >
-                    <div className="d-flex me-1 mt-1">
-                      <FaScrewdriverWrench />
-                    </div>
-                    Ajustes
-                  </NavLink>
-                </li>
-              )}
-              {!isLoggedIn && (
-                <li>
-                  <NavLink
-                    className={({ isActive }) =>
-                      isActive
-                        ? "nav-link fw-bold d-flex flex-col"
-                        : "nav-link d-flex flex-col"
-                    }
                     to="/contact"
                   >
                     <div className="d-flex me-1 mt-1">
