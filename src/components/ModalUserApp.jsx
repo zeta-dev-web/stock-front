@@ -40,7 +40,7 @@ const ModalUserApp = ({ open, handleOpen }) => {
  const handleReset = () => {
    Swal.fire({
      title: "Seguro quiere cancelar?",
-     text: "No podra recuperar el producto que no se guardó",
+     text: "No podra recuperar los datos que no se guardaron",
      icon: "warning",
      showCancelButton: true,
      confirmButtonColor: "#3085d6",
@@ -51,7 +51,7 @@ const ModalUserApp = ({ open, handleOpen }) => {
      if (result.isConfirmed) {
        Swal.fire({
          title: "Informacion Eliminada!",
-         text: "El producto no se guardó",
+         text: "El usuario no se guardó",
          icon: "success",
        });
        reset();

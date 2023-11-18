@@ -40,7 +40,7 @@ const newProduct = (data) => {
 const handleReset = () => {
   Swal.fire({
     title: "Seguro quiere cancelar?",
-    text: "No podra recuperar el producto que no se guardó",
+    text: "No podra recuperar los datos que no se guardaron",
     icon: "warning",
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
@@ -240,7 +240,7 @@ const handleReset = () => {
                   minLength={15}
                   maxLength={100}
                   style={{ resize: "none" }}
-                  placeholder="Por ejemplo: Factura de masa dulce hojaldrada bañada almíbar con miel."
+                  placeholder="Por ejemplo: Factura de masa dulce hojaldrada bañada en almíbar con miel."
                 />
                 <p className="text-danger p-0 m-0 fw-semibold fst-italic">
                   {errors.descripcion?.message}
