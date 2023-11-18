@@ -2,15 +2,15 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { login } from "../api/authApi";
-  import { ToastContainer, toast, Zoom} from "react-toastify";
-  
- import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast, Zoom } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css";
 import "../css/login.css";
 import logo from "../assets/panadero.png";
 import user from "../assets/avatar24.png";
 import pass from "../assets/candado24.png";
 
-const LoginScreen = ({ darkMode, setIsLoggedIn}) => {
+const LoginScreen = ({ darkMode, setIsLoggedIn }) => {
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
@@ -42,11 +42,11 @@ const LoginScreen = ({ darkMode, setIsLoggedIn}) => {
       });
     }
 
-  if (loginUser && loginUser.errors && loginUser.errors.length > 0) {
-    loginUser.errors.forEach((error) => {
-      notify2(error.msg);
-    });
-  }
+    if (loginUser && loginUser.errors && loginUser.errors.length > 0) {
+      loginUser.errors.forEach((error) => {
+        notify2(error.msg);
+      });
+    }
 
     reset();
     setLoading(false);
@@ -64,18 +64,17 @@ const LoginScreen = ({ darkMode, setIsLoggedIn}) => {
       theme: darkMode ? "dark" : "colored",
     });
 
-    const notify2 = (respuesta) =>
-      toast.error(`${respuesta}`, {
-        position: "top-center",
-        autoClose: 4000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: darkMode ? "dark" : "colored",
-      });
-
+  const notify2 = (respuesta) =>
+    toast.error(`${respuesta}`, {
+      position: "top-center",
+      autoClose: 4000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: darkMode ? "dark" : "colored",
+    });
 
   return (
     <div className="container pt-5 mt-5">
@@ -172,7 +171,7 @@ const LoginScreen = ({ darkMode, setIsLoggedIn}) => {
               <div className="d-flex justify-content-center mt-3 login_container mt-5">
                 <button
                   type="submit"
-                  className="btn btn-primary"
+                  className="buttonlogin"
                   disabled={loading ? true : false}
                 >
                   Iniciar

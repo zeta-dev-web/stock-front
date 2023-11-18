@@ -51,6 +51,7 @@ html {
 .user_card {
     height: 400px;
     min-width: 400px;
+    min-height: 420px;
     margin-top: auto;
     margin-bottom: auto;
     background: #eccfaf;
@@ -110,3 +111,24 @@ html {
 .custom-checkbox .custom-control-input:checked~.custom-control-label::before {
     background-color: #c0392b !important;
 }
+.buttonlogin {
+    font-family: Arial;
+    color: #ffffff;
+    font-size: 14px;
+    width: 100px;
+    padding: 10px;
+    text-decoration: none;
+    -webkit-border-radius: 28px;
+    -moz-border-radius: 28px;
+    border-radius: 28px;
+    -webkit-box-shadow: 4px 4px 6px #666666;
+    -moz-box-shadow: 4px 4px 6px #666666;
+    box-shadow: 4px 4px 6px #666666;
+    text-shadow: 1px 1px 3px #666666;
+    background: #804925;
+  }
+  .buttonlogin:hover {
+    background: #331b0c;
+    color: #ffffff;
+  }
+  

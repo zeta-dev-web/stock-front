@@ -1,13 +1,12 @@
-import React from 'react'
+import React from "react";
+import ContactApp from "../components/ContactApp";
 
-const ContactScreen = ({ darkMode }) => {
+const ContactScreen = ({}) => {
   return (
     <div>
-      <h1 className={`text-center ${
-            darkMode ? "text-light" : ""
-          }`}>Formulario de Contacto</h1>
+      <ContactApp></ContactApp>
     </div>
   );
 };
 
-export default ContactScreen
+export default ContactScreen;

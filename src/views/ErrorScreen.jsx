@@ -1,13 +1,12 @@
-import React from 'react'
+import React from "react";
+import Error404App from "../components/Error404App";
 
-const ErrorScreen = ({darkMode}) => {
+const ErrorScreen = ({}) => {
   return (
     <div>
-      <h1 className={`text-center ${darkMode ? "text-light" : ""}`}>
-        Pagina no encontrada
-      </h1>
+      <Error404App></Error404App>
     </div>
   );
-}
+};
 
-export default ErrorScreen
+export default ErrorScreen;
