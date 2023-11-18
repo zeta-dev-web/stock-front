@@ -64,6 +64,7 @@ const handlesetIsLoggedIn = ()=>{
             path="/login"
             element={
               <LoginScreen
+                isLoggedIn={isLoggedIn}
                 darkMode={darkMode}
                 handlesetIsLoggedIn={handlesetIsLoggedIn}
               />

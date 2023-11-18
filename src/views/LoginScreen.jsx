@@ -12,7 +12,7 @@ import logo from "../assets/panadero.png";
 import user from "../assets/avatar24.png";
 import pass from "../assets/candado24.png";
 
-const LoginScreen = ({ darkMode, handlesetIsLoggedIn }) => {
+const LoginScreen = ({ darkMode, IsLoggedIn, handlesetIsLoggedIn }) => {
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
@@ -184,10 +184,7 @@ const LoginScreen = ({ darkMode, handlesetIsLoggedIn }) => {
                     Iniciando...
                   </Button>
                 ) : (
-                  <button
-                    type="submit"
-                    className="buttonlogin"
-                  >
+                  <button type="submit" className="buttonlogin">
                     Iniciar
                   </button>
                 )}
