@@ -29,6 +29,10 @@ function App() {
     setDarkMode(!darkMode);
   };
 
+const handlesetIsLoggedIn = ()=>{
+  setIsLoggedIn(!isLoggedIn);
+  console.log(isLoggedIn);
+}
   return (
     <div className={`vh-100 ${darkMode ? "v-h100" : ""}`}>
       <BrowserRouter>
@@ -38,7 +42,10 @@ function App() {
           isLoggedIn={isLoggedIn}
         />
         <Routes>
-          <Route path="/" element={<HomeScreen darkMode={darkMode} />} />
+          <Route
+            path="/"
+            element={<HomeScreen darkMode={darkMode} isLoggedIn={isLoggedIn} />}
+          />
           <Route
             path="/contact"
             element={<ContactScreen darkMode={darkMode} />}
@@ -56,7 +63,10 @@ function App() {
           <Route
             path="/login"
             element={
-              <LoginScreen darkMode={darkMode} setIsLoggedIn={setIsLoggedIn} />
+              <LoginScreen
+                darkMode={darkMode}
+                handlesetIsLoggedIn={handlesetIsLoggedIn}
+              />
             }
           />
           <Route path="/*" element={<ErrorScreen darkMode={darkMode} />} />

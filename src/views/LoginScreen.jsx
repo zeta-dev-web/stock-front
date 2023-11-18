@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { login } from "../api/authApi";
 import { ToastContainer, toast, Zoom } from "react-toastify";
+import Button from "react-bootstrap/Button";
+import Spinner from "react-bootstrap/Spinner";
 
 import "react-toastify/dist/ReactToastify.css";
 import "../css/login.css";
@@ -10,7 +12,7 @@ import logo from "../assets/panadero.png";
 import user from "../assets/avatar24.png";
 import pass from "../assets/candado24.png";
 
-const LoginScreen = ({ darkMode, setIsLoggedIn }) => {
+const LoginScreen = ({ darkMode, handlesetIsLoggedIn }) => {
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
@@ -29,6 +31,7 @@ const LoginScreen = ({ darkMode, setIsLoggedIn }) => {
 
     if (respuesta?.token) {
       localStorage.setItem("token", JSON.stringify(respuesta.token));
+      handlesetIsLoggedIn();
       navigate("/");
     }
 
@@ -169,13 +172,25 @@ const LoginScreen = ({ darkMode, setIsLoggedIn }) => {
                 <p className="text-danger">{errors.password?.message}</p>
               </div>
               <div className="d-flex justify-content-center mt-3 login_container mt-5">
-                <button
-                  type="submit"
-                  className="buttonlogin"
-                  disabled={loading ? true : false}
-                >
-                  Iniciar
-                </button>
+                {loading ? (
+                  <Button className="buttonlogin" disabled>
+                    <Spinner
+                      as="span"
+                      animation="grow"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                    />
+                    Iniciando...
+                  </Button>
+                ) : (
+                  <button
+                    type="submit"
+                    className="buttonlogin"
+                  >
+                    Iniciar
+                  </button>
+                )}
               </div>
             </form>
           </div>

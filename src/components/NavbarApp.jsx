@@ -14,6 +14,13 @@ import {
 } from "react-icons/fa6";
 
 const NavbarApp = ({ darkMode, changeMode, isLoggedIn }) => {
+  const handleLogout = () => {
+    // Eliminar el token del localStorage
+    localStorage.removeItem("token");
+
+    // Actualizar el estado isLoggedIn a false
+    handlesetIsLoggedIn();
+  };
   return (
     <div className="sticky-top">
       <nav
@@ -23,7 +30,7 @@ const NavbarApp = ({ darkMode, changeMode, isLoggedIn }) => {
       >
         <div className="container-fluid">
           <div className="mt-1">
-            {!isLoggedIn && (
+            {isLoggedIn && (
               <button
                 className="navbar-toggler"
                 type="button"
@@ -65,7 +72,7 @@ const NavbarApp = ({ darkMode, changeMode, isLoggedIn }) => {
                   </NavLink>
                 </li>
               )}
-              {!isLoggedIn && (
+              {isLoggedIn && (
                 <li>
                   <NavLink
                     className={({ isActive }) =>
@@ -82,7 +89,7 @@ const NavbarApp = ({ darkMode, changeMode, isLoggedIn }) => {
                   </NavLink>
                 </li>
               )}
-              {!isLoggedIn && (
+              {isLoggedIn && (
                 <li>
                   <NavLink
                     className={({ isActive }) =>
@@ -99,7 +106,7 @@ const NavbarApp = ({ darkMode, changeMode, isLoggedIn }) => {
                   </NavLink>
                 </li>
               )}
-              {!isLoggedIn && (
+              {isLoggedIn && (
                 <li>
                   <NavLink
                     className={({ isActive }) =>
@@ -116,7 +123,7 @@ const NavbarApp = ({ darkMode, changeMode, isLoggedIn }) => {
                   </NavLink>
                 </li>
               )}
-              {!isLoggedIn && (
+              {isLoggedIn && (
                 <li>
                   <NavLink
                     className={({ isActive }) =>
@@ -141,6 +148,7 @@ const NavbarApp = ({ darkMode, changeMode, isLoggedIn }) => {
                       : "nav-link d-flex flex-col"
                   }
                   to="/login"
+                  onClick={() => handleLogout()}
                 >
                   {isLoggedIn ? (
                     <div className="d-flex me-1 mt-1">
@@ -151,7 +159,7 @@ const NavbarApp = ({ darkMode, changeMode, isLoggedIn }) => {
                       <FaArrowRightToBracket />
                     </div>
                   )}
-                  {isLoggedIn ? "Cerrar sesión" : "Iniciar sesion "}
+                  {isLoggedIn ? "Cerrar sesión" : "Iniciar sesión"}
                 </NavLink>
               </li>
             </ul>

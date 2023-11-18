@@ -125,7 +125,8 @@ html {
     -moz-box-shadow: 4px 4px 6px #666666;
     box-shadow: 4px 4px 6px #666666;
     text-shadow: 1px 1px 3px #666666;
-    background: #804925;
+    background: #804925!important;
+    border: #804925!important;
   }
   .buttonlogin:hover {
     background: #331b0c;

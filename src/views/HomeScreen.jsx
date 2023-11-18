@@ -1,10 +1,10 @@
 import React from "react";
 import Carousel from "../components/Carousel";
 
-const HomeScreen = ({ darkMode }) => {
+const HomeScreen = ({ darkMode, isLoggedIn }) => {
   return (
     <div className="vh-100">
-      <Carousel />
+      <Carousel isLoggedIn={isLoggedIn} />
     </div>
   );
 };

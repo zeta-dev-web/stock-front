@@ -4,7 +4,7 @@ import imagen01 from "../assets/01.jpg";
 import imagen02 from "../assets/2.jpg";
 import "../css/Carousel.css";
 
-const Carousel = () => {
+const Carousel = ({ isLoggedIn }) => {
   return (
     <div
       id="carouselExampleFade"
@@ -23,11 +23,13 @@ const Carousel = () => {
             <h3 className="text-center">
               Bienvenido al Sistema de Gestion de Stock y Ventas para Panaderias
             </h3>
-            <Link to="/login">
-              <button className="btn btn-outline-light btn-lg">
-                INICIAR SESIÓN
-              </button>
-            </Link>
+            {!isLoggedIn && (
+              <Link to="/login">
+                <button className="btn btn-outline-light btn-lg">
+                  INICIAR SESION
+                </button>
+              </Link>
+            )}
           </div>
         </div>
       </div>
