@@ -149,8 +149,13 @@ const handleReset = () => {
                       value: 0,
                       message: "El stock debe ser mayor o igual a 0",
                     },
+                    max: {
+                      value: 500,
+                      message: "El stock no puede superar las 500 unidades",
+                    },
                   })}
                   min={0}
+                  max={500}
                   defaultValue={0}
                 />
                 <div>
