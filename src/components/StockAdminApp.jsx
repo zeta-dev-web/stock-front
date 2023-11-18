@@ -1,6 +1,5 @@
 import { useState } from "react";
-import Card from "react-bootstrap/Card";
-import Table from "react-bootstrap/Table";
+import {Table, Card, Button} from "react-bootstrap";
 import ModalProdApp from "./ModalProdApp";
 
 function StockAdminApp() {
@@ -16,10 +15,9 @@ function StockAdminApp() {
           <Card.Title className="text-center text-white bg-dark">
             Control de Stock
           </Card.Title>
-          <Card.Subtitle className="mb-2 text-muted">asdasdasd</Card.Subtitle>
-          <button className="btn btn-primary" onClick={handleOpen}>
+          <Button variant="outline-info" onClick={handleOpen} size="sm">
             Agregar Producto
-          </button>
+          </Button>
           <ModalProdApp open={open} handleOpen={handleOpen} />
           <Card.Text className="mt-1">
             <Table striped bordered hover variant="white text-center">

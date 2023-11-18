@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Card from "react-bootstrap/Card";
-import Table from "react-bootstrap/Table";
+import {Table, Button} from "react-bootstrap";
 import listUser from "../data/users";
 import Swal from "sweetalert2";
 import "sweetalert2/src/sweetalert2.scss";
@@ -46,12 +46,10 @@ const [users, setUsers] = useState([...listUser]);
           <Card.Title className="text-center text-white bg-dark">
             Control de Usuarios
           </Card.Title>
-          <Card.Subtitle className="mb-2 text-muted">asdasdasd</Card.Subtitle>
-          <button className="btn btn-primary" onClick={handleOpen}>
+          <Button variant="outline-info" onClick={handleOpen} size="sm">
             Agregar Usuario
-          </button>
-          <ModalUserApp open={open} handleOpen={handleOpen}
-          />
+          </Button>
+          <ModalUserApp open={open} handleOpen={handleOpen} />
           <Card.Text className="mt-1">
             <Table striped bordered hover variant="white text-center">
               <thead>

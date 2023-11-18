@@ -4,6 +4,7 @@ import { Button } from "react-bootstrap";
 import "sweetalert2/src/sweetalert2.scss";
 import { Modal } from "rsuite";
 import { useForm } from "react-hook-form";
+import { AiFillEye, AiFillEyeInvisible} from "react-icons/ai";
 
 const ModalUserApp = ({ open, handleOpen }) => {
  const [overflow, setOverflow] = useState(true);
@@ -58,12 +59,21 @@ const ModalUserApp = ({ open, handleOpen }) => {
      }
    });
  };
+
+ const [showPassword, setShowPassword] = useState(false);
+
+ // Función para alternar la visibilidad de la contraseña
+ const togglePasswordVisibility = () => {
+   setShowPassword(!showPassword);
+ };
+
+
   return (
     <>
       <Modal overflow={overflow} open={open} onClose={handleOpen}>
         <Modal.Header>
           <Modal.Title className="fw-bold text-center">
-            Nuevo Producto
+            Nuevo Usuario
           </Modal.Title>
         </Modal.Header>
         <Modal.Body className="bg-white d-flex container">
@@ -74,27 +84,23 @@ const ModalUserApp = ({ open, handleOpen }) => {
           >
             <section className="row">
               <fieldset className="col-12 col-md-6 mb-1">
-                <label htmlFor="nameProduct-input" className="form-label">
-                  Nombre del producto
+                <label htmlFor="name-input" className="form-label">
+                  Nombre
                 </label>
                 <input
                   type="text"
-                  id="nameProduct-input"
+                  id="name-input"
                   className="form-control"
                   {...register("nombre", {
                     required: "Debe Ingresar un Nombre.",
                     minLength: {
                       value: 5,
-                      message: "Su Nombre debe tener mas de 5 caracteres.",
-                    },
-                    maxLength: {
-                      value: 20,
-                      message: "Su Nombre debe tener maximo 20 caracteres.",
+                      message: "Su Nombre debe tener más de 5 caracteres.",
                     },
                   })}
                   required
                   minLength={5}
-                  maxLength={20}
+                  placeholder="Ingrese un nombre"
                 />
                 <div>
                   <p className="text-danger p-0 m-0 fw-semibold fst-italic">
@@ -103,143 +109,69 @@ const ModalUserApp = ({ open, handleOpen }) => {
                 </div>
               </fieldset>
               <fieldset className="col-12 col-md-6 mb-1">
-                <label htmlFor="Price-input" className="form-label">
-                  Precio
+                <label htmlFor="email-input" className="form-label">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  id="email-input"
+                  className="form-control"
+                  {...register("email", {
+                    required: "Debe Ingresar un Email.",
+                    pattern: {
+                      value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                      message:
+                        "Ingrese un email válido (por ejemplo, pancito@gmail.com).",
+                    },
+                  })}
+                  required
+                  placeholder="Ingrese un email"
+                />
+                <div>
+                  <p className="text-danger p-0 m-0 fw-semibold fst-italic">
+                    {errors.email?.message}
+                  </p>
+                </div>
+              </fieldset>
+              <fieldset className="col-12 col-md-6 mb-1">
+                <label htmlFor="password-input" className="form-label">
+                  Contraseña
                 </label>
                 <div className="input-group">
-                  <span className="input-group-text">$</span>
                   <input
-                    type="number"
-                    id="Price-input"
+                    type={showPassword ? "text" : "password"}
+                    id="password-input"
                     className="form-control"
-                    {...register("precio", {
-                      required: "Debe Ingresar un Precio.",
-                      min: {
-                        value: 1,
-                        message: "Su precio debe ser mayor a $1.",
+                    {...register("contrasena", {
+                      required: "Debe Ingresar una Contraseña.",
+                      minLength: {
+                        value: 8,
+                        message:
+                          "La contraseña debe tener al menos 8 caracteres.",
                       },
-                      max: {
-                        value: 1000,
-                        message: "Su precio máximo debe ser $1000.",
+                      pattern: {
+                        value: /^[a-z0-9]+$/,
+                        message:
+                          "La contraseña debe contener solo letras minúsculas y números.",
                       },
                     })}
                     required
-                    min={1}
-                    max={10000}
+                    minLength={8}
+                    placeholder="Ingrese la contraseña"
                   />
+                  <button
+                    type="button"
+                    className="btn btn-outline-secondary"
+                    onClick={togglePasswordVisibility}
+                  >
+                    {showPassword ? <AiFillEye /> : <AiFillEyeInvisible />}
+                  </button>
                 </div>
-                <p className="text-danger p-0 m-0 fw-semibold fst-italic">
-                  {errors.precio?.message}
-                </p>
-              </fieldset>
-              <fieldset className="col-12 col-md-4 mb-1">
-                <label htmlFor="stock-input" className="form-label">
-                  Stock
-                </label>
-                <input
-                  type="number"
-                  id="stock-input"
-                  className="form-control"
-                  {...register("stock", {
-                    min: {
-                      value: 0,
-                      message: "El stock debe ser mayor o igual a 0",
-                    },
-                  })}
-                  min={0}
-                  defaultValue={0}
-                />
                 <div>
-                  <p className="text-danger">{errors.stock?.message}</p>
+                  <p className="text-danger p-0 m-0 fw-semibold fst-italic">
+                    {errors.contrasena?.message}
+                  </p>
                 </div>
-              </fieldset>
-              <fieldset className="col-12 col-md-8 mb-1">
-                <label htmlFor="category-input" className="form-label">
-                  Categoría
-                </label>
-                <select
-                  className="form-control"
-                  id="category-input"
-                  {...register("categoria", {
-                    required: "Debe seleccionar una categoría.",
-                  })}
-                  required
-                >
-                  <option value="">Seleccione una categoría</option>
-                  <option value="BebidaCaliente">Bebida caliente</option>
-                  <option value="BebidaFria">Bebida fría</option>
-                  <option value="Dulce">Dulce</option>
-                  <option value="Salado">Salado</option>
-                  <option value="Lacteos">Lácteos</option>
-                  <option value="Fiambres">Fiambres</option>
-                </select>
-                <p className="text-danger p-0 m-0 fw-semibold fst-italic">
-                  {errors.categoria?.message}
-                </p>
-              </fieldset>
-              <fieldset className="col-12 col-md-12 mb-1">
-                <label htmlFor="image-input" className="form-label">
-                  Imagen
-                </label>
-                <input
-                  type="file"
-                  id="image-input"
-                  className="form-control"
-                  {...register("imagen", {
-                    validate: {
-                      isImage: (value) => {
-                        if (!value[0]) {
-                          return true;
-                        }
-
-                        const acceptedFormats = ["image/jpeg", "image/png"];
-
-                        const isValidFormat = acceptedFormats.includes(
-                          value[0].type
-                        );
-
-                        if (!isValidFormat) {
-                          return "El formato de la imagen no es válido. Por favor, seleccione una imagen JPEG o PNG.";
-                        }
-
-                        return true;
-                      },
-                    },
-                  })}
-                />
-                <p className="text-danger p-0 m-0 fw-semibold fst-italic">
-                  {errors.imagen?.message}
-                </p>
-              </fieldset>
-              <fieldset className="col-12 mb-1">
-                <label htmlFor="description-input" className="form-label">
-                  Descripción
-                </label>
-                <textarea
-                  type="text"
-                  id="description-input"
-                  className="form-control"
-                  {...register("descripcion", {
-                    required: "Debe ingresar una descripción.",
-                    minLength: {
-                      value: 15,
-                      message:
-                        "La descripción debe tener al menos 15 caracteres.",
-                    },
-                    maxLength: {
-                      value: 100,
-                      message:
-                        "La descripción no puede exceder los 100 caracteres.",
-                    },
-                  })}
-                  required
-                  minLength={15}
-                  maxLength={100}
-                  style={{ resize: "none" }}
-                />
-                <p className="text-danger p-0 m-0 fw-semibold fst-italic">
-                  {errors.descripcion?.message}
-                </p>
               </fieldset>
             </section>
             <div className="text-center mt-2">

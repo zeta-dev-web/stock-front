@@ -97,6 +97,7 @@ const handleReset = () => {
                   required
                   minLength={5}
                   maxLength={20}
+                  placeholder="Ingrese el nombre del producto"
                 />
                 <div>
                   <p className="text-danger p-0 m-0 fw-semibold fst-italic">
@@ -128,6 +129,7 @@ const handleReset = () => {
                     required
                     min={1}
                     max={10000}
+                    placeholder="Ingrese el precio"
                   />
                 </div>
                 <p className="text-danger p-0 m-0 fw-semibold fst-italic">
