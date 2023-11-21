@@ -29,17 +29,12 @@ body {
   font-family: Arial;
   color: #ffffff;
   font-size: 14px;
-  width: 120px;
-  padding: 100px;
+  width: 100px;
+  padding: 50px;
   text-decoration: none;
   -webkit-border-radius: 28px;
   -moz-border-radius: 28px;
   border-radius: 28px;
-  -webkit-box-shadow: 4px 4px 6px #666666;
-  -moz-box-shadow: 4px 4px 6px #666666;
-  box-shadow: 4px 4px 6px #666666;
-  text-shadow: 1px 1px 3px #666666;
   background: #804925!important;
   border: #804925!important;
-
 }
