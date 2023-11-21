@@ -1,4 +1,4 @@
-const url = "https://backend-62i.onrender.com/api/productos";
+const url = "https://stock-back-dev-ttgk.4.us-1.fl0.io/api/productos";
 const token = JSON.parse(localStorage.getItem("token")) || null;
 
 const productsList = async (pagina) => {
