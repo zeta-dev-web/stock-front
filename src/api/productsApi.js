@@ -13,6 +13,18 @@ const productsList = async (pagina) => {
 
   return data;
 };
+const getAllProducts = async () => {
+  const resp = await fetch(url, {
+    method: "GET",
+    headers: {
+      "Content-type": "application/json; charset=UTF-8",
+    },
+  });
+
+  const data = await resp.json();
+
+  return data;
+};
 
 const productAdd = async (datos) => {
   const resp = await fetch(url, {
@@ -54,4 +66,4 @@ const productDelete = async (id) => {
   return data;
 };
 
-export { productsList, productAdd, productUpdate, productDelete };
+export { productsList, productAdd, productUpdate, productDelete, getAllProducts  };
