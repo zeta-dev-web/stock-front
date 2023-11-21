@@ -199,7 +199,11 @@ const ContactApp = ({ darkMode }) => {
               </section>
               <div className="text-center mt-2">
                 <Button
-                  className="mt-1 buttoncontact"
+                  className={`${
+                    darkMode
+                      ? "mt-1 buttoncontact2 text-dark"
+                      : "mt-1 buttoncontact"
+                  }`}
                   type="submit"
                   variant="success"
                   size="xl"

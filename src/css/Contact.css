@@ -37,3 +37,17 @@
   background: #804925!important;
   border: #804925!important;
 }
+
+.buttoncontact2{
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 14px;
+  width: 100px;
+  padding: 50px;
+  text-decoration: none;
+  -webkit-border-radius: 28px;
+  -moz-border-radius: 28px;
+  border-radius: 28px;
+  background: #f0dacc!important;
+  border: #f0dacc!important;
+}
