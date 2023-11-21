@@ -3,10 +3,10 @@ import ContactApp from "../components/ContactApp";
 
 import "../css/Contact.css";
 
-const ContactScreen = ({}) => {
+const ContactScreen = ({ darkMode }) => {
   return (
     <div className="vh-100">
-      <ContactApp />
+      <ContactApp darkMode={darkMode} />
     </div>
   );
 };
