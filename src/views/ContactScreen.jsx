@@ -5,7 +5,7 @@ import "../css/Contact.css";
 
 const ContactScreen = ({ darkMode }) => {
   return (
-    <div className="vh-100">
+    <div className="h-100 fondo">
       <ContactApp darkMode={darkMode} />
     </div>
   );

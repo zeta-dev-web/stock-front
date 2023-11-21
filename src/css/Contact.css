@@ -1,11 +1,10 @@
-body {
+.fondo {
   background-image: url("../assets/2.jpg") !important;
   background-size: cover !important;
   background-position: center !important;
   height: 100vh !important;
-  width: 100vw;
-  margin: 0; /* Esto elimina el margen predeterminado del body */
-}
+  margin: 0; /* Esto elimina el margen predeterminado del body */}
+
 .card{
   padding: 30px 40px;
   margin-top: 60px;

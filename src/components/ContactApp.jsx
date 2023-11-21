@@ -22,9 +22,9 @@ const ContactApp = ({ darkMode }) => {
   };
 
   return (
-    <div className="container-fluid px-1  mx-auto mt-0">
-      <div className="row d-flex justify-content-center m-0">
-        <div className="col-xl-7 col-lg-8 col-md-9 col-11 text-start">
+    <div className="container-fluid px-1 mx-auto mt-0">
+      <div className="row d-flex justify-content-center m-0 vh-100">
+        <div className="col-xl-7 col-lg-8 col-md-9 col-12 text-start h-100">
           <div
             className={`card ${
               darkMode ? "form-container2" : "form-container"
