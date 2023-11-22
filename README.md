@@ -1,0 +1,1 @@
+# Sistema de gestion de stock para panaderias

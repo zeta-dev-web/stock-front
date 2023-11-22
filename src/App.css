@@ -1,0 +1,26 @@
+@import "rsuite/dist/rsuite.css";
+body {
+  height: 100vh;
+}
+.dark-mode-body {
+ background-color: #C68E51; /* Color de fondo personalizado */
+  color: #ffffff; /* Color del texto personalizado */
+}
+.iconogpt{
+  width: 30px;
+  height: 30px;
+}
+
+.navbar-custom {
+  background-color: #F3E0D2; /* Color de fondo personalizado */
+  color: #ffffff; /* Color del texto personalizado */
+}
+
+.navbar-custom-dark {
+  background-color: rgb(75, 52, 28); /* Color de fondo personalizado */
+  color: #ffffff; /* Color del texto personalizado */
+}
+
+ .btn-circular{
+  border-radius: 50%;
+ }

@@ -1,0 +1,53 @@
+.fondo {
+  background-image: url("../assets/2.jpg") !important;
+  background-size: cover !important;
+  background-position: center !important;
+  height: 100vh !important;
+  margin: 0; /* Esto elimina el margen predeterminado del body */}
+
+.card{
+  padding: 30px 40px;
+  margin-top: 60px;
+  margin-bottom: 60px;
+  border: none !important;
+  box-shadow: 0 6px 12px 0 rgba(0,0,0,0.2);
+}
+  
+
+  .form-container {
+  background-color: rgba(255, 255, 255, 0.3)!important; /* Color de fondo con transparencia */
+  backdrop-filter: blur(18px)!important; /* Efecto de desenfoque // Cambia este color al que desees */
+}
+
+.form-container2 {
+  background-color: rgba(59, 28, 0, 0.781)!important; /* Color de fondo con transparencia */
+  backdrop-filter: blur(20px)!important; /* Efecto de desenfoque // Cambia este color al que desees */
+}
+
+.buttoncontact{
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 14px;
+  width: 100px;
+  padding: 15px;
+  text-decoration: none;
+  -webkit-border-radius: 28px;
+  -moz-border-radius: 28px;
+  border-radius: 28px;
+  background: #804925!important;
+  border: #804925!important;
+}
+
+.buttoncontact2{
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 14px;
+  width: 100px;
+  padding: 15px;
+  text-decoration: none;
+  -webkit-border-radius: 28px;
+  -moz-border-radius: 28px;
+  border-radius: 28px;
+  background: #f0dacc!important;
+  border: #f0dacc!important;
+}

@@ -1,0 +1,41 @@
+.user_card {
+    margin-top: auto;
+    margin-bottom: auto;
+    background: #eccfaf;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    padding: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 5px;
+
+}
+.card-title{
+     background: #804925;
+     border-radius: 5px;
+}
+.border{
+    border-radius: 5px;
+}
+.buttonsale {
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 14px;
+  padding: 10px;
+  text-decoration: none;
+  -webkit-border-radius: 28px;
+  -moz-border-radius: 28px;
+  border-radius: 28px;
+  -webkit-box-shadow: 4px 4px 6px #666666;
+  -moz-box-shadow: 4px 4px 6px #666666;
+  box-shadow: 4px 4px 6px #666666;
+  text-shadow: 1px 1px 3px #666666;
+  background: #804925;
+}
+.buttonsale:hover {
+  background: #331b0c;
+  color: #ffffff;
+}
