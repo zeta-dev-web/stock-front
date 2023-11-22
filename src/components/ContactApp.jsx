@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 
 import "../css/Carousel.css";
 
@@ -19,6 +20,9 @@ const ContactApp = ({ darkMode }) => {
     console.log(data); // Puedes realizar acciones con los datos, como enviarlos al servidor
 
     // Aquí puedes agregar lógica adicional, como mostrar un mensaje de éxito o limpiar el formulario
+  };
+  const handleLink = () => {
+    window.location.href = "/Error404App";
   };
 
   return (
@@ -199,7 +203,12 @@ const ContactApp = ({ darkMode }) => {
               </section>
               <div className="text-center mt-2">
                 <Button
-                  className={`${darkMode ? "mt-1 buttoncontact2 text-dark" : "mt-1 buttoncontact"}`}
+                  onClick={handleLink}
+                  className={`${
+                    darkMode
+                      ? "mt-1 buttoncontact2 text-dark"
+                      : "mt-1 buttoncontact"
+                  }`}
                   type="submit"
                   variant="success"
                   size="xl"

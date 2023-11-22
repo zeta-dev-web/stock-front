@@ -3,9 +3,8 @@ import { Link } from "react-router-dom";
 import "../css/Error404.css";
 
 const Error404App = () => {
-  
   return (
-    <section class="page_404 d-flex justify-content-center p-0 m-0">
+    <section className="page_404 d-flex justify-content-center p-0 m-0">
       <div className="w-100">
         <div className="container">
           <div className="row">
