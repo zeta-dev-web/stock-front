@@ -1,4 +1,4 @@
-const url = "https://backend-62i.onrender.com/api/usuarios";
+const url = "https://stock-back-dev-ttgk.4.us-1.fl0.io/api/usuarios";
 
 const usuarioAdd = async (datos) => {
   const resp = await fetch(url, {

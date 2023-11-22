@@ -1,4 +1,4 @@
-const url = "https://backend-62i.onrender.com/api/categorias";
+const url = "https://stock-back-dev-ttgk.4.us-1.fl0.io/api/categorias";
 
 const categoryList = async () => {
   const resp = await fetch(url, {

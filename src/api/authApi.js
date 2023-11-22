@@ -1,4 +1,4 @@
-const url = "https://backend-62i.onrender.com/api/auth";
+const url = "https://stock-back-dev-ttgk.4.us-1.fl0.io/api/auth";
 
 export const login = async (datos) => {
   const res = await fetch(url + "/login", {

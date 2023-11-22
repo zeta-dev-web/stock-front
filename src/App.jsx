@@ -25,7 +25,6 @@ function App() {
   }, [darkMode]);
 
   const changeMode = () => {
-    console.log("Cambiando modo");
     setDarkMode(!darkMode);
   };
 
