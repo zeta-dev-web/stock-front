@@ -6,10 +6,8 @@ import { MdDelete, MdEditSquare } from "react-icons/md";
 import { productDelete } from "../api/productsApi";
 import Swal from "sweetalert2";
 import ModalProductUpdate from "../components/ModalProductUpdate";
-
-
 import useGetProducts from "../hooks/useGetProducts";
-import BtnPagProd from "./BtnPagProd";
+import BtnPagProd from "../components/BtnPagProd";
 
 function StockAdminApp() {
   const [pagina, setPagina] = useState(0);
