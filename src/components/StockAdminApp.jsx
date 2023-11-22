@@ -7,7 +7,7 @@ import { productDelete } from "../api/productsApi";
 import Swal from "sweetalert2";
 import ModalProductUpdate from "./ModalProductUpdate";
 import useGetProducts from "../hooks/useGetProducts";
-import BtnPagProd from "./BtnPagProd";
+// import BtnPagProd from "./BtnPagProd";
 
 function StockAdminApp() {
   const [pagina, setPagina] = useState(0);
@@ -166,7 +166,7 @@ function StockAdminApp() {
                   setProducto={modProd}
                 />
               )}
-              <BtnPagProd nextPage={nextPage} backPage={backPage} />
+              {/* <BtnPagProd nextPage={nextPage} backPage={backPage} /> */}
             </Card.Text>
           )}
         </Card.Body>

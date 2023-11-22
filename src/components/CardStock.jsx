@@ -12,7 +12,7 @@ import Swal from "sweetalert2";
 import { FaBoxOpen } from "react-icons/fa";
 import useGetProducts from "../hooks/useGetProducts";
 import useGetAllProducts from "../hooks/useGetAllProducts";
-import BtnPagProd from "../components/BtnPagProd";
+// import BtnPagProd from "../components/BtnPagProd";
 import "../css/CardStock.css"
 
 function CardStock() {
@@ -130,7 +130,7 @@ function CardStock() {
                     ))}
                 </tbody>
               </Table>
-              <BtnPagProd nextPage={nextPage} backPage={backPage} />
+              {/* <BtnPagProd nextPage={nextPage} backPage={backPage} /> */}
             </Card.Text>
           )}
         </Card.Body>
