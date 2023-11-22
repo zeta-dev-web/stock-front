@@ -1,5 +1,6 @@
 import {useState} from "react";
 import {Card, Table, Button} from "react-bootstrap";
+import ButtonPage from "./ButtonPage";
 import {
   AutoComplete,
   InputGroup,
@@ -130,7 +131,7 @@ function CardStock() {
                     ))}
                 </tbody>
               </Table>
-              {/* <BtnPagProd nextPage={nextPage} backPage={backPage} /> */}
+               <ButtonPage nextPage={nextPage} backPage={backPage}></ButtonPage>
             </Card.Text>
           )}
         </Card.Body>
