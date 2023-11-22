@@ -9,7 +9,7 @@ import ModalProductUpdate from "../components/ModalProductUpdate";
 
 
 import useGetProducts from "../hooks/useGetProducts";
-import BtnPagProd from "../components/BtnPagProd";
+import BtnPagProd from "./BtnPagProd";
 
 function StockAdminApp() {
   const [pagina, setPagina] = useState(0);
