@@ -47,13 +47,14 @@ const handleOpenMP = () => {
 const handleError = () => {
   Swal.fire({
     title: mensaje,
-    text: "No tiene acceso a este panel",
+    text: "Inicie sesión para acceder a este panel",
     icon: "error",
     confirmButtonColor: "#0035FC",
-    confirmButtonText: "Ok",
+    confirmButtonText: "Iniciar Sesión",
   }).then((result) => {
     if (result.isConfirmed) {
       // Redireccionar a la página /login
+      window.location.href = "/login";
     }
   });
 };
