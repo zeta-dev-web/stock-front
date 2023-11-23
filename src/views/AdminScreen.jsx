@@ -30,6 +30,7 @@ const queRolEs = async () => {
       console.log("Mensaje establecido:", respuesta.msg);
     } else if (respuesta?.role) {
       setRole(respuesta.role);
+      console.log("Rol establecido:", respuesta.role);
     } else {
       // Manejar otros casos si es necesario
     }

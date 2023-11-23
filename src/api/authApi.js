@@ -1,4 +1,5 @@
 const url = "https://stock-back-dev-ttgk.4.us-1.fl0.io/api/auth";
+const token = localStorage.getItem("token")|| null
 
 export const login = async (datos) => {
   const res = await fetch(url + "/login", {
