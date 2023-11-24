@@ -1,6 +1,21 @@
 const url = "https://stock-back-dev-ttgk.4.us-1.fl0.io/api/usuarios";
+const token = JSON.parse(localStorage.getItem("token")) 
 
-const usuarioAdd = async (datos) => {
+const usersList = async (pagina) => {
+  const resp = await fetch(url + "?desde=" + pagina, {
+    method: "GET",
+    headers: {
+      "Content-type": "application/json; charset=UTF-8",
+      "x-token": token,
+    },
+  });
+
+  const data = await resp.json();
+
+  return data;
+};
+
+const userAdd = async (datos) => {
   const resp = await fetch(url, {
     method: "POST",
     body: JSON.stringify(datos),
@@ -27,7 +42,7 @@ const userUpdate = async (id, datos) => {
   return data;
 };
 
-const productDelete = async (id) => {
+const userDelete = async (id) => {
   const resp = await fetch(url + "/" + id, {
     method: "DELETE",
     headers: {
@@ -39,4 +54,4 @@ const productDelete = async (id) => {
   return data;
 };
 
-export { usuarioAdd };
+export { userAdd, usersList, userUpdate, userDelete};
