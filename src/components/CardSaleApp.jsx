@@ -20,20 +20,23 @@ import {
 import { toast, ToastContainer, Zoom } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ModalSaleApp from "./ModalSaleApp";
+import useGetAllProducts from "../hooks/useGetAllProducts";
 
 const CardSaleApp = ({ darkMode, handleOpen, open, handletime, dateTime }) => {
+    const { todosLosProductos, traerTodosLosProductos } = useGetAllProducts();
+    console.log("lista:", todosLosProductos);
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [quantity, setQuantity] = useState(1);
 
   const handleAddToCart = (selectedProduct) => {
-    const productDetails = initialData.find(
-      (product) => product.name === selectedProduct
+    const productDetails = todosLosProductos.productos.find(
+      (product) => product.nombre === selectedProduct
     );
-
+console.log(productDetails);
     if (productDetails) {
       const productToAdd = {
-        name: productDetails.name,
-        price: productDetails.price,
+        nombre: productDetails.nombre,
+        precio: productDetails.precio,
         quantity: quantity,
       };
 
@@ -132,9 +135,9 @@ const CardSaleApp = ({ darkMode, handleOpen, open, handletime, dateTime }) => {
                 <div className="col-12 col-md-6">
                   <InputGroup inside className="mt-2 mb-2">
                     <AutoComplete
-                      data={initialData.map((product) => ({
-                        label: `${product.name} - Precio: $${product.price} - Stock Disponible: ${product.stock}`,
-                        value: product.name,
+                      data={todosLosProductos?.productos.map((product) => ({
+                        label: `${product.nombre} - Precio: $${product.precio} - Stock Disponible: ${product.stock}`,
+                        value: product.nombre,
                       }))}
                       onSelect={(value) => handleAddToCart(value)}
                     />{" "}
@@ -209,9 +212,9 @@ const CardSaleApp = ({ darkMode, handleOpen, open, handletime, dateTime }) => {
                       <br />
                     </div>
                   </td>
-                  <td className="fst-italic">{product.name}</td>
+                  <td className="fst-italic">{product.nombre}</td>
                   <td className="fst-italic">
-                    ${product.price * product.quantity}
+                    ${product.precio * product.quantity}
                   </td>
                   <td>
                     <Button
@@ -239,7 +242,7 @@ const CardSaleApp = ({ darkMode, handleOpen, open, handletime, dateTime }) => {
                   $
                   {selectedProducts.reduce(
                     (total, product) =>
-                      total + product.price * product.quantity,
+                      total + product.precio * product.quantity,
                     0
                   )}
                 </td>
@@ -281,30 +284,6 @@ const CardSaleApp = ({ darkMode, handleOpen, open, handletime, dateTime }) => {
       </Card>
     </div>
   );
-};
-
-const initialData = [
-  { name: "Tortillas Gruesas", price: 5, category: "Salado", stock: 50 },
-  { name: "Tortillas Finas", price: 4, category: "Salado", stock: 40 },
-  { name: "Pan", price: 3, category: "Salado", stock: 30 },
-  { name: "Pan Lactal", price: 2, category: "Salado", stock: 25 },
-  { name: "Azúcar", price: 1, category: "Dulce", stock: 60 },
-  { name: "Leche", price: 2, category: "Lácteos", stock: 70 },
-  { name: "Huevos", price: 3, category: "Lácteos", stock: 80 },
-  { name: "Mantequilla", price: 4, category: "Productos", stock: 45 },
-  { name: "Harina", price: 5, category: "Productos", stock: 55 },
-  { name: "Levadura", price: 6, category: "Productos", stock: 35 },
-  { name: "Miel", price: 7, category: "Dulce", stock: 25 },
-  { name: "Galletas", price: 8, category: "Dulce", stock: 50 },
-  { name: "Croissants", price: 9, category: "Dulce", stock: 30 },
-  { name: "Pastelitos", price: 10, category: "Dulce", stock: 40 },
-  { name: "Donas", price: 11, category: "Dulce", stock: 20 },
-  { name: "Bagels", price: 12, category: "Salado", stock: 25 },
-  { name: "Panes Integrales", price: 13, category: "Salado", stock: 30 },
-  { name: "Bollo", price: 14, category: "Salado", stock: 35 },
-  { name: "Panecillos", price: 15, category: "Salado", stock: 40 },
-  { name: "CocaCola 2L", price: 2.5, category: "Bebidas", stock: 60 },
-  { name: "Pepsi 2L", price: 2.3, category: "Bebidas", stock: 55 },
-];
+}
 
 export default CardSaleApp;

@@ -13,6 +13,10 @@ import "jspdf-autotable";
 
 const ModalSaleApp = ({ open, handleOpen, products, dateTime, setSelectedProducts }) => {
   const [overflow, setOverflow] = useState(true);
+const user = JSON.parse(localStorage.getItem("usuario"));
+const comercio = import.meta.env.NOMBRE_DEL_COMERCIO;
+const direccion = import.meta.env.DIRECCION_DEL_COMERCIO;
+let mediodepago = null
 
   //seleccione metodo de pago
 const handleConfirmSale = () => {
@@ -28,8 +32,10 @@ const handleConfirmSale = () => {
   }).then((result) => {
     if (result.isConfirmed) {
       handleCardSale(true);
+      mediodepago = "Tarjeta";
     } else {
      handleCardSale(false);
+     mediodepago = "Efectivo";
       };
     }
   );
@@ -88,7 +94,8 @@ const handleCardSale = (option) => {
 }
 const generatePDF = () => {
   const pdf = new jsPDF();
-  const name = "Leo Zamorano";
+  const name = user.name;
+  const formadepago = mediodepago
   // Encabezado, Información del negocio, Fecha y hora...
   pdf.text(
     "Comprobante de Compra",
@@ -96,31 +103,28 @@ const generatePDF = () => {
     10,
     "center"
   );
-  pdf.text(
-    "Panaderia tu pancito - Av. Siempre Viva 1022 - San Miguel de Tucumán",
-    10,
-    20
-  );
-  pdf.setFontSize(10); // Ajustar el tamaño de la fuente
+  pdf.text(`${comercio} - ${direccion}`, 10, 20);
+  pdf.setFontSize(10); 
   pdf.text(`Fecha: ${dateTime?.[0]}`, 10, 30);
   pdf.text(`Hora: ${dateTime?.[1]}`, pdf.internal.pageSize.width - 50, 30);
 
   // Fuiste atendido por
   pdf.setFontSize(8); // Ajustar el tamaño de la fuente
   pdf.text(`Fuiste atendido por: ${name}`, 10, 40);
+pdf.text(`Forma de pago: ${formadepago}`, 10, 45);
 
   // Tabla de productos
   pdf.setFontSize(12); // Ajustar el tamaño de la fuente
   const columns = ["Cantidad", "Producto", "Precio"];
   const rows = products.map((product) => [
     product.quantity,
-    product.name,
-    `$${product.price * product.quantity}`,
+    product.nombre,
+    `$${product.precio * product.quantity}`,
   ]);
 
   // Calcular el total pagado
   const totalPagado = products.reduce(
-    (total, product) => total + product.price * product.quantity,
+    (total, product) => total + product.precio * product.quantity,
     0
   );
 
@@ -169,20 +173,23 @@ const generatePDF = () => {
             <div className="text-dark fw-semibold m-0 ps-2">
               Fecha:{dateTime?.[0]}
             </div>
+            <div className="text-dark fw-semibold m-0 ps-2">
+              Usuario: {user?.name}
+            </div>
             <div className="text-dark fw-semibold m-0 pe-2">
               Hora:{dateTime?.[1]}
             </div>
           </div>
-          <Table striped bordered hover variant="light text-center">
+          <Table responsive striped bordered hover variant="light text-center">
             <thead className="card-title">
               <tr>
-                <th className="text-center border text-white bg-dark">
+                <th className="text-center border text-white bg-dark col-2">
                   <div className="d-flex me-1 mt-1 flex-row justify-content-center">
                     <FaBoxOpen />
                     <div className="ms-2">Cantidad</div>
                   </div>
                 </th>
-                <th className="text-center border text-white bg-dark">
+                <th className="text-center border text-white bg-dark col-7">
                   <div className="d-flex me-1 mt-1 flex-row justify-content-center">
                     <FaProductHunt />
                     <div className="ms-2">Producto</div>
@@ -207,9 +214,9 @@ const generatePDF = () => {
                       <br />
                     </div>
                   </td>
-                  <td className="fst-italic">{product.name}</td>
+                  <td className="fst-italic">{product.nombre}</td>
                   <td className="fst-italic">
-                    ${product.price * product.quantity}
+                    ${product.precio * product.quantity}
                   </td>
                 </tr>
               ))}
@@ -223,15 +230,12 @@ const generatePDF = () => {
                   $
                   {products.reduce(
                     (total, product) =>
-                      total + product.price * product.quantity,
+                      total + product.precio * product.quantity,
                     0
                   )}
                 </td>
               </tr>
             </tbody>
-            <div className="text-start fw-semibold mt-3 fs-6 ps-0">
-              Muchas Gracias por su compra
-            </div>
           </Table>
         </Modal.Body>
         <Modal.Footer>

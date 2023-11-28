@@ -20,6 +20,7 @@ const isLoggedIn = localStorage.getItem("LoginIn");
     // Eliminar el token del localStorage
     localStorage.removeItem("token");
     localStorage.removeItem("LoginIn");
+    localStorage.removeItem("usuario");
 
     // Actualizar el estado isLoggedIn a false
     handlesetIsLoggedIn();

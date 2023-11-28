@@ -31,6 +31,7 @@ const LoginScreen = ({ darkMode, IsLoggedIn, handlesetIsLoggedIn }) => {
 
     if (respuesta?.token) {
       localStorage.setItem("token", JSON.stringify(respuesta.token));
+      localStorage.setItem("usuario", JSON.stringify(respuesta.usuario));
       handlesetIsLoggedIn();
       navigate("/");
     }

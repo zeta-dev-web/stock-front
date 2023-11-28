@@ -14,8 +14,8 @@ const productsList = async (pagina) => {
 
   return data;
 };
-const getAllProducts = async () => {
-  const resp = await fetch(url, {
+const getAllProducts = async (pagina) => {
+  const resp = await fetch(`${url}?desde=${pagina}&limite=${null}`, {
     method: "GET",
     headers: {
       "Content-type": "application/json; charset=UTF-8",
@@ -26,7 +26,6 @@ const getAllProducts = async () => {
 
   return data;
 };
-
 const productAdd = async (datos) => {
   console.log(token);
   const resp = await fetch(url, {
