@@ -227,43 +227,35 @@ const ModalProductUpdate = ({ show, handleClose, producto, setProducto }) => {
                 {errors.descripcion?.message}
               </p>
             </fieldset>
-            <fieldset className="text-center d-flex row justify-content-center">
+            <fieldset className="col-12 col-md-12 mb-1 text-center">
               <label htmlFor="image-input" className="form-label">
-                Imagen actual
+                Imagen
               </label>
-              {producto.img ? (
-                <img className="img mb-1" src={producto.img} alt="Producto" />
-              ) : (
-                <p>No posee imagen</p>
-              )}
-            </fieldset>
-            <fieldset className="col-12 col-md-12 mb-1">
+              <div>
+                {" "}
+                {producto.img ? (
+                  <img className="img mb-1" src={producto.img} alt="Producto" />
+                ) : (
+                  <p className="text-danger">No posee imagen</p>
+                )}
+              </div>
               <input
-                type="file"
+                type="text"
                 id="image-input"
                 className="form-control"
-                {...register("imagen", {
+                placeholder="Ingrese una url de una imagen"
+                {...register("img", {
                   validate: {
-                    isImage: (value) => {
-                      if (!value[0]) {
-                        return true;
-                      }
-
-                      const acceptedFormats = ["image/jpeg", "image/png"];
-
-                      const isValidFormat = acceptedFormats.includes(
-                        value[0].type
+                    isImageUrl: (value) => {
+                      const urlRegex = /^(ftp|http|https):\/\/[^ "]+$/;
+                      return (
+                        !value ||
+                        urlRegex.test(value) ||
+                        "Ingrese una URL válida."
                       );
-
-                      if (!isValidFormat) {
-                        return "El formato de la imagen no es válido. Por favor, seleccione una imagen JPEG o PNG.";
-                      }
-
-                      return true;
                     },
                   },
                 })}
-                onChange={(e) => handleChange(e)}
               />
             </fieldset>
             <fieldset className="col-12 ">
