@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import {Card, Table, Button} from "react-bootstrap";
+import { Card, Table, Button } from "react-bootstrap";
 import Swal from "sweetalert2";
 import "sweetalert2/src/sweetalert2.scss";
 import ModalUserApp from "./ModalUserApp";
@@ -10,25 +10,25 @@ import useGetAllUsers from "../hooks/useGetAllUsers";
 import ButtonPage from "./ButtonPage";
 import ModalUserUpdate from "./ModalUserUpdate";
 
-const UserAdminApp=({})=>{
+const UserAdminApp = ({}) => {
   const [pagina, setPagina] = useState(0);
   const { datos, traerDatos } = useGetAllUsers(pagina);
   const [show, setShow] = useState(false); //Estado para manejo de Modal
   const [usuario, setUsuario] = useState(null); //datos del usuario a actualizar
   const [open, setOpen] = useState(false);
 
- const handleClose = () => {
-   //Función para cerrar modal
-   setUsuario(null);
-   setShow(false);
-   traerDatos();
- };
+  const handleClose = () => {
+    //Función para cerrar modal
+    setUsuario(null);
+    setShow(false);
+    traerDatos();
+  };
 
- const handleShow = (datos) => {
-   //Función para mostrar modal
-   setUsuario(datos);
-   setShow(true);
- };
+  const handleShow = (datos) => {
+    //Función para mostrar modal
+    setUsuario(datos);
+    setShow(true);
+  };
 
   const handleOpen = () => {
     setOpen(!open);
@@ -39,9 +39,9 @@ const UserAdminApp=({})=>{
     setTableVisible(!tableVisible);
   };
 
-  //Funciones para manejo de paginación---------
+  // Funciones para manejo de paginación---------
   const nextPage = () => {
-    const totalPages = datos.total / 5;
+    const totalPages = Math.ceil(datos.total / 5); // Asegúrate de redondear hacia arriba para obtener el número correcto de páginas
     console.log(totalPages);
     if (pagina + 1 < totalPages) {
       setPagina(pagina + 5);
@@ -59,27 +59,27 @@ const UserAdminApp=({})=>{
   };
 
   const deleteUser = async (id) => {
-  Swal.fire({
-    title: "¿Quieres borrar el usuario?",
-    text: "Esta acción no se puede deshacer",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonColor: "#3085d6",
-    cancelButtonColor: "#d33",
-    cancelButtonText: "Cancelar",
-    confirmButtonText: "Sí",
-  }).then(async (result) => {
-    if (result.isConfirmed) {
-      const respuesta = await userDelete(id);
-      Swal.fire({
-        title: "El usuario fue borrado",
-        text: "",
-        icon: "success",
-      });
-      traerDatos();
-    }
-  });
-};
+    Swal.fire({
+      title: "¿Quieres borrar el usuario?",
+      text: "Esta acción no se puede deshacer",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      cancelButtonText: "Cancelar",
+      confirmButtonText: "Sí",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const respuesta = await userDelete(id);
+        Swal.fire({
+          title: "El usuario fue borrado",
+          text: "",
+          icon: "success",
+        });
+        traerDatos();
+      }
+    });
+  };
   return (
     <div className="m-4">
       <Card className="container">
@@ -156,13 +156,18 @@ const UserAdminApp=({})=>{
                   setUsuario={modUser}
                 />
               )}
-              <ButtonPage nextPage={nextPage} backPage={backPage} />
+              <ButtonPage
+                nextPage={nextPage}
+                backPage={backPage}
+                isBackDisabled={pagina < 5}
+                isNextDisabled={pagina + 1 >= Math.ceil(datos.total / 5)}
+              />
             </Card.Text>
           )}
         </Card.Body>
       </Card>
     </div>
   );
-}
+};
 
 export default UserAdminApp;

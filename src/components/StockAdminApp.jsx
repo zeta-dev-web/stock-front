@@ -23,12 +23,11 @@ function StockAdminApp() {
     traerDatos();
   };
 
-    const handleShow = (datos) => {
-      //Función para mostrar modal
-      setProducto(datos);
-      setShow(true);
-    };
-
+  const handleShow = (datos) => {
+    //Función para mostrar modal
+    setProducto(datos);
+    setShow(true);
+  };
 
   const handleOpen = () => {
     setOpen(!open);
@@ -38,10 +37,9 @@ function StockAdminApp() {
     setTableVisible(!tableVisible);
   };
 
-  //Funciones para manejo de paginación---------
+  // Funciones para manejo de paginación---------
   const nextPage = () => {
-    //total de los productos = 8 / 2 página
-    const totalPages = datos.total / 5;
+    const totalPages = Math.ceil(datos.total / 5); // Asegúrate de redondear hacia arriba para obtener el número correcto de páginas
     console.log(totalPages);
     if (pagina + 1 < totalPages) {
       setPagina(pagina + 5);
@@ -76,7 +74,8 @@ function StockAdminApp() {
           text: "",
           icon: "success",
         });
-      traerDatos()}
+        traerDatos();
+      }
     });
   };
 
@@ -170,7 +169,12 @@ function StockAdminApp() {
                   setProducto={modProd}
                 />
               )}
-              <ButtonPage nextPage={nextPage} backPage={backPage} />
+              <ButtonPage
+                nextPage={nextPage}
+                backPage={backPage}
+                isBackDisabled={pagina < 5}
+                isNextDisabled={pagina + 1 >= Math.ceil(datos.total / 5)}
+              />
             </Card.Text>
           )}
         </Card.Body>
