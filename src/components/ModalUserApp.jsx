@@ -5,68 +5,64 @@ import "sweetalert2/src/sweetalert2.scss";
 import { Modal } from "rsuite";
 import { useForm } from "react-hook-form";
 import { AiFillEye, AiFillEyeInvisible} from "react-icons/ai";
+import { userAdd } from "../api/usuariosApi";
 
-const ModalUserApp = ({ open, handleOpen }) => {
- const [overflow, setOverflow] = useState(true);
- const {
-   register,
-   handleSubmit,
-   formState: { errors, isValid },
-   setValue,
-   reset,
- } = useForm({
-   mode: "onChange", // Validar al cambiar el formulario
- });
 
- const newProduct = (data) => {
-   // Validar el formulario antes de realizar alguna acción
-   if (!isValid) {
-     // Muestra una alerta o realiza alguna acción según tus necesidades
-     Swal.fire({
-       title: "Error",
-       text: "Por favor, completa todos los campos correctamente.",
-       icon: "error",
-     });
-     return;
-   }
+const ModalUserApp = ({ open, handleOpen, traerDatos }) => {
+  const [overflow, setOverflow] = useState(true);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+    setValue,
+    reset,
+  } = useForm({
+    mode: "onChange", // Validar al cambiar el formulario
+  });
 
-   // Lógica para guardar el producto
-   console.log(data);
+  const newUser = async (data) => {
+    data.role = "USER_ROLE";
+    console.log(data);
+    await userAdd(data);
+    await Swal.fire({
+      title: "Usuario creado con Exito!",
+      text: "El usuario se guardó en la base de datos",
+      icon: "success",
+    });
+    traerDatos();
+    handleOpen();
+    reset();
+  };
 
-   // Cerrar el modal después de guardar
-   handleOpen();
- };
+  const handleReset = () => {
+    Swal.fire({
+      title: "Seguro quiere cancelar?",
+      text: "No podra recuperar los datos que no se guardaron",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Si, Cancelar",
+      cancelButtonText: "No, Seguir cargando",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Informacion Eliminada!",
+          text: "El usuario no se guardó",
+          icon: "success",
+        });
+        reset();
+        handleOpen();
+      }
+    });
+  };
 
- const handleReset = () => {
-   Swal.fire({
-     title: "Seguro quiere cancelar?",
-     text: "No podra recuperar los datos que no se guardaron",
-     icon: "warning",
-     showCancelButton: true,
-     confirmButtonColor: "#3085d6",
-     cancelButtonColor: "#d33",
-     confirmButtonText: "Si, Cancelar",
-     cancelButtonText: "No, Seguir cargando",
-   }).then((result) => {
-     if (result.isConfirmed) {
-       Swal.fire({
-         title: "Informacion Eliminada!",
-         text: "El usuario no se guardó",
-         icon: "success",
-       });
-       reset();
-       handleOpen();
-     }
-   });
- };
+  const [showPassword, setShowPassword] = useState(false);
 
- const [showPassword, setShowPassword] = useState(false);
-
- // Función para alternar la visibilidad de la contraseña
- const togglePasswordVisibility = () => {
-   setShowPassword(!showPassword);
- };
-
+  // Función para alternar la visibilidad de la contraseña
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   return (
     <>
@@ -79,7 +75,7 @@ const ModalUserApp = ({ open, handleOpen }) => {
         <Modal.Body className="bg-white d-flex container">
           <form
             noValidate
-            onSubmit={handleSubmit(newProduct)}
+            onSubmit={handleSubmit(newUser)}
             className="bg-light text-dark p-0 m-0 rounded w-100"
           >
             <section className="row">
@@ -91,7 +87,7 @@ const ModalUserApp = ({ open, handleOpen }) => {
                   type="text"
                   id="name-input"
                   className="form-control"
-                  {...register("nombre", {
+                  {...register("name", {
                     required: "Debe Ingresar un Nombre.",
                     minLength: {
                       value: 5,
@@ -142,7 +138,7 @@ const ModalUserApp = ({ open, handleOpen }) => {
                     type={showPassword ? "text" : "password"}
                     id="password-input"
                     className="form-control"
-                    {...register("contrasena", {
+                    {...register("password", {
                       required: "Debe Ingresar una Contraseña.",
                       minLength: {
                         value: 8,

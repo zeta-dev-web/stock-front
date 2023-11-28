@@ -30,16 +30,26 @@ const userAdd = async (datos) => {
 };
 
 const userUpdate = async (id, datos) => {
-  const resp = await fetch(url + "/" + id, {
-    method: "PUT",
-    body: JSON.stringify(datos),
-    headers: {
-      "Content-type": "application/json; charset=UTF-8",
-      "x-token": token,
-    },
-  });
-  const data = await resp.json();
-  return data;
+  try {
+    const resp = await fetch(url + "/" + id, {
+      method: "PUT",
+      body: JSON.stringify(datos),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+        "x-token": token,
+      },
+    });
+
+    if (!resp.ok) {
+      const errorData = await resp.json();
+      throw new Error(errorData.msg);
+    }
+
+    const data = await resp.json();
+    return data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
 };
 
 const userDelete = async (id) => {

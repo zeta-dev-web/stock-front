@@ -74,7 +74,10 @@ const handleError = () => {
                 openMP={openMP}
                 handleOpenMP={handleOpenMP}
               ></StockAdminApp>
-              <UserAdminApp></UserAdminApp>
+              <UserAdminApp
+                openMP={openMP}
+                handleOpenMP={handleOpenMP}
+              ></UserAdminApp>
             </div>
           ) : (
             handleError()

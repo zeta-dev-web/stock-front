@@ -5,42 +5,33 @@ import "sweetalert2/src/sweetalert2.scss";
 import ModalUserApp from "./ModalUserApp";
 import { MdDelete, MdEditSquare } from "react-icons/md";
 import { MdAccountBox } from "react-icons/md";
-import { userDelete } from "../api/usuariosApi";
+import { userDelete, userUpdate } from "../api/usuariosApi";
 import useGetAllUsers from "../hooks/useGetAllUsers";
 import ButtonPage from "./ButtonPage";
-
+import ModalUserUpdate from "./ModalUserUpdate";
 
 const UserAdminApp=({})=>{
   const [pagina, setPagina] = useState(0);
   const { datos, traerDatos } = useGetAllUsers(pagina);
-  console.log(datos);
-
+  const [show, setShow] = useState(false); //Estado para manejo de Modal
+  const [usuario, setUsuario] = useState(null); //datos del usuario a actualizar
   const [open, setOpen] = useState(false);
+
+ const handleClose = () => {
+   //Función para cerrar modal
+   setUsuario(null);
+   setShow(false);
+   traerDatos();
+ };
+
+ const handleShow = (datos) => {
+   //Función para mostrar modal
+   setUsuario(datos);
+   setShow(true);
+ };
+
   const handleOpen = () => {
     setOpen(!open);
-  };
-
-  const deleteUser = async (id) => {
-    Swal.fire({
-      title: "¿Quieres borrar el usuario?",
-      text: "Esta acción no se puede deshacer",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      cancelButtonText: "Cancelar",
-      confirmButtonText: "Sí",
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        const respuesta = await userDelete(id);
-        Swal.fire({
-          title: "El usuario fue borrado",
-          text: "",
-          icon: "success",
-        });
-        traerDatos();
-      }
-    });
   };
 
   const [tableVisible, setTableVisible] = useState(false);
@@ -50,7 +41,6 @@ const UserAdminApp=({})=>{
 
   //Funciones para manejo de paginación---------
   const nextPage = () => {
-    //total de los productos = 8 / 2 página
     const totalPages = datos.total / 5;
     console.log(totalPages);
     if (pagina + 1 < totalPages) {
@@ -64,8 +54,32 @@ const UserAdminApp=({})=>{
     }
   };
   //---------------------------------------------
+  const modUser = (datos) => {
+    setUsuario(datos);
+  };
 
-
+  const deleteUser = async (id) => {
+  Swal.fire({
+    title: "¿Quieres borrar el usuario?",
+    text: "Esta acción no se puede deshacer",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    cancelButtonText: "Cancelar",
+    confirmButtonText: "Sí",
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      const respuesta = await userDelete(id);
+      Swal.fire({
+        title: "El usuario fue borrado",
+        text: "",
+        icon: "success",
+      });
+      traerDatos();
+    }
+  });
+};
   return (
     <div className="m-4">
       <Card className="container">
@@ -89,7 +103,11 @@ const UserAdminApp=({})=>{
                 : "Ver Lista de Usuarios"}
             </Button>
           </div>
-          <ModalUserApp open={open} handleOpen={handleOpen} />
+          <ModalUserApp
+            open={open}
+            handleOpen={handleOpen}
+            traerDatos={traerDatos}
+          />
           {tableVisible && (
             <Card.Text className="mt-1">
               <Table striped bordered hover variant="white text-center">
@@ -109,7 +127,7 @@ const UserAdminApp=({})=>{
                           <Button
                             size="sm"
                             variant="success"
-                            // onClick={() => handleShow(producto)}
+                            onClick={() => handleShow(usuarios)}
                           >
                             <MdEditSquare />
                           </Button>
@@ -124,11 +142,21 @@ const UserAdminApp=({})=>{
                         </td>
                         <td>{usuarios.name}</td>
                         <td>{usuarios.email}</td>
-                        <td>{usuarios.state}</td>
+                        <td>{usuarios.state ? "Activo" : "Inactivo"}</td>
                       </tr>
                     ))}
                 </tbody>
               </Table>
+              {/* Componente del Modal con sus respectivos Props  */}
+              {usuario && (
+                <ModalUserUpdate
+                  show={show}
+                  handleClose={handleClose}
+                  usuario={usuario}
+                  setUsuario={modUser}
+                />
+              )}
+              <ButtonPage nextPage={nextPage} backPage={backPage} />
             </Card.Text>
           )}
         </Card.Body>
