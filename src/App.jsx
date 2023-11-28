@@ -33,7 +33,6 @@ const handlesetIsLoggedIn = ()=>{
   if (localStorage.getItem("token")){
     localStorage.setItem("LoginIn", JSON.stringify("true"));  
   }
-  
 }
   return (
     <div className={`vh-100 ${darkMode ? "v-h100" : ""}`}>
@@ -41,7 +40,6 @@ const handlesetIsLoggedIn = ()=>{
         <NavbarApp
           darkMode={darkMode}
           changeMode={changeMode}
-          isLoggedIn={isLoggedIn}
         />
         <Routes>
           <Route

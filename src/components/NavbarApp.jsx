@@ -13,7 +13,9 @@ import {
   FaArrowRightToBracket,
 } from "react-icons/fa6";
 
-const NavbarApp = ({ darkMode, changeMode, isLoggedIn }) => {
+const NavbarApp = ({ darkMode, changeMode }) => {
+const isLoggedIn = localStorage.getItem("LoginIn");
+
   const handleLogout = () => {
     // Eliminar el token del localStorage
     localStorage.removeItem("token");
