@@ -4,7 +4,10 @@ import imagen01 from "../assets/01.jpg";
 import imagen02 from "../assets/2.jpg";
 import "../css/Carousel.css";
 
+
 const Carousel = ({ isLoggedIn }) => {
+const login = localStorage.getItem("LoginIn");
+console.log(login);
   return (
     <div
       id="carouselExampleFade"
@@ -23,13 +26,13 @@ const Carousel = ({ isLoggedIn }) => {
             <h3 className="text-center">
               Bienvenido al Sistema de Gestion de Stock y Ventas para Panaderias
             </h3>
-            {!isLoggedIn && (
+            {!isLoggedIn && !login ? (
               <Link to="/login">
                 <button className="btn btn-outline-light btn-lg">
-                  INICIAR SESION
+                  INICIAR SESIÓN
                 </button>
               </Link>
-            )}
+            ) : null}
           </div>
         </div>
       </div>
