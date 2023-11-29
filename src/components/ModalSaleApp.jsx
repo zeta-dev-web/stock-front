@@ -10,13 +10,13 @@ import "sweetalert2/src/sweetalert2.scss";
 import { Modal, Toggle, Button, Placeholder } from "rsuite";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
+import { agregarVenta } from "../api/ventasApi";
 
 const ModalSaleApp = ({ open, handleOpen, products, dateTime, setSelectedProducts }) => {
   const [overflow, setOverflow] = useState(true);
 const user = JSON.parse(localStorage.getItem("usuario"));
 const comercio = import.meta.env.NOMBRE_DEL_COMERCIO;
 const direccion = import.meta.env.DIRECCION_DEL_COMERCIO;
-let mediodepago = null
 
   //seleccione metodo de pago
 const handleConfirmSale = () => {
@@ -42,10 +42,34 @@ const handleConfirmSale = () => {
 };
 
 //responde a la seleccion del metodo de pago
-const handleCardSale = (option) => {
-  if (option) {
+const handleCardSale = async (option) => {
+  let formaDePago = option ? "Tarjeta" : "Efectivo";
+
+  // Recolectar datos
+  const data = {
+    date: dateTime?.[0],
+    time: dateTime?.[1],
+    descripcion: products.map((product) => ({
+      cantidad: product.quantity,
+      producto: product.nombre,
+      precio: product.precio * product.quantity,
+    })),
+    total: products.reduce(
+      (total, product) => total + product.precio * product.quantity,
+      0
+    ),
+  };
+
+  console.log(data);
+
+  try {
+    // Guardar la venta y obtener la respuesta del servidor
+    const response = await agregarVenta(data);
+console.log("Respuesta de agregarVenta:", response);
+
+
     Swal.fire({
-      title: "Metodo seleccionado: Tarjeta",
+      title: `Metodo seleccionado: ${formaDePago}`,
       text: "¿Desea generar el comprobante?",
       icon: "success",
       showCancelButton: true,
@@ -54,6 +78,7 @@ const handleCardSale = (option) => {
       cancelButtonText: "Cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
+        // Generar el PDF
         Swal.fire({
           title: "Comprobante PDF generado con éxito!",
           icon: "success",
@@ -66,32 +91,11 @@ const handleCardSale = (option) => {
         setSelectedProducts([]);
       }
     });
+  } catch (error) {
+    console.error("Error al agregar la venta:", error);
+    // Manejar el error según sea necesario
   }
-  else{
-     Swal.fire({
-       title: "Metodo seleccionado: Efectivo",
-       text: "¿Desea generar el comprobante?",
-       icon: "success",
-       showCancelButton: true,
-       confirmButtonColor: "#0035FC",
-       confirmButtonText: "Generar Comprobante",
-       cancelButtonText: "Cancelar",
-     }).then((result) => {
-       if (result.isConfirmed) {
-         Swal.fire({
-           title: "Comprobante PDF generado con éxito!",
-           icon: "success",
-         });
-         generatePDF()
-         handleOpen();
-         setSelectedProducts([]);
-       }
-       else{handleOpen();
-       setSelectedProducts([]);
-}
-     });
-  }
-}
+};
 const generatePDF = () => {
   const pdf = new jsPDF();
   const name = user.name;
@@ -153,7 +157,6 @@ pdf.text(`Forma de pago: ${formadepago}`, 10, 45);
   // Guardar el PDF en la computadora
   pdf.save("comprobante_compra.pdf");
 };
-
 
   return (
     <>

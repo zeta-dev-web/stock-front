@@ -28,22 +28,29 @@ const CardSaleApp = ({ darkMode, handleOpen, open, handletime, dateTime }) => {
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [quantity, setQuantity] = useState(1);
 
-  const handleAddToCart = (selectedProduct) => {
-    const productDetails = todosLosProductos.productos.find(
-      (product) => product.nombre === selectedProduct
-    );
-console.log(productDetails);
-    if (productDetails) {
-      const productToAdd = {
-        nombre: productDetails.nombre,
-        precio: productDetails.precio,
-        quantity: quantity,
-      };
+ const handleAddToCart = (selectedProduct) => {
+   const productDetails = todosLosProductos.productos.find(
+     (product) => product.nombre === selectedProduct
+   );
 
-      setSelectedProducts([...selectedProducts, productToAdd]);
-      setQuantity(1);
-    }
-  };
+   if (productDetails && productDetails.stock > 0) {
+     const productToAdd = {
+       nombre: productDetails.nombre,
+       precio: productDetails.precio,
+       quantity: quantity,
+     };
+
+     setSelectedProducts([...selectedProducts, productToAdd]);
+     setQuantity(1);
+   } else if (productDetails) {
+     // Stock es 0, mostrar alerta
+     Swal.fire({
+       title: "Producto no disponible",
+       text: "El producto seleccionado no tiene stock disponible.",
+       icon: "warning",
+     });
+   }
+ };
   const handleRemoveFromCart = (index) => {
     Swal.fire({
       title: "Quieres eliminar el producto?",
