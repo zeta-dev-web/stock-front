@@ -49,7 +49,7 @@ const handleOpenMP = () => {
 const handleError = () => {
   Swal.fire({
     title: mensaje,
-    text: "Inicie sesión para acceder a este panel",
+    text: "Inicie sesión como administrador para acceder a este panel",
     icon: "error",
     confirmButtonColor: "#0035FC",
     confirmButtonText: "Iniciar Sesión",
