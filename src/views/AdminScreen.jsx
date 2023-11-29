@@ -3,6 +3,7 @@ import Toastify from "toastify-js";
 import "toastify-js/src/toastify.css";
 import StockAdminApp from '../components/StockAdminApp';
 import UserAdminApp from '../components/UserAdminApp';
+import SaleAdminApp from '../components/SaleAdminApp';
 import { NavLink, Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import { obtenerDatosAuth } from "../api/authApi";
@@ -78,6 +79,11 @@ const handleError = () => {
                 openMP={openMP}
                 handleOpenMP={handleOpenMP}
               ></UserAdminApp>
+              <SaleAdminApp
+                openMP={openMP}
+                handleOpenMP={handleOpenMP}
+              ></SaleAdminApp>
+              
             </div>
           ) : (
             handleError()

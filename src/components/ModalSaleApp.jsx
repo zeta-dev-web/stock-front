@@ -17,6 +17,7 @@ const ModalSaleApp = ({ open, handleOpen, products, dateTime, setSelectedProduct
 const user = JSON.parse(localStorage.getItem("usuario"));
 const comercio = import.meta.env.NOMBRE_DEL_COMERCIO;
 const direccion = import.meta.env.DIRECCION_DEL_COMERCIO;
+let mediodepago = null
 
   //seleccione metodo de pago
 const handleConfirmSale = () => {
@@ -49,6 +50,7 @@ const handleCardSale = async (option) => {
   const data = {
     date: dateTime?.[0],
     time: dateTime?.[1],
+    pago: formaDePago,
     descripcion: products.map((product) => ({
       cantidad: product.quantity,
       producto: product.nombre,
