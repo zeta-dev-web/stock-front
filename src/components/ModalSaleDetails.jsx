@@ -10,7 +10,7 @@ const ModalSaleDetails = ({ show, handleClose, venta }) => {
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>
-          <div className="fs-5">Venta: {venta?._id}</div>
+          <div className="fs-5">Venta ID: {venta?._id}</div>
         </Modal.Title>
       </Modal.Header>
       <Modal.Body className="bg-white d-flex container">
@@ -34,7 +34,7 @@ const ModalSaleDetails = ({ show, handleClose, venta }) => {
                 readOnly
               />
             </div>
-            <div className="col-md-6 mt-2">
+            <div className="col-md-4 mt-2">
               <label>Vendedor:</label>
               <input
                 type="text"
@@ -43,8 +43,8 @@ const ModalSaleDetails = ({ show, handleClose, venta }) => {
                 readOnly
               />
             </div>
-            <div className="col-md-6 mt-2">
-              <label>ID:</label>
+            <div className="col-md-8 mt-2">
+              <label>ID del vendedor:</label>
               <input
                 type="text"
                 className="form-control"
@@ -58,9 +58,9 @@ const ModalSaleDetails = ({ show, handleClose, venta }) => {
                 <div key={index}>
                   <textarea
                     className="form-control"
-                    defaultValue={`N°: ${index + 1} - Producto: ${
+                    defaultValue={`Producto N°: ${index + 1} - Detalle: ${
                       item.producto
-                    }, Cantidad: ${item.cantidad}, Precio: $${item.precio}`}
+                    } - Cantidad: ${item.cantidad} - Precio: $${item.precio}`}
                     readOnly
                     rows={2}
                     style={{ resize: "none", height: "auto" }}

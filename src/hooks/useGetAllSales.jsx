@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import { traerTodasVentas } from "../api/ventasApi";
+import { listaVentas } from "../api/ventasApi";
 
 const useGetAllSales = (pagina = 0) => {
   const [todasLasVentas, setTodasLasVentas] = useState(null);
 
   const traerDatos = async () => {
     try {
-      const response = await traerTodasVentas(pagina);
+      const response = await listaVentas(pagina);
       setTodasLasVentas(response);
     } catch (error) {
       console.error("Error al obtener datos:", error);

@@ -33,9 +33,9 @@ function SaleAdminApp() {
     setTableVisible(!tableVisible);
   };
 
-  // Funciones para manejo de paginación---------
+// Funciones para manejo de paginación---------
   const nextPage = () => {
-    const totalPages = Math.ceil(datos.total / 5); // Asegúrate de redondear hacia arriba para obtener el número correcto de páginas
+    const totalPages = Math.ceil(todasLasVentas?.total / 5); // Asegúrate de redondear hacia arriba para obtener el número correcto de páginas
     console.log(totalPages);
     if (pagina + 1 < totalPages) {
       setPagina(pagina + 5);
@@ -80,9 +80,9 @@ function SaleAdminApp() {
                   <tr>
                     <th>Opc.</th>
                     <th>Fecha</th>
+                    <th>Hora</th>
                     <th>Usuario</th>
                     <th>Total</th>
-                    <th>Descripcion</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -93,24 +93,15 @@ function SaleAdminApp() {
                           <Button
                             size="sm"
                             variant="success"
-                            onClick={() => handleShow(venta)} // Pasar la venta al hacer clic
+                            onClick={() => handleShow(venta)}
                           >
                             <MdEditSquare />
                           </Button>
-                          <Button size="sm" variant="danger" className="ms-1">
-                            <MdDelete />
-                          </Button>
                         </td>
                         <td>{venta.date}</td>
+                        <td>{venta.time}</td>
                         <td>{venta.usuario.name}</td>
-                        <td>{venta.total}</td>
-                        <td>
-                          {venta.descripcion.map((item, index) => (
-                            <div key={index}>
-                              <div>Producto: {item.producto}</div>
-                            </div>
-                          ))}
-                        </td>
+                        <td>${venta.total}</td>
                       </tr>
                     ))}
                 </tbody>
@@ -123,7 +114,14 @@ function SaleAdminApp() {
                   venta={venta}
                 />
               )}
-              <ButtonPage nextPage={nextPage} backPage={backPage} />
+              <ButtonPage
+                nextPage={nextPage}
+                backPage={backPage}
+                isBackDisabled={pagina < 5}
+                isNextDisabled={
+                  pagina + 1 >= Math.ceil(todasLasVentas.total / 5)
+                }
+              />
             </Card.Text>
           )}
         </Card.Body>
