@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { productAdd } from "../api/productsApi";
 import { categoryList } from "../api/categoriasApi";
 
+
 const ModalProdApp = ({ open, handleOpen, traerDatos }) => {
   const [datosCategorias, setDatosCategorias] = useState(null);
   const [overflow, setOverflow] = useState(true);

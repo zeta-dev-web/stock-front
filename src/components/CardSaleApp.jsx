@@ -43,6 +43,8 @@ const CardSaleApp = ({ darkMode, handleOpen, open, handletime, dateTime }) => {
       nombre: productDetails.nombre,
       precio: productDetails.precio,
       quantity: quantity,
+      id: productDetails._id,
+      stock: productDetails.stock
     };
 
     setSelectedProducts([...selectedProducts, productToAdd]);
@@ -314,6 +316,7 @@ const CardSaleApp = ({ darkMode, handleOpen, open, handletime, dateTime }) => {
             products={selectedProducts}
             dateTime={dateTime}
             setSelectedProducts={setSelectedProducts}
+            traerTodosLosProductos={traerTodosLosProductos}
           />
         </div>
       </Card>

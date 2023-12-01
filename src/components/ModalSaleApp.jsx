@@ -11,154 +11,170 @@ import { Modal, Toggle, Button, Placeholder } from "rsuite";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 import { agregarVenta } from "../api/ventasApi";
+import { productUpdate } from "../api/productsApi";
 
-const ModalSaleApp = ({ open, handleOpen, products, dateTime, setSelectedProducts }) => {
+const ModalSaleApp = ({
+  open,
+  handleOpen,
+  products,
+  dateTime,
+  setSelectedProducts,
+  traerTodosLosProductos,
+}) => {
   const [overflow, setOverflow] = useState(true);
-const user = JSON.parse(localStorage.getItem("usuario"));
-const comercio = import.meta.env.NOMBRE_DEL_COMERCIO;
-const direccion = import.meta.env.DIRECCION_DEL_COMERCIO;
-let mediodepago = null
+  const user = JSON.parse(localStorage.getItem("usuario"));
+  const comercio = import.meta.env.NOMBRE_DEL_COMERCIO;
+  const direccion = import.meta.env.DIRECCION_DEL_COMERCIO;
+  let mediodepago = null;
+
+  console.log(products);
 
   //seleccione metodo de pago
-const handleConfirmSale = () => {
-  Swal.fire({
-    title: "Seleccione metodo de pago",
-    text: "Elija pago con tarjeta o efectivo",
-    icon: "question",
-    showCancelButton: true,
-    confirmButtonColor: "#0035FC",
-    cancelButtonColor: "#2DB203",
-    cancelButtonText: "Efectivo",
-    confirmButtonText: "Tarjeta",
-  }).then((result) => {
-    if (result.isConfirmed) {
-      handleCardSale(true);
-      mediodepago = "Tarjeta";
-    } else {
-     handleCardSale(false);
-     mediodepago = "Efectivo";
-      };
-    }
-  );
-};
-
-//responde a la seleccion del metodo de pago
-const handleCardSale = async (option) => {
-  let formaDePago = option ? "Tarjeta" : "Efectivo";
-
-  // Recolectar datos
-  const data = {
-    date: dateTime?.[0],
-    time: dateTime?.[1],
-    pago: formaDePago,
-    descripcion: products.map((product) => ({
-      cantidad: product.quantity,
-      producto: product.nombre,
-      precio: product.precio * product.quantity,
-    })),
-    total: products.reduce(
-      (total, product) => total + product.precio * product.quantity,
-      0
-    ),
-  };
-
-  console.log(data);
-
-  try {
-    // Guardar la venta y obtener la respuesta del servidor
-    const response = await agregarVenta(data);
-console.log("Respuesta de agregarVenta:", response);
-
-
+  const handleConfirmSale = () => {
     Swal.fire({
-      title: `Metodo seleccionado: ${formaDePago}`,
-      text: "¿Desea generar el comprobante?",
-      icon: "success",
+      title: "Seleccione metodo de pago",
+      text: "Elija pago con tarjeta o efectivo",
+      icon: "question",
       showCancelButton: true,
       confirmButtonColor: "#0035FC",
-      confirmButtonText: "Generar Comprobante",
-      cancelButtonText: "Cancelar",
+      cancelButtonColor: "#2DB203",
+      cancelButtonText: "Efectivo",
+      confirmButtonText: "Tarjeta",
     }).then((result) => {
       if (result.isConfirmed) {
-        // Generar el PDF
-        Swal.fire({
-          title: "Comprobante PDF generado con éxito!",
-          icon: "success",
-        });
-        generatePDF();
-        handleOpen();
-        setSelectedProducts([]);
+        handleCardSale(true);
+        mediodepago = "Tarjeta";
       } else {
-        handleOpen();
-        setSelectedProducts([]);
+        handleCardSale(false);
+        mediodepago = "Efectivo";
       }
     });
-  } catch (error) {
-    console.error("Error al agregar la venta:", error);
-    // Manejar el error según sea necesario
-  }
-};
-const generatePDF = () => {
-  const pdf = new jsPDF();
-  const name = user.name;
-  const formadepago = mediodepago
-  // Encabezado, Información del negocio, Fecha y hora...
-  pdf.text(
-    "Comprobante de Compra",
-    pdf.internal.pageSize.width / 2,
-    10,
-    "center"
-  );
-  pdf.text(`${comercio} - ${direccion}`, 10, 20);
-  pdf.setFontSize(10); 
-  pdf.text(`Fecha: ${dateTime?.[0]}`, 10, 30);
-  pdf.text(`Hora: ${dateTime?.[1]}`, pdf.internal.pageSize.width - 50, 30);
+  };
 
-  // Fuiste atendido por
-  pdf.setFontSize(8); // Ajustar el tamaño de la fuente
-  pdf.text(`Fuiste atendido por: ${name}`, 10, 40);
-pdf.text(`Forma de pago: ${formadepago}`, 10, 45);
+  //responde a la seleccion del metodo de pago
+  const handleCardSale = async (option) => {
+    let formaDePago = option ? "Tarjeta" : "Efectivo";
 
-  // Tabla de productos
-  pdf.setFontSize(12); // Ajustar el tamaño de la fuente
-  const columns = ["Cantidad", "Producto", "Precio"];
-  const rows = products.map((product) => [
-    product.quantity,
-    product.nombre,
-    `$${product.precio * product.quantity}`,
-  ]);
+    // Recolectar datos
+    const data = {
+      date: dateTime?.[0],
+      time: dateTime?.[1],
+      pago: formaDePago,
+      descripcion: products.map((product) => ({
+        cantidad: product.quantity,
+        producto: product.nombre,
+        precio: product.precio * product.quantity,
+      })),
+      total: products.reduce(
+        (total, product) => total + product.precio * product.quantity,
+        0
+      ),
+    };
 
-  // Calcular el total pagado
-  const totalPagado = products.reduce(
-    (total, product) => total + product.precio * product.quantity,
-    0
-  );
+    console.log(data);
 
-  pdf.autoTable({
-    head: [columns],
-    body: rows,
-    startY: 50,
-  });
+    try {
+      // Guardar la venta y obtener la respuesta del servidor
+      const response = await agregarVenta(data);
+      console.log("Respuesta de agregarVenta:", response);
+      // Actualizar el stock de cada producto vendido
+      for (const product of products) {
+        const updatedStock = product.stock - product.quantity;
+        const response = await productUpdate(product.id, {
+          stock: updatedStock,
+        });
+        console.log("Respuesta de actualizar producto:", response);
+      }
+      traerTodosLosProductos();
+      Swal.fire({
+        title: `Metodo seleccionado: ${formaDePago}`,
+        text: "¿Desea generar el comprobante?",
+        icon: "success",
+        showCancelButton: true,
+        confirmButtonColor: "#0035FC",
+        confirmButtonText: "Generar Comprobante",
+        cancelButtonText: "Cancelar",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // Generar el PDF
+          Swal.fire({
+            title: "Comprobante PDF generado con éxito!",
+            icon: "success",
+          });
+          generatePDF();
+          handleOpen();
+          setSelectedProducts([]);
+        } else {
+          handleOpen();
+          setSelectedProducts([]);
+        }
+      });
+    } catch (error) {
+      console.error("Error al agregar la venta:", error);
+      // Manejar el error según sea necesario
+    }
+  };
+  const generatePDF = () => {
+    const pdf = new jsPDF();
+    const name = user.name;
+    const formadepago = mediodepago;
+    // Encabezado, Información del negocio, Fecha y hora...
+    pdf.text(
+      "Comprobante de Compra",
+      pdf.internal.pageSize.width / 2,
+      10,
+      "center"
+    );
+    pdf.text(`${comercio} - ${direccion}`, 10, 20);
+    pdf.setFontSize(10);
+    pdf.text(`Fecha: ${dateTime?.[0]}`, 10, 30);
+    pdf.text(`Hora: ${dateTime?.[1]}`, pdf.internal.pageSize.width - 50, 30);
 
-  // Total Pagado
-  pdf.setFontSize(13); // Ajustar el tamaño de la fuente
-  pdf.text(
-    `Total Pagado: $${totalPagado}`,
-    pdf.internal.pageSize.width - 50,
-    pdf.internal.pageSize.height - 20
-  );
+    // Fuiste atendido por
+    pdf.setFontSize(8); // Ajustar el tamaño de la fuente
+    pdf.text(`Fuiste atendido por: ${name}`, 10, 40);
+    pdf.text(`Forma de pago: ${formadepago}`, 10, 45);
 
-  // Mensaje de agradecimiento
-  pdf.setFontSize(10); // Ajustar el tamaño de la fuente
-  pdf.text(
-    "Muchas Gracias por su compra",
-    10,
-    pdf.internal.pageSize.height - 10
-  );
+    // Tabla de productos
+    pdf.setFontSize(12); // Ajustar el tamaño de la fuente
+    const columns = ["Cantidad", "Producto", "Precio"];
+    const rows = products.map((product) => [
+      product.quantity,
+      product.nombre,
+      `$${product.precio * product.quantity}`,
+    ]);
 
-  // Guardar el PDF en la computadora
-  pdf.save("comprobante_compra.pdf");
-};
+    // Calcular el total pagado
+    const totalPagado = products.reduce(
+      (total, product) => total + product.precio * product.quantity,
+      0
+    );
+
+    pdf.autoTable({
+      head: [columns],
+      body: rows,
+      startY: 50,
+    });
+
+    // Total Pagado
+    pdf.setFontSize(13); // Ajustar el tamaño de la fuente
+    pdf.text(
+      `Total Pagado: $${totalPagado}`,
+      pdf.internal.pageSize.width - 50,
+      pdf.internal.pageSize.height - 20
+    );
+
+    // Mensaje de agradecimiento
+    pdf.setFontSize(10); // Ajustar el tamaño de la fuente
+    pdf.text(
+      "Muchas Gracias por su compra",
+      10,
+      pdf.internal.pageSize.height - 10
+    );
+
+    // Guardar el PDF en la computadora
+    pdf.save("comprobante_compra.pdf");
+  };
 
   return (
     <>
