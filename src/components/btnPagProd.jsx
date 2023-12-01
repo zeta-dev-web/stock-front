@@ -2,7 +2,7 @@ import React from "react";
 import { GrFormNextLink, GrFormPreviousLink } from "react-icons/gr";
 
 
-const BtnPagPod = ({ nextPage, backPage }) => {
+const BtnPagProd = ({ nextPage, backPage }) => {
   return (
     <div className="container">
       <div className="row">
@@ -19,4 +19,4 @@ const BtnPagPod = ({ nextPage, backPage }) => {
   );
 };
 
-export default BtnPagPod;
+export default BtnPagProd;

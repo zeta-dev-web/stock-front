@@ -17,6 +17,7 @@ const NavbarApp = ({ darkMode, changeMode, isLoggedIn }) => {
   const handleLogout = () => {
     // Eliminar el token del localStorage
     localStorage.removeItem("token");
+    localStorage.removeItem("LoginIn");
 
     // Actualizar el estado isLoggedIn a false
     handlesetIsLoggedIn();
@@ -30,7 +31,7 @@ const NavbarApp = ({ darkMode, changeMode, isLoggedIn }) => {
       >
         <div className="container-fluid">
           <div className="mt-1">
-            {isLoggedIn && (
+            {localStorage.getItem("LoginIn") && (
               <button
                 className="navbar-toggler"
                 type="button"
@@ -54,7 +55,7 @@ const NavbarApp = ({ darkMode, changeMode, isLoggedIn }) => {
           </div>
           <div className="collapse navbar-collapse" id="navbarNav">
             <ul className="navbar-nav">
-              {!isLoggedIn && (
+              {!localStorage.getItem("LoginIn") && (
                 <li className="nav-item">
                   <NavLink
                     className={({ isActive }) =>
@@ -72,7 +73,7 @@ const NavbarApp = ({ darkMode, changeMode, isLoggedIn }) => {
                   </NavLink>
                 </li>
               )}
-              {isLoggedIn && (
+              {localStorage.getItem("LoginIn") && (
                 <li>
                   <NavLink
                     className={({ isActive }) =>
@@ -89,7 +90,7 @@ const NavbarApp = ({ darkMode, changeMode, isLoggedIn }) => {
                   </NavLink>
                 </li>
               )}
-              {isLoggedIn && (
+              {localStorage.getItem("LoginIn") && (
                 <li>
                   <NavLink
                     className={({ isActive }) =>
@@ -106,7 +107,7 @@ const NavbarApp = ({ darkMode, changeMode, isLoggedIn }) => {
                   </NavLink>
                 </li>
               )}
-              {isLoggedIn && (
+              {localStorage.getItem("LoginIn") && (
                 <li>
                   <NavLink
                     className={({ isActive }) =>
@@ -123,7 +124,7 @@ const NavbarApp = ({ darkMode, changeMode, isLoggedIn }) => {
                   </NavLink>
                 </li>
               )}
-              {isLoggedIn && (
+              {localStorage.getItem("LoginIn") && (
                 <li>
                   <NavLink
                     className={({ isActive }) =>
@@ -150,7 +151,7 @@ const NavbarApp = ({ darkMode, changeMode, isLoggedIn }) => {
                   to="/login"
                   onClick={() => handleLogout()}
                 >
-                  {isLoggedIn ? (
+                  {localStorage.getItem("LoginIn") ? (
                     <div className="d-flex me-1 mt-1">
                       <FaArrowRightFromBracket />
                     </div>
@@ -159,7 +160,9 @@ const NavbarApp = ({ darkMode, changeMode, isLoggedIn }) => {
                       <FaArrowRightToBracket />
                     </div>
                   )}
-                  {isLoggedIn ? "Cerrar sesión" : "Iniciar sesión"}
+                  {localStorage.getItem("LoginIn")
+                    ? "Cerrar sesión"
+                    : "Iniciar sesión"}
                 </NavLink>
               </li>
             </ul>

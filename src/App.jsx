@@ -30,7 +30,10 @@ function App() {
 
 const handlesetIsLoggedIn = ()=>{
   setIsLoggedIn(!isLoggedIn);
-  console.log(isLoggedIn);
+  if (localStorage.getItem("token")){
+    localStorage.setItem("LoginIn", JSON.stringify("true"));  
+  }
+  
 }
   return (
     <div className={`vh-100 ${darkMode ? "v-h100" : ""}`}>

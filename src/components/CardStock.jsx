@@ -8,17 +8,19 @@ import {
   ButtonToolbar,
 } from "rsuite";
 import SearchIcon from "@rsuite/icons/Search";
-import { listProducts } from "../data/products";
 import Swal from "sweetalert2";
 import { FaBoxOpen } from "react-icons/fa";
 import useGetProducts from "../hooks/useGetProducts";
+import useGetAllProducts from "../hooks/useGetAllProducts";
 import BtnPagProd from "../components/BtnPagProd";
 import "../css/CardStock.css"
 
 function CardStock() {
   const [pagina, setPagina] = useState(0);
-  const { datos, todosLosProductos, traerDatos, traerTodosLosProductos } =
+  const { datos, traerDatos } =
     useGetProducts(pagina);
+  const {todosLosProductos, traerTodosLosProductos} = useGetAllProducts();
+  console.log("lista:", todosLosProductos);
   const [tableVisible, setTableVisible] = useState(false);
   const handleToggleTable = () => {
     setTableVisible(!tableVisible);
@@ -40,11 +42,22 @@ function CardStock() {
     });
   };
 
-  // Función para manejo de paginación
-  const handlePageChange = (newPage) => {
-    setPagina(newPage);
-    traerDatos();
+  //Funciones para manejo de paginación---------
+  const nextPage = () => {
+    //total de los productos = 8 / 2 página
+    const totalPages = datos.total / 5;
+    console.log(totalPages);
+    if (pagina + 1 < totalPages) {
+      setPagina(pagina + 5);
+    }
   };
+
+  const backPage = () => {
+    if (pagina >= 5) {
+      setPagina(pagina - 5);
+    }
+  };
+  //---------------------------------------------
 
   return (
     <div className="m-4">
@@ -72,7 +85,7 @@ function CardStock() {
                   <div className="col-12 col-md-8 ps-1">
                     <InputGroup inside className="mt-2 mb-2">
                       <AutoComplete
-                        data={todosLosProductos?.map((producto) => ({
+                        data={todosLosProductos.productos?.map((producto) => ({
                           label: `${producto.nombre}`,
                           value: `${producto.nombre} - Stock Disponible: ${producto.stock}`,
                         }))}
