@@ -29,28 +29,40 @@ const CardSaleApp = ({ darkMode, handleOpen, open, handletime, dateTime }) => {
   const [quantity, setQuantity] = useState(1);
 
  const handleAddToCart = (selectedProduct) => {
-   const productDetails = todosLosProductos.productos.find(
-     (product) => product.nombre === selectedProduct
-   );
+  const productDetails = todosLosProductos.productos.find(
+    (product) => product.nombre === selectedProduct
+  );
 
-   if (productDetails && productDetails.stock > 0) {
-     const productToAdd = {
-       nombre: productDetails.nombre,
-       precio: productDetails.precio,
-       quantity: quantity,
-     };
+  // Verificar si el producto ya está en el carrito
+  const isProductInCart = selectedProducts.some(
+    (product) => product.nombre === selectedProduct
+  );
 
-     setSelectedProducts([...selectedProducts, productToAdd]);
-     setQuantity(1);
-   } else if (productDetails) {
-     // Stock es 0, mostrar alerta
-     Swal.fire({
-       title: "Producto no disponible",
-       text: "El producto seleccionado no tiene stock disponible.",
-       icon: "warning",
-     });
-   }
- };
+  if (productDetails && productDetails.stock > 0 && !isProductInCart) {
+    const productToAdd = {
+      nombre: productDetails.nombre,
+      precio: productDetails.precio,
+      quantity: quantity,
+    };
+
+    setSelectedProducts([...selectedProducts, productToAdd]);
+    setQuantity(1);
+  } else if (!isProductInCart) {
+    // Stock es 0 o el producto no existe, mostrar alerta
+    Swal.fire({
+      title: "Producto no disponible",
+      text: "El producto seleccionado no tiene stock disponible.",
+      icon: "warning",
+    });
+  } else {
+    // El producto ya está en el carrito, mostrar alerta
+    Swal.fire({
+      title: "Producto en el carrito",
+      text: "El producto seleccionado ya está en el carrito.",
+      icon: "info",
+    });
+  }
+};
   const handleRemoveFromCart = (index) => {
     Swal.fire({
       title: "Quieres eliminar el producto?",
@@ -100,11 +112,27 @@ const CardSaleApp = ({ darkMode, handleOpen, open, handletime, dateTime }) => {
   };
 
   const handleQuantityChange = (index, newQuantity) => {
-    // Clonar el array para no mutar el estado directamente
     const updatedProducts = [...selectedProducts];
-    updatedProducts[index].quantity = newQuantity;
+    const productToUpdate = updatedProducts[index];
 
-    setSelectedProducts(updatedProducts);
+    // Obtener la información completa del producto, incluido el stock
+    const productDetails = todosLosProductos.productos.find(
+      (product) => product.nombre === productToUpdate.nombre
+    );
+
+    // Verificar si el nuevoQuantity es menor o igual al stock disponible
+    if (productDetails && newQuantity <= productDetails.stock) {
+      // Actualizar la cantidad si es válido
+      productToUpdate.quantity = newQuantity;
+      setSelectedProducts(updatedProducts);
+    } else {
+      // Mostrar una alerta o manejar el caso de stock insuficiente
+      Swal.fire({
+        title: "Stock insuficiente",
+        text: "La cantidad ingresada supera el stock disponible.",
+        icon: "warning",
+      });
+    }
   };
 
   const notification = () => {
