@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { Table, Card, Button } from "react-bootstrap";
 import ButtonPage from "./ButtonPage";
-import { FaBoxOpen } from "react-icons/fa";
-import { MdDelete, MdEditSquare } from "react-icons/md";
+import { FaBoxOpen, FaEye} from "react-icons/fa";
 import Swal from "sweetalert2";
 import useGetAllSales from "../hooks/useGetAllSales";
 import ModalSaleDetails from "./ModalSaleDetails";
@@ -12,7 +11,6 @@ function SaleAdminApp() {
   const { todasLasVentas, traerDatos } = useGetAllSales(pagina);
   const [show, setShow] = useState(false); //Estado para manejo de Modal
   const [venta, setVenta] = useState(null);
-
 
   console.log(todasLasVentas?.descripcion);
 
@@ -33,18 +31,24 @@ function SaleAdminApp() {
     setTableVisible(!tableVisible);
   };
 
-// Funciones para manejo de paginación---------
+  // Funciones para manejo de paginación---------
   const nextPage = () => {
-    const totalPages = Math.ceil(todasLasVentas?.total / 5); // Asegúrate de redondear hacia arriba para obtener el número correcto de páginas
+    const totalPages = Math.ceil(todasLasVentas.total / 5);
+    console.log(todasLasVentas.total);
     console.log(totalPages);
-    if (pagina + 1 < totalPages) {
+    if (pagina + 1 < totalPages * 5) {
       setPagina(pagina + 5);
+      traerDatos();
     }
   };
 
   const backPage = () => {
     if (pagina >= 5) {
       setPagina(pagina - 5);
+      traerDatos();
+    } else if (pagina > 0) {
+      setPagina(0);
+      traerDatos();
     }
   };
   //---------------------------------------------
@@ -92,10 +96,10 @@ function SaleAdminApp() {
                         <td>
                           <Button
                             size="sm"
-                            variant="success"
+                            variant="primary"
                             onClick={() => handleShow(venta)}
                           >
-                            <MdEditSquare />
+                            <FaEye/>
                           </Button>
                         </td>
                         <td>{venta.date}</td>
@@ -118,9 +122,7 @@ function SaleAdminApp() {
                 nextPage={nextPage}
                 backPage={backPage}
                 isBackDisabled={pagina < 5}
-                isNextDisabled={
-                  pagina + 1 >= Math.ceil(todasLasVentas.total / 5)
-                }
+                isNextDisabled={pagina + 5 >= todasLasVentas.total}
               />
             </Card.Text>
           )}

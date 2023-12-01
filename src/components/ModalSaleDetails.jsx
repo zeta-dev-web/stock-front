@@ -91,7 +91,7 @@ const ModalSaleDetails = ({ show, handleClose, venta }) => {
             <Button
               className="ms-2"
               type="button"
-              variant="outline-success"
+              variant="outline-danger"
               size="sm"
               onClick={handleClose}
             >

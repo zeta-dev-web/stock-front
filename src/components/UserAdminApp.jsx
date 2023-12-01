@@ -41,18 +41,25 @@ const UserAdminApp = ({}) => {
 
   // Funciones para manejo de paginación---------
   const nextPage = () => {
-    const totalPages = Math.ceil(datos.total / 5); // Asegúrate de redondear hacia arriba para obtener el número correcto de páginas
-    console.log(totalPages);
-    if (pagina + 1 < totalPages) {
+    const totalPages = Math.ceil(datos.total / 5);
+    console.log(datos.total)
+    console.log(totalPages);;
+    if (pagina + 1 < totalPages * 5) {
       setPagina(pagina + 5);
+      traerDatos();
     }
   };
 
   const backPage = () => {
     if (pagina >= 5) {
       setPagina(pagina - 5);
+      traerDatos();
+    } else if (pagina > 0) {
+      setPagina(0);
+      traerDatos();
     }
   };
+  //---------------------------------------------
   //---------------------------------------------
   const modUser = (datos) => {
     setUsuario(datos);
@@ -116,7 +123,6 @@ const UserAdminApp = ({}) => {
                     <th>Opciones</th>
                     <th>Nombre</th>
                     <th>Email</th>
-                    <th>Estado</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -142,7 +148,6 @@ const UserAdminApp = ({}) => {
                         </td>
                         <td>{usuarios.name}</td>
                         <td>{usuarios.email}</td>
-                        <td>{usuarios.state ? "Activo" : "Inactivo"}</td>
                       </tr>
                     ))}
                 </tbody>
@@ -160,7 +165,7 @@ const UserAdminApp = ({}) => {
                 nextPage={nextPage}
                 backPage={backPage}
                 isBackDisabled={pagina < 5}
-                isNextDisabled={pagina + 1 >= Math.ceil(datos.total / 5)}
+                isNextDisabled={pagina + 5 >= datos.total}
               />
             </Card.Text>
           )}

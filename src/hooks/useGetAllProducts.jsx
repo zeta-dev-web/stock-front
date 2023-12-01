@@ -7,6 +7,7 @@ const useGetAllProducts = (pagina = 0) => {
 
   const traerTodosLosProductos = async () => {
     const response = await getAllProducts(pagina);
+    console.log(response);
     setTodosLosProductos(response);
   };
 

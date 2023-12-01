@@ -6,6 +6,8 @@ const useGetProducts = (pagina = 0) => {
 
   const traerDatos = async () => {
     const { total, productos } = await productsList(pagina);
+    console.log(total);
+    console.log(productos);
     setDatos({
       total,
       productos,
