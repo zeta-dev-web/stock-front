@@ -6,13 +6,14 @@ const useGetAllUsers = (pagina = 0) => {
 
   const traerDatos = async () => {
     const { total, usuarios } = await usersList(pagina);
-    const usuariosFiltrados = usuarios.filter(
-      (usuarios) => usuarios.role == "USER_ROLE"
-    );
-console.log(usuariosFiltrados);
+    console.log(total);
+//     const usuariosFiltrados = usuarios.filter(
+//       (usuarios) => usuarios.role == "USER_ROLE"
+//     );
+// console.log(usuariosFiltrados);
     setDatos({
       total,
-      usuarios: usuariosFiltrados,
+      usuarios,
     });
   };
 

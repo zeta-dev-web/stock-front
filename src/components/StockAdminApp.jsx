@@ -8,11 +8,13 @@ import { productDelete } from "../api/productsApi";
 import Swal from "sweetalert2";
 import ModalProductUpdate from "./ModalProductUpdate";
 import useGetProducts from "../hooks/useGetProducts";
+import ModalCategory from "./ModalCategory";
 
 function StockAdminApp() {
   const [pagina, setPagina] = useState(0);
   const { datos, traerDatos } = useGetProducts(pagina);
   const [open, setOpen] = useState(false);
+  const [opencategory, setOpenCategory] = useState(false);
   const [show, setShow] = useState(false); //Estado para manejo de Modal
   const [producto, setProducto] = useState(null); //datos del producto a actualizar
 
@@ -23,6 +25,11 @@ function StockAdminApp() {
     traerDatos();
   };
 
+   const handleCloseCategory = () => {
+     //Función para cerrar modal de categoria
+     setOpenCategory(false);
+   };
+
   const handleShow = (datos) => {
     //Función para mostrar modal
     setProducto(datos);
@@ -31,6 +38,10 @@ function StockAdminApp() {
 
   const handleOpen = () => {
     setOpen(!open);
+  };
+
+  const handleOpenCategory = () => {
+    setOpenCategory(!opencategory);
   };
   const [tableVisible, setTableVisible] = useState(false);
   const handleToggleTable = () => {
@@ -92,6 +103,14 @@ function StockAdminApp() {
               Agregar Producto
             </Button>
             <Button
+              variant="outline-warning"
+              onClick={handleOpenCategory}
+              size="sm"
+              className="ms-1"
+            >
+              Agregar Categoria
+            </Button>
+            <Button
               variant="outline-success"
               onClick={handleToggleTable}
               size="sm"
@@ -106,6 +125,10 @@ function StockAdminApp() {
             open={open}
             handleOpen={handleOpen}
             traerDatos={traerDatos}
+          />
+          <ModalCategory
+            show={opencategory}
+            handleClose={handleCloseCategory}
           />
           {tableVisible && (
             <Card.Text className="mt-1">
