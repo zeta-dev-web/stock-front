@@ -2,13 +2,13 @@ import { useState, useEffect } from "react";
 import { Card, Table } from "react-bootstrap";
 import Swal from "sweetalert2";
 import { Button } from "react-bootstrap";
+import { MdDelete, MdEditSquare } from "react-icons/md";
 import "sweetalert2/src/sweetalert2.scss";
 import { Modal } from "rsuite";
 import { useForm } from "react-hook-form";
-import { productAdd } from "../api/productsApi";
-import { categoryList } from "../api/categoriasApi";
+import { categoryAdd, categoryList } from "../api/categoriasApi";
 
-const ModalCategory = ({ opencategory, handleOpenCategory }) => {
+const ModalCategory = ({ show, handleClose }) => {
   const [datosCategorias, setDatosCategorias] = useState(null);
   const [overflow, setOverflow] = useState(true);
   const {
@@ -30,15 +30,30 @@ const ModalCategory = ({ opencategory, handleOpenCategory }) => {
     setDatosCategorias(categorias);
   };
 
-  const newProduct = async (data) => {
-    console.log(data);
-    await productAdd(data);
-    await Swal.fire({
-      title: "Producto creado con Exito!",
-      text: "El producto se guardó en la base de datos",
-      icon: "success",
-    });
-    reset();
+  const newCategory = async (data) => {
+    const nombreCategoria = data.nombre.toUpperCase(); // Convertir a mayúsculas
+    const categoriaExistente = datosCategorias.find(
+      (categoria) => categoria.nombre === nombreCategoria
+    );
+
+    if (categoriaExistente) {
+      Swal.fire({
+        title: "La Categoría ya existe",
+        text: "La categoría ingresada existe en la base de datos.",
+        icon: "error",
+      });
+    } else {
+      // Categoría no existe, guardar
+      await categoryAdd({ nombre: nombreCategoria }); // Guardar en la base de datos
+      Swal.fire({
+        title: "Categoría guardada con éxito",
+        text: "La categoría se ha creado en la base de datos",
+        icon: "success",
+      });
+      traerCategorias()
+      reset();
+      handleClose();
+    }
   };
 
   const handleReset = () => {
@@ -55,7 +70,7 @@ const ModalCategory = ({ opencategory, handleOpenCategory }) => {
       if (result.isConfirmed) {
         Swal.fire({
           title: "Informacion Eliminada!",
-          text: "El producto no se guardó",
+          text: "La categoria no se guardó",
           icon: "success",
         });
         reset();
@@ -64,28 +79,47 @@ const ModalCategory = ({ opencategory, handleOpenCategory }) => {
     });
   };
 
+const [tableVisible, setTableVisible] = useState(false);
+const handleToggleTable = () => {
+  setTableVisible(!tableVisible);
+};
+
+const [formVisible, setFormVisible] = useState(false);
+const handleToggleForm = () => {
+  setFormVisible(!formVisible);
+};
+
   return (
     <>
-      <Modal
-        overflow={overflow}
-        open={opencategory}
-        onClose={handleOpenCategory}
-      >
+      <Modal overflow={overflow} open={show} onClose={handleClose}>
         <Modal.Header>
           <Modal.Title className="fw-bold text-center">
-            Nueva Categoria
+            Menu de Categorias
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body className="bg-white d-flex container">
+        <Modal.Body className="bg-white d-flex container flex-column justify-content-center">
+          <div className="text-center mt-3">
+            <Button
+              variant="outline-secondary"
+              onClick={handleToggleForm}
+              size="sm"
+              className="ms-2"
+            >
+              {formVisible
+                ? "Ocultar Crear Categoria"
+                : "Crear Categoria"}
+            </Button>
+          </div>
+          {formVisible && (
           <form
             noValidate
-            onSubmit={handleSubmit(newProduct)}
+            onSubmit={handleSubmit(newCategory)}
             className="bg-light text-dark p-0 m-0 rounded w-100"
           >
             <section className="row">
-              <fieldset className="col-12 col-md-6 mb-1">
+              <fieldset className="col-12 col-md-12 mb-1">
                 <label htmlFor="nameProduct-input" className="form-label">
-                  Nombre del producto
+                  Nueva categoria
                 </label>
                 <input
                   type="text"
@@ -105,7 +139,7 @@ const ModalCategory = ({ opencategory, handleOpenCategory }) => {
                   required
                   minLength={5}
                   maxLength={20}
-                  placeholder="Ingrese el nombre del producto"
+                  placeholder="Ingrese la nueva categoria"
                 />
                 <div>
                   <p className="text-danger p-0 m-0 fw-semibold fst-italic">
@@ -113,148 +147,8 @@ const ModalCategory = ({ opencategory, handleOpenCategory }) => {
                   </p>
                 </div>
               </fieldset>
-              <fieldset className="col-12 col-md-6 mb-1">
-                <label htmlFor="Price-input" className="form-label">
-                  Precio
-                </label>
-                <div className="input-group">
-                  <span className="input-group-text">$</span>
-                  <input
-                    type="number"
-                    id="Price-input"
-                    className="form-control"
-                    {...register("precio", {
-                      required: "Debe Ingresar un Precio.",
-                      min: {
-                        value: 1,
-                        message: "Su precio debe ser mayor a $1.",
-                      },
-                      max: {
-                        value: 5000,
-                        message: "Su precio máximo debe ser $5000.",
-                      },
-                    })}
-                    required
-                    min={1}
-                    max={10000}
-                    placeholder="Ingrese el precio"
-                  />
-                </div>
-                <p className="text-danger p-0 m-0 fw-semibold fst-italic">
-                  {errors.precio?.message}
-                </p>
-              </fieldset>
-              <fieldset className="col-12 col-md-4 mb-1">
-                <label htmlFor="stock-input" className="form-label">
-                  Stock
-                </label>
-                <input
-                  type="number"
-                  id="stock-input"
-                  className="form-control"
-                  {...register("stock", {
-                    min: {
-                      value: 0,
-                      message: "El stock debe ser mayor o igual a 0",
-                    },
-                    max: {
-                      value: 500,
-                      message: "El stock no puede superar las 500 unidades",
-                    },
-                  })}
-                  min={0}
-                  max={500}
-                  defaultValue={0}
-                />
-                <div>
-                  <p className="text-danger">{errors.stock?.message}</p>
-                </div>
-              </fieldset>
-              <fieldset className="col-12 col-md-8 mb-1">
-                <label htmlFor="category-input" className="form-label">
-                  Categoría
-                </label>
-                <select
-                  className="form-control"
-                  id="category-input"
-                  {...register("categoria", {
-                    required: "Debe seleccionar una categoría.",
-                  })}
-                  required
-                >
-                  <option value="">Seleccione una categoría</option>
-                  {datosCategorias?.length > 0 &&
-                    datosCategorias.map((categoria) => (
-                      <option key={categoria._id} value={categoria._id}>
-                        {categoria.nombre}
-                      </option>
-                    ))}
-                </select>
-                <p className="text-danger p-0 m-0 fw-semibold fst-italic">
-                  {errors.categoria?.message}
-                </p>
-              </fieldset>
-              <fieldset className="col-12 col-md-12 mb-1">
-                <label htmlFor="image-input" className="form-label">
-                  Imagen (URL)
-                </label>
-                <input
-                  type="text"
-                  id="image-input"
-                  className="form-control"
-                  {...register("img", {
-                    validate: {
-                      isImageUrl: (value) => {
-                        const urlRegex = /^(ftp|http|https):\/\/[^ "]+$/;
-                        return (
-                          !value ||
-                          urlRegex.test(value) ||
-                          "Ingrese una URL válida."
-                        );
-                      },
-                    },
-                  })}
-                />
-                <p className="text-danger p-0 m-0 fw-semibold fst-italic">
-                  {errors.img?.message}
-                </p>
-              </fieldset>
-              <fieldset className="col-12 mb-1">
-                <label htmlFor="description-input" className="form-label">
-                  Descripción
-                </label>
-                <textarea
-                  type="text"
-                  id="description-input"
-                  className="form-control"
-                  {...register("descripcion", {
-                    required: "Debe ingresar una descripción.",
-                    minLength: {
-                      value: 15,
-                      message:
-                        "La descripción debe tener al menos 15 caracteres.",
-                    },
-                    maxLength: {
-                      value: 100,
-                      message:
-                        "La descripción no puede exceder los 100 caracteres.",
-                    },
-                  })}
-                  required
-                  minLength={15}
-                  maxLength={100}
-                  style={{ resize: "none" }}
-                  placeholder="Por ejemplo: Factura de masa dulce hojaldrada bañada en almíbar con miel."
-                />
-                <p className="text-danger p-0 m-0 fw-semibold fst-italic">
-                  {errors.descripcion?.message}
-                </p>
-              </fieldset>
             </section>
             <div className="text-center mt-2">
-              <Button onClick={handleReset} variant="outline-danger" size="sm">
-                Cancelar
-              </Button>
               <Button
                 className="ms-2"
                 type="submit"
@@ -265,6 +159,50 @@ const ModalCategory = ({ opencategory, handleOpenCategory }) => {
               </Button>
             </div>
           </form>
+          )}
+          <div className="text-center mt-3">
+            <Button
+              variant="outline-primary"
+              onClick={handleToggleTable}
+              size="sm"
+              className="ms-2"
+            >
+              {tableVisible
+                ? "Ocultar Lista de Categorias"
+                : "Ver Lista de Categorias"}
+            </Button>
+          </div>
+          <div className="mt-2">
+            {tableVisible && (
+              <Table
+                responsive
+                striped
+                bordered
+                hover
+                variant="white text-center"
+              >
+                <thead>
+                  <tr>
+                    <th>Eliminar</th>
+                    <th>Nombre</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {datosCategorias?.length > 0 &&
+                    datosCategorias.map((categoria) => (
+                      <tr key={categoria._id}>
+                        <td>
+                          <Button size="sm" variant="danger" className="ms-1">
+                            <MdDelete />
+                          </Button>
+                        </td>
+                        <td>{categoria.nombre}</td>
+                      </tr>
+                    ))}
+                </tbody>
+              </Table>
+            )}
+          </div>
         </Modal.Body>
       </Modal>
     </>

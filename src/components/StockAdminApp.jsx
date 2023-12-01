@@ -26,6 +26,7 @@ function StockAdminApp() {
     traerDatos();
   };
 
+  
   const handleCloseCategory = () => {
     //Función para cerrar modal de categoria
     setOpenCategory(false);
@@ -41,9 +42,12 @@ function StockAdminApp() {
     setOpen(!open);
   };
 
-  const handleOpenCategory = () => {
-    setOpenCategory(!opencategory);
-  };
+ const handleOpenCategory = () => {
+   console.log("Abriendo modal de categoría");
+   setOpenCategory(!opencategory);
+ };
+
+
   const [tableVisible, setTableVisible] = useState(false);
   const handleToggleTable = () => {
     setTableVisible(!tableVisible);
@@ -106,16 +110,15 @@ function StockAdminApp() {
             Control de Stock
           </Card.Title>
           <div className="d-flex justify-content-center">
-            <Button variant="outline-info" onClick={handleOpen} size="sm">
-              Agregar Producto
-            </Button>
             <Button
               variant="outline-warning"
               onClick={handleOpenCategory}
               size="sm"
-              className="ms-1"
             >
-              Agregar Categoria
+              Menu de Categorias
+            </Button>
+            <Button variant="outline-info" onClick={handleOpen} size="sm" className="ms-2">
+              + Agregar Producto
             </Button>
             <Button
               variant="outline-success"

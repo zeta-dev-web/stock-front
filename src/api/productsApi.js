@@ -1,6 +1,5 @@
 const url = "https://stock-back-dev-ttgk.4.us-1.fl0.io/api/productos";
 const token = JSON.parse(localStorage.getItem("token")) 
-;
 
 const productsList = async (pagina) => {
   const resp = await fetch(url + "?desde=" + pagina, {
