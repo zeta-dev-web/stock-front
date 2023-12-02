@@ -117,7 +117,12 @@ function StockAdminApp() {
             >
               Menu de Categorias
             </Button>
-            <Button variant="outline-info" onClick={handleOpen} size="sm" className="ms-2">
+            <Button
+              variant="outline-info"
+              onClick={handleOpen}
+              size="sm"
+              className="ms-2"
+            >
               + Agregar Producto
             </Button>
             <Button
@@ -183,10 +188,10 @@ function StockAdminApp() {
                           </Button>
                         </td>
                         <td>
-                          {producto.state ? (
-                            <FaCircleXmark />
+                          {producto.estado == true ? (
+                            <FaCircleCheck className="text-primary" />
                           ) : (
-                            <FaCircleCheck />
+                            <FaCircleXmark className="text-danger" />
                           )}
                         </td>
                         <td>
@@ -208,13 +213,14 @@ function StockAdminApp() {
                   handleClose={handleClose}
                   producto={producto}
                   setProducto={modProd}
+                  traerDatos={traerDatos}
                 />
               )}
               <ButtonPage
                 nextPage={nextPage}
                 backPage={backPage}
                 isBackDisabled={pagina < 5}
-                isNextDisabled={pagina + 5 >= datos.total}
+                isNextDisabled={pagina + 5 >= datos?.total}
               />
             </Card.Text>
           )}

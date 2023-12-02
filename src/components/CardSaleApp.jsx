@@ -29,42 +29,47 @@ const CardSaleApp = ({ darkMode, handleOpen, open, handletime, dateTime }) => {
   const [quantity, setQuantity] = useState(1);
 
  const handleAddToCart = (selectedProduct) => {
-  const productDetails = todosLosProductos.productos.find(
-    (product) => product.nombre === selectedProduct
-  );
+   const productDetails = todosLosProductos.productos.find(
+     (product) => product.nombre === selectedProduct
+   );
 
-  // Verificar si el producto ya está en el carrito
-  const isProductInCart = selectedProducts.some(
-    (product) => product.nombre === selectedProduct
-  );
+   // Verificar si el producto ya está en el carrito
+   const isProductInCart = selectedProducts.some(
+     (product) => product.nombre === selectedProduct
+   );
 
-  if (productDetails && productDetails.stock > 0 && !isProductInCart) {
-    const productToAdd = {
-      nombre: productDetails.nombre,
-      precio: productDetails.precio,
-      quantity: quantity,
-      id: productDetails._id,
-      stock: productDetails.stock
-    };
+   if (
+     productDetails &&
+     productDetails.stock > 0 &&
+     !isProductInCart &&
+     productDetails.estado
+   ) {
+     const productToAdd = {
+       nombre: productDetails.nombre,
+       precio: productDetails.precio,
+       quantity: quantity,
+       id: productDetails._id,
+       stock: productDetails.stock,
+     };
 
-    setSelectedProducts([...selectedProducts, productToAdd]);
-    setQuantity(1);
-  } else if (!isProductInCart) {
-    // Stock es 0 o el producto no existe, mostrar alerta
-    Swal.fire({
-      title: "Producto no disponible",
-      text: "El producto seleccionado no tiene stock disponible.",
-      icon: "warning",
-    });
-  } else {
-    // El producto ya está en el carrito, mostrar alerta
-    Swal.fire({
-      title: "Producto en el carrito",
-      text: "El producto seleccionado ya está en el carrito.",
-      icon: "info",
-    });
-  }
-};
+     setSelectedProducts([...selectedProducts, productToAdd]);
+     setQuantity(1);
+   } else if (!isProductInCart) {
+     // Stock es 0, el producto no existe o el estado no es true, mostrar alerta
+     Swal.fire({
+       title: "Producto no disponible",
+       text: "El producto seleccionado no tiene stock o no esta disponible.",
+       icon: "warning",
+     });
+   } else {
+     // El producto ya está en el carrito, mostrar alerta
+     Swal.fire({
+       title: "Producto en el carrito",
+       text: "El producto seleccionado ya está en el carrito.",
+       icon: "info",
+     });
+   }
+ };
   const handleRemoveFromCart = (index) => {
     Swal.fire({
       title: "Quieres eliminar el producto?",

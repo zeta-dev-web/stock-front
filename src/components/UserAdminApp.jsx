@@ -97,7 +97,7 @@ const UserAdminApp = ({}) => {
           </Card.Title>
           <div className="d-flex justify-content-center">
             <Button variant="outline-info" onClick={handleOpen} size="sm">
-              Agregar Usuario
+              + Agregar Usuario
             </Button>
             <Button
               variant="outline-success"

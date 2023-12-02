@@ -11,6 +11,7 @@ import {
 import SearchIcon from "@rsuite/icons/Search";
 import Swal from "sweetalert2";
 import { FaBoxOpen } from "react-icons/fa";
+import { FaCircleCheck, FaCircleXmark } from "react-icons/fa6";
 import useGetProducts from "../hooks/useGetProducts";
 import useGetAllProducts from "../hooks/useGetAllProducts";
 // import BtnPagProd from "../components/BtnPagProd";
@@ -18,9 +19,8 @@ import "../css/CardStock.css"
 
 function CardStock() {
   const [pagina, setPagina] = useState(0);
-  const { datos, traerDatos } =
-    useGetProducts(pagina);
-  const {todosLosProductos, traerTodosLosProductos} = useGetAllProducts();
+  const { datos, traerDatos } = useGetProducts(pagina);
+  const { todosLosProductos, traerTodosLosProductos } = useGetAllProducts();
   console.log("lista:", todosLosProductos);
   const [tableVisible, setTableVisible] = useState(false);
   const handleToggleTable = () => {
@@ -43,19 +43,24 @@ function CardStock() {
     });
   };
 
-  //Funciones para manejo de paginación---------
+  // Funciones para manejo de paginación---------
   const nextPage = () => {
-    //total de los productos = 8 / 2 página
-    const totalPages = datos.total / 5;
+    const totalPages = Math.ceil(datos.total / 5);
+    console.log(datos.total);
     console.log(totalPages);
-    if (pagina + 1 < totalPages) {
+    if (pagina + 1 < totalPages * 5) {
       setPagina(pagina + 5);
+      traerDatos();
     }
   };
 
   const backPage = () => {
     if (pagina >= 5) {
       setPagina(pagina - 5);
+      traerDatos();
+    } else if (pagina > 0) {
+      setPagina(0);
+      traerDatos();
     }
   };
   //---------------------------------------------
@@ -109,7 +114,8 @@ function CardStock() {
               >
                 <thead>
                   <tr>
-                    <th>Foto</th>
+                    <th>Disp.</th>
+                    <th>Imagen</th>
                     <th>Nombre</th>
                     <th>Stock</th>
                     <th>Descripcion</th>
@@ -121,6 +127,13 @@ function CardStock() {
                     datos.productos.map((producto) => (
                       <tr key={producto._id}>
                         <td>
+                          {producto.estado == true ? (
+                            <FaCircleCheck className="text-primary" />
+                          ) : (
+                            <FaCircleXmark className="text-danger" />
+                          )}
+                        </td>
+                        <td>
                           <img className="img" src={producto.img} />
                         </td>
                         <td>{producto.nombre}</td>
@@ -131,7 +144,12 @@ function CardStock() {
                     ))}
                 </tbody>
               </Table>
-               <ButtonPage nextPage={nextPage} backPage={backPage}></ButtonPage>
+              <ButtonPage
+                nextPage={nextPage}
+                backPage={backPage}
+                isBackDisabled={pagina < 5}
+                isNextDisabled={pagina + 5 >= datos?.total}
+              />
             </Card.Text>
           )}
         </Card.Body>

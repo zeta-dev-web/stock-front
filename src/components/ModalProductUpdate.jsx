@@ -6,7 +6,13 @@ import { useForm } from "react-hook-form";
 import { Button } from "react-bootstrap";
 import Swal from "sweetalert2";
 
-const ModalProductUpdate = ({ show, handleClose, producto, setProducto }) => {
+const ModalProductUpdate = ({
+  show,
+  handleClose,
+  producto,
+  setProducto,
+  traerDatos,
+}) => {
   const [datosCategorias, setDatosCategorias] = useState(null);
   const {
     register,
@@ -54,13 +60,14 @@ const ModalProductUpdate = ({ show, handleClose, producto, setProducto }) => {
           text: "El producto se guardó",
           icon: "success",
         });
+        traerDatos();
         handleClose();
       } else {
+        traerDatos();
         handleClose();
       }
     });
   };
-
 
   return (
     <Modal show={show} onHide={handleClose}>
