@@ -87,16 +87,21 @@ const ModalUserApp = ({ open, handleOpen, traerDatos }) => {
                   type="text"
                   id="name-input"
                   className="form-control"
-                  {...register("name", {
+                  {...register("nombre", {
                     required: "Debe Ingresar un Nombre.",
                     minLength: {
                       value: 5,
-                      message: "Su Nombre debe tener más de 5 caracteres.",
+                      message: "Su Nombre debe tener mas de 5 caracteres.",
+                    },
+                    maxLength: {
+                      value: 20,
+                      message: "Su Nombre debe tener maximo 20 caracteres.",
                     },
                   })}
                   required
                   minLength={5}
-                  placeholder="Ingrese un nombre"
+                  maxLength={20}
+                  placeholder="Ingrese el nombre del usuario"
                 />
                 <div>
                   <p className="text-danger p-0 m-0 fw-semibold fst-italic">
@@ -129,7 +134,7 @@ const ModalUserApp = ({ open, handleOpen, traerDatos }) => {
                   </p>
                 </div>
               </fieldset>
-              <fieldset className="col-12 col-md-6 mb-1">
+              <fieldset className="col-12 col-md-8 mb-1">
                 <label htmlFor="password-input" className="form-label">
                   Contraseña
                 </label>
@@ -139,21 +144,20 @@ const ModalUserApp = ({ open, handleOpen, traerDatos }) => {
                     id="password-input"
                     className="form-control"
                     {...register("password", {
-                      required: "Debe Ingresar una Contraseña.",
+                      required: "Debe Ingresar una clave.",
                       minLength: {
                         value: 8,
-                        message:
-                          "La contraseña debe tener al menos 8 caracteres.",
+                        message: "La clave debe tener mas de 8 caracteres.",
                       },
-                      pattern: {
-                        value: /^[a-z0-9]+$/,
-                        message:
-                          "La contraseña debe contener solo letras minúsculas y números.",
+                      maxLength: {
+                        value: 12,
+                        message: "La clave debe tener maximo 12 caracteres.",
                       },
                     })}
                     required
                     minLength={8}
-                    placeholder="Ingrese la contraseña"
+                    maxLength={12}
+                    placeholder="Ingrese una clave"
                   />
                   <button
                     type="button"
@@ -165,7 +169,7 @@ const ModalUserApp = ({ open, handleOpen, traerDatos }) => {
                 </div>
                 <div>
                   <p className="text-danger p-0 m-0 fw-semibold fst-italic">
-                    {errors.contrasena?.message}
+                    {errors.password?.message}
                   </p>
                 </div>
               </fieldset>

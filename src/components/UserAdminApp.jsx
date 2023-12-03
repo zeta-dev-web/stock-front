@@ -88,8 +88,8 @@ const UserAdminApp = ({}) => {
     });
   };
   return (
-    <div className="m-4">
-      <Card className="container">
+    <div className="m-2">
+      <Card className="container mt-2 mb-2">
         <Card.Body className="table-responsive">
           <Card.Title className="text-center text-white bg-dark">
             <MdAccountBox className="me-2" />

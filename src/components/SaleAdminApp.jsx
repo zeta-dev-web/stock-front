@@ -54,8 +54,8 @@ function SaleAdminApp() {
   //---------------------------------------------
 
   return (
-    <div className="m-4">
-      <Card className="container">
+    <div className="m-2">
+      <Card className="container mt-2 mb-2">
         <Card.Body>
           <Card.Title className="text-center text-white bg-dark">
             <FaBoxOpen className="me-2" />
@@ -99,7 +99,7 @@ function SaleAdminApp() {
                             variant="primary"
                             onClick={() => handleShow(venta)}
                           >
-                            <FaEye/>
+                            <FaEye />
                           </Button>
                         </td>
                         <td>{venta.date}</td>

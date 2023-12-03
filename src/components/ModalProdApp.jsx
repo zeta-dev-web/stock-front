@@ -135,7 +135,7 @@ const ModalProdApp = ({ open, handleOpen, traerDatos }) => {
                     })}
                     required
                     min={1}
-                    max={10000}
+                    max={5000}
                     placeholder="Ingrese el precio"
                   />
                 </div>

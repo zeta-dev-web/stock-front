@@ -78,7 +78,7 @@ const AdminScreen = ({ darkMode }) => {
         handleError()
       ) : role ? (
         role === "ADMIN_ROLE" ? (
-          <div className="pb-2">
+          <div className="pb-2 mt-3">
             <h2 className={`text-center ${darkMode ? "text-light" : ""}`}>
               Pagina de Administración
             </h2>
@@ -88,7 +88,7 @@ const AdminScreen = ({ darkMode }) => {
           </div>
         ) : null
       ) : (
-        <div className="d-flex justify-content-center mt-5">
+        <div className="d-flex justify-content-center mt-5 pt-5">
           <Spinner animation="grow" variant="danger" />
           <h5 className="ms-3">ESPERANDO RESPUESTA DEL SERVIDOR</h5>
         </div>

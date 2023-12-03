@@ -73,7 +73,7 @@ const handletime = () => {
         handleError()
       ) : role ? (
         role === "ADMIN_ROLE" || role === "USER_ROLE" ? (
-          <div>
+          <div className="mt-5 pt-3">
             <CardSaleApp
               darkMode={darkMode}
               handleOpen={handleOpen}
@@ -86,7 +86,7 @@ const handletime = () => {
           <Navigate to="/" />
         )
       ) : (
-        <div className="d-flex justify-content-center mt-5">
+        <div className="d-flex justify-content-center mt-5 pt-5">
           <Spinner animation="grow" variant="danger" />
           <h5 className="ms-3">ESPERANDO RESPUESTA DEL SERVIDOR</h5>
         </div>

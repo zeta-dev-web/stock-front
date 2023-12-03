@@ -102,8 +102,8 @@ function StockAdminApp() {
   };
 
   return (
-    <div className="m-4">
-      <Card className="container">
+    <div className="m-2">
+      <Card className="container mt-4 mb-2">
         <Card.Body>
           <Card.Title className="text-center text-white bg-dark">
             <FaBoxOpen className="me-2" />

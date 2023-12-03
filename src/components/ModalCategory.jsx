@@ -53,6 +53,7 @@ const ModalCategory = ({ show, handleClose }) => {
       traerCategorias()
       reset();
       handleClose();
+      console.log(datosCategorias);
     }
   };
 
@@ -126,7 +127,7 @@ const handleToggleForm = () => {
                   id="nameProduct-input"
                   className="form-control"
                   {...register("nombre", {
-                    required: "Debe Ingresar un Nombre.",
+                    required: "Debe Ingresar una categoria.",
                     minLength: {
                       value: 5,
                       message: "Su Nombre debe tener mas de 5 caracteres.",

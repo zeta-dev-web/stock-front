@@ -28,18 +28,18 @@ const ContactApp = ({ darkMode }) => {
   return (
     <div className="container-fluid px-1 mx-auto mt-0">
       <div className="row d-flex justify-content-center m-0 vh-100">
-        <div className="col-xl-7 col-lg-8 col-md-9 col-12 text-start h-100">
+        <div className="col-xl-7 col-lg-8 col-md-9 col-12 text-start mt-5 pt-5">
           <div
-            className={`card ${
+            className={`card p-0 m-0 mt-1 pt-1 ${
               darkMode ? "form-container2" : "form-container"
             }`}
           >
-            <h5 className={`text-center mb-4 ${darkMode ? "text-white" : ""}`}>
+            <h5 className={`text-center mb-4 mt-0 ${darkMode ? "text-white" : ""}`}>
               Contactanos
             </h5>
             <form
               noValidate
-              className="text-dark p-0 m-0 w-100"
+              className="text-dark p-0 m-0 px-3 pb-2 w-100"
               onSubmit={handleSubmit(onSubmit)}
             >
               <section className="row">

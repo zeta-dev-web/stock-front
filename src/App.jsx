@@ -35,7 +35,7 @@ const handlesetIsLoggedIn = ()=>{
   }
 }
   return (
-    <div className={`vh-100 ${darkMode ? "v-h100" : ""}`}>
+    <div className={`h-100 ${darkMode ? "v-h100" : ""}`}>
       <BrowserRouter>
         <NavbarApp
           darkMode={darkMode}
