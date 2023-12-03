@@ -22,9 +22,11 @@ const ModalProdApp = ({ open, handleOpen, traerDatos }) => {
     mode: "onChange", // Validar al cambiar el formulario
   });
 
-  useEffect(() => {
+useEffect(() => {
+  if (open) {
     traerCategorias();
-  }, []);
+  }
+}, [open]);
 
   const traerCategorias = async () => {
     const { categorias } = await categoryList();
@@ -183,11 +185,13 @@ const ModalProdApp = ({ open, handleOpen, traerDatos }) => {
                 >
                   <option value="">Seleccione una categoría</option>
                   {datosCategorias?.length > 0 &&
-                    datosCategorias.map((categoria) => (
-                      <option key={categoria._id} value={categoria._id}>
-                        {categoria.nombre}
-                      </option>
-                    ))}
+                    datosCategorias
+                      .filter((categoria) => categoria.estado === true)
+                      .map((categoria) => (
+                        <option key={categoria._id} value={categoria._id}>
+                          {categoria.nombre}
+                        </option>
+                      ))}
                 </select>
                 <p className="text-danger p-0 m-0 fw-semibold fst-italic">
                   {errors.categoria?.message}

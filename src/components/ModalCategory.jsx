@@ -3,10 +3,16 @@ import { Card, Table } from "react-bootstrap";
 import Swal from "sweetalert2";
 import { Button } from "react-bootstrap";
 import { MdDelete, MdEditSquare } from "react-icons/md";
+import { FaCircleCheck, FaCircleXmark } from "react-icons/fa6";
 import "sweetalert2/src/sweetalert2.scss";
 import { Modal } from "rsuite";
 import { useForm } from "react-hook-form";
-import { categoryAdd, categoryList } from "../api/categoriasApi";
+import {
+  categoryAdd,
+  categoryList,
+  categoryDelete,
+  categoryUpdate,
+} from "../api/categoriasApi";
 
 const ModalCategory = ({ show, handleClose }) => {
   const [datosCategorias, setDatosCategorias] = useState(null);
@@ -57,27 +63,60 @@ const ModalCategory = ({ show, handleClose }) => {
     }
   };
 
-  const handleReset = () => {
-    Swal.fire({
-      title: "Seguro quiere cancelar?",
-      text: "No podra recuperar los datos que no se guardaron",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Si, Cancelar",
-      cancelButtonText: "No, Seguir cargando",
-    }).then((result) => {
+  const deleteCategory = async (id) => {
+    try {
+      const result = await Swal.fire({
+        title: "¿Estás seguro?",
+        text: "Desactivará la categoría",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Sí, Desactivar",
+      });
+
       if (result.isConfirmed) {
-        Swal.fire({
-          title: "Informacion Eliminada!",
-          text: "La categoria no se guardó",
-          icon: "success",
-        });
-        reset();
-        handleOpenCategory();
+        // Llamada a la función categoryDelete con el id
+        const response = await categoryDelete(id);
+
+        if (response) {
+          // Categoría eliminada con éxito
+          Swal.fire("Eliminada", "La categoría ha sido eliminada.", "success");
+          traerCategorias();
+        }
       }
-    });
+    } catch (error) {
+      Swal.fire("Error", "Hubo un error al eliminar la categoría.", "error");
+      traerCategorias();
+    }
+  };
+
+  const activeCategory = async (id) => {
+    try {
+      const result = await Swal.fire({
+        title: "¿Estás seguro?",
+        text: "Activará la categoría",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Sí, Activar",
+      });
+
+      if (result.isConfirmed) {
+        // Llamada a la función categoryDelete con el id
+        const response = await categoryUpdate(id, { estado: true });
+
+        if (response) {
+          // Categoría eliminada con éxito
+          Swal.fire("Activada", "La categoría ha sido activada.", "success");
+          traerCategorias();
+        } 
+      }
+    } catch (error) {
+      Swal.fire("Error", "Hubo un error al activar la categoría.", "error");
+      traerCategorias();
+    }
   };
 
 const [tableVisible, setTableVisible] = useState(false);
@@ -106,60 +145,58 @@ const handleToggleForm = () => {
               size="sm"
               className="ms-2"
             >
-              {formVisible
-                ? "Ocultar Crear Categoria"
-                : "Crear Categoria"}
+              {formVisible ? "Ocultar Crear Categoria" : "Crear Categoria"}
             </Button>
           </div>
           {formVisible && (
-          <form
-            noValidate
-            onSubmit={handleSubmit(newCategory)}
-            className="bg-light text-dark p-0 m-0 rounded w-100"
-          >
-            <section className="row">
-              <fieldset className="col-12 col-md-12 mb-1">
-                <label htmlFor="nameProduct-input" className="form-label">
-                  Nueva categoria
-                </label>
-                <input
-                  type="text"
-                  id="nameProduct-input"
-                  className="form-control"
-                  {...register("nombre", {
-                    required: "Debe Ingresar una categoria.",
-                    minLength: {
-                      value: 5,
-                      message: "Su Nombre debe tener mas de 5 caracteres.",
-                    },
-                    maxLength: {
-                      value: 20,
-                      message: "Su Nombre debe tener maximo 20 caracteres.",
-                    },
-                  })}
-                  required
-                  minLength={5}
-                  maxLength={20}
-                  placeholder="Ingrese la nueva categoria"
-                />
-                <div>
-                  <p className="text-danger p-0 m-0 fw-semibold fst-italic">
-                    {errors.nombre?.message}
-                  </p>
-                </div>
-              </fieldset>
-            </section>
-            <div className="text-center mt-2">
-              <Button
-                className="ms-2"
-                type="submit"
-                variant="outline-success"
-                size="sm"
-              >
-                Guardar
-              </Button>
-            </div>
-          </form>
+            <form
+              noValidate
+              onSubmit={handleSubmit(newCategory)}
+              className="bg-light text-dark p-0 m-0 rounded w-100"
+            >
+              <section className="row">
+                <fieldset className="col-12 col-md-12 mb-1">
+                  <label htmlFor="nameProduct-input" className="form-label">
+                    Nueva categoria
+                  </label>
+                  <input
+                    type="text"
+                    id="nameProduct-input"
+                    className="form-control"
+                    {...register("nombre", {
+                      required: "Debe Ingresar una categoria.",
+                      minLength: {
+                        value: 5,
+                        message: "Su Nombre debe tener mas de 5 caracteres.",
+                      },
+                      maxLength: {
+                        value: 20,
+                        message: "Su Nombre debe tener maximo 20 caracteres.",
+                      },
+                    })}
+                    required
+                    minLength={5}
+                    maxLength={20}
+                    placeholder="Ingrese la nueva categoria"
+                  />
+                  <div>
+                    <p className="text-danger p-0 m-0 fw-semibold fst-italic">
+                      {errors.nombre?.message}
+                    </p>
+                  </div>
+                </fieldset>
+              </section>
+              <div className="text-center mt-2">
+                <Button
+                  className="ms-2"
+                  type="submit"
+                  variant="outline-success"
+                  size="sm"
+                >
+                  Guardar
+                </Button>
+              </div>
+            </form>
           )}
           <div className="text-center mt-3">
             <Button
@@ -173,7 +210,10 @@ const handleToggleForm = () => {
                 : "Ver Lista de Categorias"}
             </Button>
           </div>
-          <div className="mt-2">
+          <div
+            className="mt-2"
+            style={{ maxHeight: "500px", overflowY: "auto" }}
+          >
             {tableVisible && (
               <Table
                 responsive
@@ -184,7 +224,8 @@ const handleToggleForm = () => {
               >
                 <thead>
                   <tr>
-                    <th>Eliminar</th>
+                    <th>Disponible</th>
+                    <th>Des/Act</th>
                     <th>Nombre</th>
                   </tr>
                 </thead>
@@ -193,8 +234,28 @@ const handleToggleForm = () => {
                     datosCategorias.map((categoria) => (
                       <tr key={categoria._id}>
                         <td>
-                          <Button size="sm" variant="danger" className="ms-1">
-                            <MdDelete />
+                          {categoria.estado == true ? (
+                            <FaCircleCheck className="text-primary" />
+                          ) : (
+                            <FaCircleXmark className="text-danger" />
+                          )}
+                        </td>
+                        <td>
+                          <Button
+                            size="sm"
+                            variant="danger"
+                            className="ms-1"
+                            onClick={() => deleteCategory(categoria._id)}
+                          >
+                            <FaCircleXmark />
+                          </Button>
+                          <Button
+                            size="sm"
+                            variant="primary"
+                            className="ms-1"
+                            onClick={() => activeCategory(categoria._id)}
+                          >
+                            <FaCircleCheck />
                           </Button>
                         </td>
                         <td>{categoria.nombre}</td>

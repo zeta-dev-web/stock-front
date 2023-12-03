@@ -40,4 +40,17 @@ const categoryDelete = async (id) => {
   return data;
 };
 
-export { categoryList, categoryAdd, categoryDelete };
+const categoryUpdate = async (id, datos) => {
+  const resp = await fetch(url + "/" + id, {
+    method: "PUT",
+    body: JSON.stringify(datos),
+    headers: {
+      "Content-type": "application/json; charset=UTF-8",
+      "x-token": token,
+    },
+  });
+  const data = await resp.json();
+  return data;
+};
+
+export { categoryList, categoryAdd, categoryDelete, categoryUpdate };
