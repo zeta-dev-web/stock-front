@@ -18,12 +18,8 @@ const SaleScreen = ({darkMode}) => {
   const queRolEs = async () => {
     try {
       const respuesta = await obtenerDatosAuth(token);
-      console.log(respuesta);
-
       if (respuesta?.msg) {
-        // Utiliza el valor actualizado directamente en la función de log
         setMensaje(respuesta.msg);
-        console.log("Mensaje establecido:", respuesta.msg);
       } else if (respuesta?.role) {
         setRole(respuesta.role);
       } else {

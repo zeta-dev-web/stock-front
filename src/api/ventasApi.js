@@ -27,7 +27,6 @@ const traerTodasVentas = async (pagina) => {
   return data;
 };
 const agregarVenta = async (datos) => {
-  console.log(token);
   const resp = await fetch(url, {
     method: "POST",
     body: JSON.stringify(datos),

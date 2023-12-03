@@ -42,8 +42,6 @@ const UserAdminApp = ({}) => {
   // Funciones para manejo de paginación---------
   const nextPage = () => {
     const totalPages = Math.ceil(datos.total / 5);
-    console.log(datos.total)
-    console.log(totalPages);;
     if (pagina + 1 < totalPages * 5) {
       setPagina(pagina + 5);
       traerDatos();

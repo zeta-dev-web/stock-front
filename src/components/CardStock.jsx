@@ -21,7 +21,6 @@ function CardStock() {
   const [pagina, setPagina] = useState(0);
   const { datos, traerDatos } = useGetProducts(pagina);
   const { todosLosProductos, traerTodosLosProductos } = useGetAllProducts();
-  console.log("lista:", todosLosProductos);
   const [tableVisible, setTableVisible] = useState(false);
   const handleToggleTable = () => {
     setTableVisible(!tableVisible);
@@ -31,7 +30,6 @@ function CardStock() {
 
   const handleProductSelect = (selectedProduct) => {
     setSelectedProduct(selectedProduct);
-    console.log("Selected product:", selectedProduct);
     alertInfo(selectedProduct);
   };
 
@@ -46,8 +44,6 @@ function CardStock() {
   // Funciones para manejo de paginación---------
   const nextPage = () => {
     const totalPages = Math.ceil(datos.total / 5);
-    console.log(datos.total);
-    console.log(totalPages);
     if (pagina + 1 < totalPages * 5) {
       setPagina(pagina + 5);
       traerDatos();

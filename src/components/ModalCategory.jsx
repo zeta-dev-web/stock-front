@@ -59,7 +59,6 @@ const ModalCategory = ({ show, handleClose }) => {
       traerCategorias()
       reset();
       handleClose();
-      console.log(datosCategorias);
     }
   };
 

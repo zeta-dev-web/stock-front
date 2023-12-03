@@ -26,10 +26,8 @@ const AdminScreen = ({ darkMode }) => {
 
       if (respuesta?.msg) {
         setMensaje(respuesta.msg);
-        console.log("Mensaje establecido:", respuesta.msg);
       } else if (respuesta?.role) {
         setRole(respuesta.role);
-        console.log("Rol establecido:", respuesta.role);
 
         // Si el rol es "USER_ROLE", redirigir a la página de inicio
         if (respuesta.role === "USER_ROLE") {
@@ -55,7 +53,6 @@ const AdminScreen = ({ darkMode }) => {
 
   const handleOpenMP = () => {
     setOpenMP(!openMP);
-    console.log("openMP in AdminScreen:", openMP);
   };
 
   const handleError = () => {

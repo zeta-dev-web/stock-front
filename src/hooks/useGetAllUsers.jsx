@@ -6,8 +6,6 @@ const useGetAllUsers = (pagina = 0) => {
 
   const traerDatos = async () => {
     const { total, usuarios } = await usersList(pagina);
-    console.log(total);
-    console.log(usuarios)
     setDatos({
       total,
       usuarios

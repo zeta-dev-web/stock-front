@@ -24,7 +24,6 @@ import useGetAllProducts from "../hooks/useGetAllProducts";
 
 const CardSaleApp = ({ darkMode, handleOpen, open, handletime, dateTime }) => {
     const { todosLosProductos, traerTodosLosProductos } = useGetAllProducts();
-    console.log("lista:", todosLosProductos);
   const [selectedProducts, setSelectedProducts] = useState([]);
   const [quantity, setQuantity] = useState(1);
 

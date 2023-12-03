@@ -9,7 +9,6 @@ export const FormApp = () => {
     formState: { errors },
   } = useForm();
   const newProduct = (data) => {
-    console.log(data);
   };
 
   const Alerta = (mensaje) => {

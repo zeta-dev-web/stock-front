@@ -16,11 +16,7 @@ const ContactApp = ({ darkMode }) => {
   });
 
   const onSubmit = async (data) => {
-    // Esta función se ejecutará al enviar el formulario
-    console.log(data); // Puedes realizar acciones con los datos, como enviarlos al servidor
-
-    // Aquí puedes agregar lógica adicional, como mostrar un mensaje de éxito o limpiar el formulario
-  };
+    (data);};
   const handleLink = () => {
     window.location.href = "/Error404App";
   };

@@ -26,7 +26,6 @@ const getAllProducts = async (pagina) => {
   return data;
 };
 const productAdd = async (datos) => {
-  console.log(token);
   const resp = await fetch(url, {
     method: "POST",
     body: JSON.stringify(datos),

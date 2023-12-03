@@ -12,8 +12,6 @@ function SaleAdminApp() {
   const [show, setShow] = useState(false); //Estado para manejo de Modal
   const [venta, setVenta] = useState(null);
 
-  console.log(todasLasVentas?.descripcion);
-
   const handleClose = () => {
     //Función para cerrar modal
     setShow(false);
@@ -34,8 +32,6 @@ function SaleAdminApp() {
   // Funciones para manejo de paginación---------
   const nextPage = () => {
     const totalPages = Math.ceil(todasLasVentas.total / 5);
-    console.log(todasLasVentas.total);
-    console.log(totalPages);
     if (pagina + 1 < totalPages * 5) {
       setPagina(pagina + 5);
       traerDatos();

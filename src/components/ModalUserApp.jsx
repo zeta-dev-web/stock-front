@@ -22,7 +22,6 @@ const ModalUserApp = ({ open, handleOpen, traerDatos }) => {
 
   const newUser = async (data) => {
     data.role = "USER_ROLE";
-    console.log(data);
     await userAdd(data);
     await Swal.fire({
       title: "Usuario creado con Exito!",

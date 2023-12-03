@@ -34,7 +34,6 @@ useEffect(() => {
   };
 
   const newProduct = async (data) => {
-    console.log(data);
     await productAdd(data);
     await Swal.fire({
       title: "Producto creado con Exito!",

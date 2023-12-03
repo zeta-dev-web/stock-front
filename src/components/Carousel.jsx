@@ -7,7 +7,6 @@ import "../css/Carousel.css";
 
 const Carousel = ({ isLoggedIn }) => {
 const login = localStorage.getItem("LoginIn");
-console.log(login);
   return (
     <div
       id="carouselExampleFade"

@@ -27,8 +27,6 @@ const ModalSaleApp = ({
   const direccion = import.meta.env.DIRECCION_DEL_COMERCIO;
   let mediodepago = null;
 
-  console.log(products);
-
   //seleccione metodo de pago
   const handleConfirmSale = () => {
     Swal.fire({
@@ -70,20 +68,15 @@ const ModalSaleApp = ({
         0
       ),
     };
-
-    console.log(data);
-
     try {
       // Guardar la venta y obtener la respuesta del servidor
       const response = await agregarVenta(data);
-      console.log("Respuesta de agregarVenta:", response);
       // Actualizar el stock de cada producto vendido
       for (const product of products) {
         const updatedStock = product.stock - product.quantity;
         const response = await productUpdate(product.id, {
           stock: updatedStock,
         });
-        console.log("Respuesta de actualizar producto:", response);
       }
       traerTodosLosProductos();
       Swal.fire({

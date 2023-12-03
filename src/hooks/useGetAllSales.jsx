@@ -14,12 +14,8 @@ const useGetAllSales = (pagina = 0) => {
   };
 
   useEffect(() => {
-    // Traer todos los productos al montar el componente
     traerDatos();
-  }, [pagina]); // Se ejecutará solo una vez al montar el componente o cuando cambie la página
-
-  console.log(todasLasVentas);
-  return { todasLasVentas, traerDatos };
+  }, [pagina]);   return { todasLasVentas, traerDatos };
 };
 
 export default useGetAllSales;
