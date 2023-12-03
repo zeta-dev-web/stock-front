@@ -26,7 +26,7 @@ const isLoggedIn = localStorage.getItem("LoginIn");
     handlesetIsLoggedIn();
   };
   return (
-    <div className="sticky-top">
+    <div className="fixed-top">
       <nav
         className={`navbar navbar-expand-lg ${
           darkMode ? "navbar-custom-dark navbar-dark" : "navbar-custom"
