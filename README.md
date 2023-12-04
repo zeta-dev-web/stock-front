@@ -38,3 +38,4 @@ Tambien cuenta con el nombre , email y opciones que tienen un boton de editar y 
  <li> <a target="_blank" class="fcc-btn" href="https://github.com/zeta-dev-web">Leonardo Zamorano</a></li>
  <li> <a target="_blank" class="fcc-btn" href="https://github.com/lourcervera">Lourdes Cervera</a></li>
   <li> <a target="_blank" class="fcc-btn" href="https://github.com/MVillalbaZ">Maximo Villalba</a></li>
+<h5>Enlace al repositorio del backend: https://github.com/zeta-dev-web/stock-back </h3>

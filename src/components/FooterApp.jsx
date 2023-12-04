@@ -9,18 +9,24 @@ const FooterApp = ({ darkMode }) => {
     <div className="">
       <footer className={`${darkMode ? "footer-dark" : "footer"}`}>
         <div className="container text-center">
-            <p className="text-center">
-              Desarrollado con{" "}
-              <FontAwesomeIcon icon={faHeart} className="icon" />
-            </p>
-            <p className="text-center m-0">
-              Derechos de propiedad reservados &copy; 2023{" "}
-              <br className="d-sm-none" />
-              <span className="d-sm-inline-block">
-                <PiStarFill /> StarCode
-              </span>
-            </p>
-          </div>
+          <p className="text-center">
+            Desarrollado con <FontAwesomeIcon icon={faHeart} className="icon" />
+          </p>
+          <p className="text-center m-0">
+            Derechos de propiedad reservados &copy; 2023{" "}
+            <br className="d-sm-none" />
+            <span className="d-sm-inline-block">
+              <PiStarFill />{" "}
+              <a
+                href="https://github.com/zeta-dev-web/stock-front"
+                target="_blank"
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                StarCode
+              </a>
+            </span>
+          </p>
+        </div>
       </footer>
     </div>
   );gi
