@@ -1,0 +1,9 @@
+
+.footer {
+background-color: #F3E0D2; /* Color de fondo personalizado */
+  color: #0e0e0e; /* Color del texto personalizado */
+}
+.footer-dark {
+  background-color: rgb(75, 52, 28); /* Color de fondo personalizado */
+  color: #ffffff; /* Color del texto personalizado */
+}

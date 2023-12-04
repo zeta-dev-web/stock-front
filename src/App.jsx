@@ -11,6 +11,7 @@ import ProtectedRoutes from "./routes/ProtectedRoutes";
 import "bootstrap/dist/css/bootstrap.min.css";
 import StockScreen from "./views/StockScreen";
 import SaleScreen from "./views/SaleScreen";
+import FooterApp from "./components/FooterApp";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -35,43 +36,48 @@ const handlesetIsLoggedIn = ()=>{
   }
 }
   return (
-    <div className={`h-100 ${darkMode ? "v-h100" : ""}`}>
+    <div className={`${darkMode ? "v-h100" : ""}`}>
       <BrowserRouter>
-        <NavbarApp
-          darkMode={darkMode}
-          changeMode={changeMode}
-        />
-        <Routes>
-          <Route
-            path="/"
-            element={<HomeScreen darkMode={darkMode} isLoggedIn={isLoggedIn} />}
-          />
-          <Route
-            path="/contact"
-            element={<ContactScreen darkMode={darkMode} />}
-          />
-          <Route path="/stock" element={<StockScreen darkMode={darkMode} />} />
-          <Route path="/venta" element={<SaleScreen darkMode={darkMode} />} />
-          <Route
-            path="/admin"
-            element={
-              <ProtectedRoutes isLoggedIn={isLoggedIn}>
-                <AdminScreen darkMode={darkMode} />
-              </ProtectedRoutes>
-            }
-          />
-          <Route
-            path="/login"
-            element={
-              <LoginScreen
-                isLoggedIn={isLoggedIn}
-                darkMode={darkMode}
-                handlesetIsLoggedIn={handlesetIsLoggedIn}
-              />
-            }
-          />
-          <Route path="/*" element={<ErrorScreen darkMode={darkMode} />} />
-        </Routes>
+        <div className="vh-100 d-flex flex-column justify-content-between">
+          <NavbarApp darkMode={darkMode} changeMode={changeMode} />
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <HomeScreen darkMode={darkMode} isLoggedIn={isLoggedIn} />
+              }
+            />
+            <Route
+              path="/contact"
+              element={<ContactScreen darkMode={darkMode} />}
+            />
+            <Route
+              path="/stock"
+              element={<StockScreen darkMode={darkMode} />}
+            />
+            <Route path="/venta" element={<SaleScreen darkMode={darkMode} />} />
+            <Route
+              path="/admin"
+              element={
+                <ProtectedRoutes isLoggedIn={isLoggedIn}>
+                  <AdminScreen darkMode={darkMode} />
+                </ProtectedRoutes>
+              }
+            />
+            <Route
+              path="/login"
+              element={
+                <LoginScreen
+                  isLoggedIn={isLoggedIn}
+                  darkMode={darkMode}
+                  handlesetIsLoggedIn={handlesetIsLoggedIn}
+                />
+              }
+            />
+            <Route path="/*" element={<ErrorScreen darkMode={darkMode} />} />
+          </Routes>
+          <FooterApp darkMode={darkMode} />
+        </div>
       </BrowserRouter>
     </div>
   );

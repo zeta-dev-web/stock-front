@@ -98,13 +98,13 @@ useEffect(() => {
                       message: "Su Nombre debe tener mas de 5 caracteres.",
                     },
                     maxLength: {
-                      value: 20,
-                      message: "Su Nombre debe tener maximo 20 caracteres.",
+                      value: 40,
+                      message: "Su Nombre debe tener maximo 40 caracteres.",
                     },
                   })}
                   required
                   minLength={5}
-                  maxLength={20}
+                  maxLength={40}
                   placeholder="Ingrese el nombre del producto"
                 />
                 <div>

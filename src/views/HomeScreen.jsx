@@ -3,7 +3,7 @@ import Carousel from "../components/Carousel";
 
 const HomeScreen = ({ darkMode, isLoggedIn }) => {
   return (
-    <div className="vh-100">
+    <div className="h-100">
       <Carousel isLoggedIn={isLoggedIn} />
     </div>
   );

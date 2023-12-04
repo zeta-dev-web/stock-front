@@ -1,6 +1,21 @@
 @import "rsuite/dist/rsuite.css";
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.flex-grow-1 {
+  flex-grow: 1;
+}
+
 body {
   height: 100h;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  justify-content: space-between;
 }
 .dark-mode-body {
  background-color: #C68E51; /* Color de fondo personalizado */
