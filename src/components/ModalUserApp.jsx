@@ -22,6 +22,7 @@ const ModalUserApp = ({ open, handleOpen, traerDatos }) => {
 
   const newUser = async (data) => {
     data.role = "USER_ROLE";
+    console.log(data)
     await userAdd(data);
     await Swal.fire({
       title: "Usuario creado con Exito!",
@@ -86,7 +87,7 @@ const ModalUserApp = ({ open, handleOpen, traerDatos }) => {
                   type="text"
                   id="name-input"
                   className="form-control"
-                  {...register("nombre", {
+                  {...register("name", {
                     required: "Debe Ingresar un Nombre.",
                     minLength: {
                       value: 5,

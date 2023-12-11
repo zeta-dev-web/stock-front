@@ -10,11 +10,11 @@ const ModalSaleDetails = ({ show, handleClose, venta }) => {
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>
-          <div className="fs-5">Venta ID: {venta?._id}</div>
+          <div className="fs-5">Venta realizada el: {venta?.date} - {venta?.time}</div>
         </Modal.Title>
       </Modal.Header>
-      <Modal.Body className="bg-white d-flex container">
-        <form noValidate className="bg-light text-dark p-0 m-0 rounded w-100">
+      <Modal.Body className="bg-dark d-flex container">
+        <form noValidate className="bg-dark p-0 m-0 rounded w-100">
           <section className="row">
             <div className="col-md-6 mt-1">
               <label>Fecha:</label>
@@ -34,21 +34,12 @@ const ModalSaleDetails = ({ show, handleClose, venta }) => {
                 readOnly
               />
             </div>
-            <div className="col-md-4 mt-2">
+            <div className="col-md-12 mt-2">
               <label>Vendedor:</label>
               <input
                 type="text"
                 className="form-control"
                 defaultValue={venta?.usuario.name}
-                readOnly
-              />
-            </div>
-            <div className="col-md-8 mt-2">
-              <label>ID del vendedor:</label>
-              <input
-                type="text"
-                className="form-control"
-                defaultValue={venta?.usuario.uid}
                 readOnly
               />
             </div>

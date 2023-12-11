@@ -81,7 +81,7 @@ const LoginScreen = ({ darkMode, IsLoggedIn, handlesetIsLoggedIn }) => {
     });
 
   return (
-    <div className="container pt-5 mt-5">
+    <div className="container pt-5 mt-5 mb-5">
       <div className="d-flex justify-content-center h-100 pt-5">
         <div>
           <ToastContainer transition={Zoom} />
@@ -95,9 +95,9 @@ const LoginScreen = ({ darkMode, IsLoggedIn, handlesetIsLoggedIn }) => {
           <div className="d-flex justify-content-center form_container mt-5">
             <form noValidate onSubmit={handleSubmit(inicioSesion)}>
               <div className="form-group mb-2">
-                <div className="input-group">
-                  <div className="input-group-append">
-                    <span className="input-group-text">
+                <div className="input-group m-0">
+                  <div className="input-group-append col-1 mt-2">
+                    <span className="input-group-text p-0 pt-1 pb-1 ps-1">
                       <img src={user} alt="Logo" />
                     </span>
                   </div>
@@ -115,10 +115,10 @@ const LoginScreen = ({ darkMode, IsLoggedIn, handlesetIsLoggedIn }) => {
                           }
 
                           if (value.length < 5) {
-                            return "El email debe tener al menos 5 caracteres antes del '@'.";
+                            return "Debe tener al menos 5 caracteres antes del '@'.";
                           }
                           if (!/^[^@]+@[^@]+\.com$/.test(value)) {
-                            return "Ingrese un correo válido, por ejemplo taza@gmail.com";
+                            return "Ingrese un Correo válido, ej.: taza@gmail.com";
                           }
                           return true;
                         },
@@ -131,9 +131,9 @@ const LoginScreen = ({ darkMode, IsLoggedIn, handlesetIsLoggedIn }) => {
                 <p className="text-danger">{errors.email?.message}</p>
               </div>
               <div className="form-group mb-2">
-                <div className="input-group">
-                  <div className="input-group-append">
-                    <span className="input-group-text">
+                <div className="input-group m-0">
+                  <div className="input-group-append col-1 mt-2">
+                    <span className="input-group-text p-0 pt-1 pb-1 ps-1">
                       <img src={pass} alt="Logo" />
                     </span>
                   </div>
@@ -172,7 +172,7 @@ const LoginScreen = ({ darkMode, IsLoggedIn, handlesetIsLoggedIn }) => {
                 </div>
                 <p className="text-danger">{errors.password?.message}</p>
               </div>
-              <div className="d-flex justify-content-center mt-3 login_container mt-5">
+              <div className="d-flex justify-content-center mt-3 login_container mt-3">
                 {loading ? (
                   <Button className="buttonlogin" disabled>
                     <Spinner
