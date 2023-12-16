@@ -84,7 +84,7 @@ useEffect(() => {
           >
             <section className="row">
               <fieldset className="col-12 col-md-6 mb-1">
-                <label htmlFor="nameProduct-input" className="form-label">
+                <label htmlFor="nameProduct-input" className="form-label text-dark">
                   Nombre del producto
                 </label>
                 <input
@@ -114,7 +114,7 @@ useEffect(() => {
                 </div>
               </fieldset>
               <fieldset className="col-12 col-md-6 mb-1">
-                <label htmlFor="Price-input" className="form-label">
+                <label htmlFor="Price-input" className="form-label text-dark">
                   Precio
                 </label>
                 <div className="input-group">
@@ -145,7 +145,7 @@ useEffect(() => {
                 </p>
               </fieldset>
               <fieldset className="col-12 col-md-4 mb-1">
-                <label htmlFor="stock-input" className="form-label">
+                <label htmlFor="stock-input" className="form-label text-dark">
                   Stock
                 </label>
                 <input
@@ -171,7 +171,7 @@ useEffect(() => {
                 </div>
               </fieldset>
               <fieldset className="col-12 col-md-8 mb-1">
-                <label htmlFor="category-input" className="form-label">
+                <label htmlFor="category-input" className="form-label text-dark">
                   Categoría
                 </label>
                 <select
@@ -197,8 +197,8 @@ useEffect(() => {
                 </p>
               </fieldset>
               <fieldset className="col-12 col-md-12 mb-1">
-                <label htmlFor="image-input" className="form-label">
-                  Imagen (URL)
+                <label htmlFor="image-input" className="form-label text-dark">
+                  Imagen (URL) - Opcional
                 </label>
                 <input
                   type="text"
@@ -222,7 +222,7 @@ useEffect(() => {
                 </p>
               </fieldset>
               <fieldset className="col-12 mb-1">
-                <label htmlFor="description-input" className="form-label">
+                <label htmlFor="description-input" className="form-label text-dark">
                   Descripción
                 </label>
                 <textarea
