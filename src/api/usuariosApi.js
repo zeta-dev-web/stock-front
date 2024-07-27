@@ -1,4 +1,4 @@
-const url = "frozen-romola-zetadev-601791b6.koyeb.app/api/usuarios";
+const url = "https://frozen-romola-zetadev-601791b6.koyeb.app/api/usuarios";
 const token = JSON.parse(localStorage.getItem("token")) 
 
 const usersList = async (pagina) => {

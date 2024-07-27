@@ -1,4 +1,4 @@
-const url = "frozen-romola-zetadev-601791b6.koyeb.app/api/productos";
+const url = "https://frozen-romola-zetadev-601791b6.koyeb.app/api/productos";
 const token = JSON.parse(localStorage.getItem("token")) 
 
 const productsList = async (pagina) => {

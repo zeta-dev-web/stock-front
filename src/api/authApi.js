@@ -1,4 +1,4 @@
-const url = "frozen-romola-zetadev-601791b6.koyeb.app/api/auth";
+const url = "https://frozen-romola-zetadev-601791b6.koyeb.app/api/auth";
 const token = localStorage.getItem("token") || null;
 
 export const login = async (datos) => {
