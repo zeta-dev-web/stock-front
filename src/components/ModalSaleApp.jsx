@@ -2,9 +2,7 @@ import { useState } from "react";
 import React from "react";
 import { Card, Table } from "react-bootstrap";
 import { FaSistrix, FaBoxOpen, FaProductHunt } from "react-icons/fa6";
-import {
-  MdPriceChange,
-} from "react-icons/md";
+import { MdPriceChange } from "react-icons/md";
 import Swal from "sweetalert2";
 import "sweetalert2/src/sweetalert2.scss";
 import { Modal, Toggle, Button, Placeholder } from "rsuite";
@@ -23,8 +21,8 @@ const ModalSaleApp = ({
 }) => {
   const [overflow, setOverflow] = useState(true);
   const user = JSON.parse(localStorage.getItem("usuario"));
-  const comercio = import.meta.env.NOMBRE_DEL_COMERCIO;
-  const direccion = import.meta.env.DIRECCION_DEL_COMERCIO;
+  const comercio = import.meta.env.VITE_NOMBRE_DEL_COMERCIO;
+  const direccion = import.meta.env.VITE_DIRECCION_DEL_COMERCIO;
   let mediodepago = null;
 
   //seleccione metodo de pago
@@ -71,6 +69,7 @@ const ModalSaleApp = ({
     try {
       // Guardar la venta y obtener la respuesta del servidor
       const response = await agregarVenta(data);
+      const ventaId = response.ventaId; // Obtener el ID de la venta
       // Actualizar el stock de cada producto vendido
       for (const product of products) {
         const updatedStock = product.stock - product.quantity;
@@ -94,7 +93,7 @@ const ModalSaleApp = ({
             title: "Comprobante PDF generado con éxito!",
             icon: "success",
           });
-          generatePDF();
+          generatePDF(ventaId);
           handleOpen();
           setSelectedProducts([]);
         } else {
@@ -107,67 +106,104 @@ const ModalSaleApp = ({
       // Manejar el error según sea necesario
     }
   };
-  const generatePDF = () => {
-    const pdf = new jsPDF();
+  const generatePDF = (ventaId) => {
+    const pdf = new jsPDF({
+      orientation: "portrait",
+      unit: "mm",
+      format: [80, 150],
+    });
     const name = user.name;
     const formadepago = mediodepago;
-    // Encabezado, Información del negocio, Fecha y hora...
-    pdf.text(
-      "Comprobante de Compra",
-      pdf.internal.pageSize.width / 2,
-      10,
-      "center"
-    );
-    pdf.text(`${comercio} - ${direccion}`, 10, 20);
-    pdf.setFontSize(10);
-    pdf.text(`Fecha: ${dateTime?.[0]}`, 10, 30);
-    pdf.text(`Hora: ${dateTime?.[1]}`, pdf.internal.pageSize.width - 50, 30);
-
-    // Fuiste atendido por
-    pdf.setFontSize(8); // Ajustar el tamaño de la fuente
-    pdf.text(`Fuiste atendido por: ${name}`, 10, 40);
-    pdf.text(`Forma de pago: ${formadepago}`, 10, 45);
-
+  
+    // Encabezado, Información del negocio, Fecha y hora
+    pdf.setFontSize(14);
+    pdf.text("Comprobante de Compra", 40, 10, "center");
+  
+    pdf.setFontSize(12);
+    pdf.text(`${comercio}`, 40, 20, "center");
+  
+    pdf.setFontSize(11);
+    pdf.text(`${direccion}`, 40, 25, "center");
+  
+    pdf.setFontSize(8);
+    pdf.text(`Fecha: ${dateTime?.[0]}`, 10, 35);
+    pdf.text(`Hora: ${dateTime?.[1]}`, 50, 35);
+  
     // Tabla de productos
-    pdf.setFontSize(12); // Ajustar el tamaño de la fuente
-    const columns = ["Cantidad", "Producto", "Precio"];
+    pdf.setFontSize(9);
+    const columns = ["Cant.", "Producto", "Precio"];
     const rows = products.map((product) => [
       product.quantity,
       product.nombre,
       `$${product.precio * product.quantity}`,
     ]);
-
+  
     // Calcular el total pagado
     const totalPagado = products.reduce(
       (total, product) => total + product.precio * product.quantity,
       0
     );
-
+  
     pdf.autoTable({
       head: [columns],
       body: rows,
-      startY: 50,
+      startY: 40,
+      theme: "plain",
+      styles: { fontSize: 8 },
+      margin: { left: 5 }, // Ajuste del margen izquierdo
+      columnStyles: {
+        0: { cellWidth: 15 },
+        1: { cellWidth: 40 },
+        2: { cellWidth: 20 },
+      },
     });
-
+  
     // Total Pagado
-    pdf.setFontSize(13); // Ajustar el tamaño de la fuente
+    pdf.setFontSize(10);
     pdf.text(
-      `Total Pagado: $${totalPagado}`,
-      pdf.internal.pageSize.width - 50,
-      pdf.internal.pageSize.height - 20
+      `Total: $${totalPagado}`,
+      75, // Posición en el margen derecho
+      pdf.autoTable.previous.finalY + 10,
+      "right"
     );
-
+  
+    // Fuiste atendido por y ID de la venta
+  pdf.setFontSize(6);
+  pdf.text(
+    `Forma de pago: ${formadepago}`,
+    10,
+    pdf.autoTable.previous.finalY + 20
+  );
+  pdf.text(
+    `Fuiste atendido por: ${name}`,
+    10,
+    pdf.autoTable.previous.finalY + 25
+  );
+  pdf.text(
+    `Código de Venta: ${ventaId}`,
+    10,
+    pdf.autoTable.previous.finalY + 30
+  ); 
     // Mensaje de agradecimiento
-    pdf.setFontSize(10); // Ajustar el tamaño de la fuente
+    pdf.setFontSize(11);
     pdf.text(
       "Muchas Gracias por su compra",
       10,
-      pdf.internal.pageSize.height - 10
+      pdf.autoTable.previous.finalY + 45
     );
-
+  
+    // Leyenda de no válido como factura
+    pdf.setFontSize(8);
+    pdf.text(
+      "Este comprobante no es válido como factura.",
+      10,
+      pdf.autoTable.previous.finalY + 60
+    );
+  
     // Guardar el PDF en la computadora
-    pdf.save("comprobante_compra.pdf");
+    pdf.save(`VENTA_${ventaId}.pdf`);
   };
+  
 
   return (
     <>
