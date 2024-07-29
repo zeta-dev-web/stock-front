@@ -16,6 +16,7 @@ import FooterApp from "./components/FooterApp";
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
+  const  [token, setToken] = useState(localStorage.getItem("token"));
 
   useEffect(() => {
     if (darkMode) {
