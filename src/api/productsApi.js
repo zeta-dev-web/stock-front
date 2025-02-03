@@ -1,4 +1,4 @@
-const url = "https://frozen-romola-zetadev-601791b6.koyeb.app/api/productos";
+const url = "https://stock-back-z1n7.onrender.com/api/productos";
 const token = JSON.parse(localStorage.getItem("token")) 
 
 const productsList = async (pagina) => {
@@ -36,6 +36,7 @@ const productAdd = async (datos) => {
   });
 
   const data = await resp.json();
+  console.log(data);
   return data;
 };
 

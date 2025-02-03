@@ -1,4 +1,4 @@
-const url = "https://frozen-romola-zetadev-601791b6.koyeb.app/api/categorias";
+const url = "https://stock-back-z1n7.onrender.com/api/categorias";
 const token = JSON.parse(localStorage.getItem("token")) 
 
 const categoryList = async () => {
